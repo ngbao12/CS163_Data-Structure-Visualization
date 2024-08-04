@@ -1,32 +1,85 @@
-# Prerequisites
-*.d
+# Xcode
+build/
+*.xcuserstate
+*.xcworkspace/
+*.xcuserdata/
+*.xcuserdatad/
+*.xcscheme
+*.xcscheme/*
+*.xcscheme/*.xcscheme
+*.xcuserstate
+*.xcuserstate
+*.xcscheme
+*.xcscheme/
+*.xcuserdata/
+*.xcscheme/
+*.xcuserdata/
 
-# Compiled Object files
-*.slo
-*.lo
+# Build
+build/
 *.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
+*.a
+*.d
 *.so
 *.dylib
-*.dll
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
 *.out
-*.app
+
+# Xcode User Data
+*.xcuserdatad/
+*.xcuserdata/
+
+# Derived data
+DerivedData/
+
+# User-specific files
+*.xcuserstate
+*.xcuserdatad/
+
+# Logs
+*.log
+
+# Temp files
+*.tmp
+*.swp
+
+# C++ specific
+*.cpp~
+*.h~
+*.obj
+*.lib
+*.dll
+*.pdb
+*.idb
+*.ilk
+*.exp
+*.suo
+*.ncb
+*.sdf
+*.vsp
+*.vspscc
+*.vssscc
+*.plg
+*.dmp
+*.idb
+*.suo
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Other
+*.DS_Store
+*.env
+*.gitignore
+
+# Xcode generated files
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+*.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+*.xcworkspace/xcuserdata/
+*.xcworkspace/xcuserdata/*
+
+# Pods
+Pods/
