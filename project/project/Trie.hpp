@@ -21,7 +21,7 @@ private:
     NodeTrie* root;
     bool remove(NodeTrie* node, const string& word, int depth);
     int charToIndex(char ch);
-    
+    bool isEmpty(NodeTrie* node);
 public:
     Trie();
     ~Trie();
@@ -29,7 +29,7 @@ public:
     void createRandom(int numWords, int maxLength);
     void createFromFile(const string& filename);
     void insert(const string& word);
-    void remove(const string& word);
+    bool remove(const string& word);
     bool search(const string& word);
     
 };

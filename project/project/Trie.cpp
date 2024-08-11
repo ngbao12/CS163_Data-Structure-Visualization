@@ -75,3 +75,40 @@ void Trie::createRandom(int numWords, int maxLength) {
         insert(word);
     }
 }
+
+bool Trie::remove(const string& word) {
+    return remove(root, word, 0);
+}
+
+bool Trie::remove(NodeTrie* node, const string& word, int depth) {
+    if (node == nullptr) {
+        return false;
+    }
+    
+    if (depth == word.size()) {
+        if (!node->isEndOfWord) {
+            return false;
+        }
+        node->isEndOfWord = false;
+        return isEmpty(node);
+    }
+    
+    int index = charToIndex(word[depth]);
+    if (remove(node->child[index], word, depth+1)) {
+        delete node->child[index];
+        node->child[index] = nullptr;
+        
+        return !node->isEndOfWord && isEmpty(node);
+    }
+    
+    return false;
+}
+
+bool Trie::isEmpty(NodeTrie* node) {
+    for (int i=0; i<26; i++) {
+        if (node->child[i]) {
+            return false;
+        }
+    }
+    return true;
+}
