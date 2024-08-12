@@ -10,6 +10,10 @@
 		E47241372C5BC22500C87622 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47241362C5BC22500C87622 /* main.cpp */; };
 		E472413F2C5BC2BD00C87622 /* Tree234.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E472413D2C5BC2BD00C87622 /* Tree234.cpp */; };
 		E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C372C6279AD00777D8F /* Trie.cpp */; };
+		E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C3A2C6881A000777D8F /* Graph.cpp */; };
+		E4DC8C4A2C69D99A00777D8F /* libraylib.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; };
+		E4DC8C4B2C69D99A00777D8F /* libraylib.4.5.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C532C69DBC000777D8F /* Application.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -22,6 +26,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
+		E4DC8C4C2C69D99A00777D8F /* Embed Libraries */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E4DC8C4B2C69D99A00777D8F /* libraylib.4.5.0.dylib in Embed Libraries */,
+			);
+			name = "Embed Libraries";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +46,19 @@
 		E472413E2C5BC2BD00C87622 /* Tree234.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tree234.hpp; sourceTree = "<group>"; };
 		E4DC8C372C6279AD00777D8F /* Trie.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Trie.cpp; sourceTree = "<group>"; };
 		E4DC8C382C6279AD00777D8F /* Trie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Trie.hpp; sourceTree = "<group>"; };
+		E4DC8C3A2C6881A000777D8F /* Graph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
+		E4DC8C3B2C6881A000777D8F /* Graph.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Graph.hpp; sourceTree = "<group>"; };
+		E4DC8C412C69D94500777D8F /* raymath.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = raymath.h; path = "../../Downloads/raylib-master/src/raymath.h"; sourceTree = "<group>"; };
+		E4DC8C422C69D94500777D8F /* config.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = config.h; path = "../../Downloads/raylib-master/src/config.h"; sourceTree = "<group>"; };
+		E4DC8C432C69D94500777D8F /* rgestures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = rgestures.h; path = "../../Downloads/raylib-master/src/rgestures.h"; sourceTree = "<group>"; };
+		E4DC8C442C69D94500777D8F /* raudio.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = raudio.c; path = "../../Downloads/raylib-master/src/raudio.c"; sourceTree = "<group>"; };
+		E4DC8C452C69D94500777D8F /* rlgl.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = rlgl.h; path = "../../Downloads/raylib-master/src/rlgl.h"; sourceTree = "<group>"; };
+		E4DC8C462C69D94600777D8F /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = utils.h; path = "../../Downloads/raylib-master/src/utils.h"; sourceTree = "<group>"; };
+		E4DC8C472C69D94600777D8F /* rcamera.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = rcamera.h; path = "../../Downloads/raylib-master/src/rcamera.h"; sourceTree = "<group>"; };
+		E4DC8C482C69D94600777D8F /* raylib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = raylib.h; path = "../../Downloads/raylib-master/src/raylib.h"; sourceTree = "<group>"; };
+		E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libraylib.4.5.0.dylib; path = ../../../../opt/homebrew/Cellar/raylib/5.0/lib/libraylib.4.5.0.dylib; sourceTree = "<group>"; };
+		E4DC8C532C69DBC000777D8F /* Application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
+		E4DC8C542C69DBC000777D8F /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4DC8C4A2C69D99A00777D8F /* libraylib.4.5.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -49,6 +78,7 @@
 			children = (
 				E47241352C5BC22500C87622 /* project */,
 				E47241342C5BC22500C87622 /* Products */,
+				E4DC8C402C69D94500777D8F /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,12 +94,32 @@
 			isa = PBXGroup;
 			children = (
 				E47241362C5BC22500C87622 /* main.cpp */,
+				E4DC8C532C69DBC000777D8F /* Application.cpp */,
+				E4DC8C542C69DBC000777D8F /* Application.hpp */,
 				E472413D2C5BC2BD00C87622 /* Tree234.cpp */,
 				E472413E2C5BC2BD00C87622 /* Tree234.hpp */,
 				E4DC8C372C6279AD00777D8F /* Trie.cpp */,
 				E4DC8C382C6279AD00777D8F /* Trie.hpp */,
+				E4DC8C3A2C6881A000777D8F /* Graph.cpp */,
+				E4DC8C3B2C6881A000777D8F /* Graph.hpp */,
 			);
 			path = project;
+			sourceTree = "<group>";
+		};
+		E4DC8C402C69D94500777D8F /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */,
+				E4DC8C422C69D94500777D8F /* config.h */,
+				E4DC8C442C69D94500777D8F /* raudio.c */,
+				E4DC8C482C69D94600777D8F /* raylib.h */,
+				E4DC8C412C69D94500777D8F /* raymath.h */,
+				E4DC8C472C69D94600777D8F /* rcamera.h */,
+				E4DC8C432C69D94500777D8F /* rgestures.h */,
+				E4DC8C452C69D94500777D8F /* rlgl.h */,
+				E4DC8C462C69D94600777D8F /* utils.h */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +132,7 @@
 				E472412F2C5BC22400C87622 /* Sources */,
 				E47241302C5BC22400C87622 /* Frameworks */,
 				E47241312C5BC22400C87622 /* CopyFiles */,
+				E4DC8C4C2C69D99A00777D8F /* Embed Libraries */,
 			);
 			buildRules = (
 			);
@@ -129,7 +180,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */,
 				E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */,
+				E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */,
 				E47241372C5BC22500C87622 /* main.cpp in Sources */,
 				E472413F2C5BC2BD00C87622 /* Tree234.cpp in Sources */,
 			);
@@ -251,6 +304,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/include;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -259,6 +314,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/include;
+				LIBRARY_SEARCH_PATHS = /opt/homebrew/Cellar/raylib/5.0/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
