@@ -65,6 +65,15 @@
 		E4DC8C572C69DFBE00777D8F /* General.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = General.hpp; sourceTree = "<group>"; };
 		E4DC8C5C2C6A013A00777D8F /* GUI.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GUI.cpp; sourceTree = "<group>"; };
 		E4DC8C5D2C6A013A00777D8F /* GUI.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GUI.hpp; sourceTree = "<group>"; };
+		E4DC8C612C6A73E200777D8F /* Chevron left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron left.png"; sourceTree = "<group>"; };
+		E4DC8C622C6A73E200777D8F /* Chevron right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron right.png"; sourceTree = "<group>"; };
+		E4DC8C632C6A73E200777D8F /* Chevrons right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevrons right.png"; sourceTree = "<group>"; };
+		E4DC8C642C6A73E200777D8F /* Chevrons left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevrons left.png"; sourceTree = "<group>"; };
+		E4DC8C652C6A73E200777D8F /* Arrow 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow 1.png"; sourceTree = "<group>"; };
+		E4DC8C662C6A73E200777D8F /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
+		E4DC8C672C6A73E200777D8F /* Chevron down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron down.png"; sourceTree = "<group>"; };
+		E4DC8C682C6A73E200777D8F /* Chevron up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron up.png"; sourceTree = "<group>"; };
+		E4DC8C692C6A762500777D8F /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +91,7 @@
 		E472412A2C5BC22400C87622 = {
 			isa = PBXGroup;
 			children = (
+				E4DC8C5F2C6A70F400777D8F /* asset */,
 				E47241352C5BC22500C87622 /* project */,
 				E47241342C5BC22500C87622 /* Products */,
 				E4DC8C402C69D94500777D8F /* Frameworks */,
@@ -130,6 +140,22 @@
 				E4DC8C462C69D94600777D8F /* utils.h */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E4DC8C5F2C6A70F400777D8F /* asset */ = {
+			isa = PBXGroup;
+			children = (
+				E4DC8C692C6A762500777D8F /* Play.png */,
+				E4DC8C652C6A73E200777D8F /* Arrow 1.png */,
+				E4DC8C672C6A73E200777D8F /* Chevron down.png */,
+				E4DC8C612C6A73E200777D8F /* Chevron left.png */,
+				E4DC8C622C6A73E200777D8F /* Chevron right.png */,
+				E4DC8C682C6A73E200777D8F /* Chevron up.png */,
+				E4DC8C642C6A73E200777D8F /* Chevrons left.png */,
+				E4DC8C632C6A73E200777D8F /* Chevrons right.png */,
+				E4DC8C662C6A73E200777D8F /* Pause.png */,
+			);
+			path = asset;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
