@@ -74,6 +74,7 @@
 		E4DC8C672C6A73E200777D8F /* Chevron down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron down.png"; sourceTree = "<group>"; };
 		E4DC8C682C6A73E200777D8F /* Chevron up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron up.png"; sourceTree = "<group>"; };
 		E4DC8C692C6A762500777D8F /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
+		E4DC8C6A2C6A786D00777D8F /* Replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Replay.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +146,7 @@
 		E4DC8C5F2C6A70F400777D8F /* asset */ = {
 			isa = PBXGroup;
 			children = (
+				E4DC8C6A2C6A786D00777D8F /* Replay.png */,
 				E4DC8C692C6A762500777D8F /* Play.png */,
 				E4DC8C652C6A73E200777D8F /* Arrow 1.png */,
 				E4DC8C672C6A73E200777D8F /* Chevron down.png */,
