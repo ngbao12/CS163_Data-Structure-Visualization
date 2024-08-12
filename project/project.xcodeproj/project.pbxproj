@@ -14,6 +14,8 @@
 		E4DC8C4A2C69D99A00777D8F /* libraylib.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; };
 		E4DC8C4B2C69D99A00777D8F /* libraylib.4.5.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C532C69DBC000777D8F /* Application.cpp */; };
+		E4DC8C582C69DFBE00777D8F /* General.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C562C69DFBE00777D8F /* General.cpp */; };
+		E4DC8C5B2C69DFD700777D8F /* Tool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C592C69DFD700777D8F /* Tool.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -59,6 +61,10 @@
 		E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libraylib.4.5.0.dylib; path = ../../../../opt/homebrew/Cellar/raylib/5.0/lib/libraylib.4.5.0.dylib; sourceTree = "<group>"; };
 		E4DC8C532C69DBC000777D8F /* Application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Application.cpp; sourceTree = "<group>"; };
 		E4DC8C542C69DBC000777D8F /* Application.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Application.hpp; sourceTree = "<group>"; };
+		E4DC8C562C69DFBE00777D8F /* General.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = General.cpp; sourceTree = "<group>"; };
+		E4DC8C572C69DFBE00777D8F /* General.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = General.hpp; sourceTree = "<group>"; };
+		E4DC8C592C69DFD700777D8F /* Tool.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tool.cpp; sourceTree = "<group>"; };
+		E4DC8C5A2C69DFD700777D8F /* Tool.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tool.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +102,10 @@
 				E47241362C5BC22500C87622 /* main.cpp */,
 				E4DC8C532C69DBC000777D8F /* Application.cpp */,
 				E4DC8C542C69DBC000777D8F /* Application.hpp */,
+				E4DC8C562C69DFBE00777D8F /* General.cpp */,
+				E4DC8C572C69DFBE00777D8F /* General.hpp */,
+				E4DC8C592C69DFD700777D8F /* Tool.cpp */,
+				E4DC8C5A2C69DFD700777D8F /* Tool.hpp */,
 				E472413D2C5BC2BD00C87622 /* Tree234.cpp */,
 				E472413E2C5BC2BD00C87622 /* Tree234.hpp */,
 				E4DC8C372C6279AD00777D8F /* Trie.cpp */,
@@ -181,7 +191,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */,
+				E4DC8C5B2C69DFD700777D8F /* Tool.cpp in Sources */,
 				E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */,
+				E4DC8C582C69DFBE00777D8F /* General.cpp in Sources */,
 				E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */,
 				E47241372C5BC22500C87622 /* main.cpp in Sources */,
 				E472413F2C5BC2BD00C87622 /* Tree234.cpp in Sources */,
