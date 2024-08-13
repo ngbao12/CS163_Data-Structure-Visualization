@@ -23,6 +23,7 @@ extern Texture2D NEXT;
 extern Texture2D DOUBLE_NEXT;
 extern Texture2D SPEED_UP;
 extern Texture2D SPEED_DOWN;
+extern Texture2D BACK_PAGE
 
 void initResource();
 Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount);

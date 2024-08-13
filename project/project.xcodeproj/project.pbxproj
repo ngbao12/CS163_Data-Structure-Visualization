@@ -69,12 +69,20 @@
 		E4DC8C622C6A73E200777D8F /* Chevron right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron right.png"; sourceTree = "<group>"; };
 		E4DC8C632C6A73E200777D8F /* Chevrons right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevrons right.png"; sourceTree = "<group>"; };
 		E4DC8C642C6A73E200777D8F /* Chevrons left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevrons left.png"; sourceTree = "<group>"; };
-		E4DC8C652C6A73E200777D8F /* Arrow 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Arrow 1.png"; sourceTree = "<group>"; };
 		E4DC8C662C6A73E200777D8F /* Pause.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pause.png; sourceTree = "<group>"; };
 		E4DC8C672C6A73E200777D8F /* Chevron down.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron down.png"; sourceTree = "<group>"; };
 		E4DC8C682C6A73E200777D8F /* Chevron up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Chevron up.png"; sourceTree = "<group>"; };
 		E4DC8C692C6A762500777D8F /* Play.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Play.png; sourceTree = "<group>"; };
 		E4DC8C6A2C6A786D00777D8F /* Replay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Replay.png; sourceTree = "<group>"; };
+		E4DC8C6B2C6BCCF600777D8F /* Dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Dark.png; sourceTree = "<group>"; };
+		E4DC8C6C2C6BCCF600777D8F /* MaxHeap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = MaxHeap.png; sourceTree = "<group>"; };
+		E4DC8C6D2C6BCCF600777D8F /* Trie.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Trie.png; sourceTree = "<group>"; };
+		E4DC8C6E2C6BCCF600777D8F /* Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Light.png; sourceTree = "<group>"; };
+		E4DC8C6F2C6BCCF600777D8F /* BackPage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BackPage.png; sourceTree = "<group>"; };
+		E4DC8C702C6BCCF600777D8F /* HashTable.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HashTable.png; sourceTree = "<group>"; };
+		E4DC8C712C6BCCF600777D8F /* Graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Graph.png; sourceTree = "<group>"; };
+		E4DC8C722C6BCCF600777D8F /* AVL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AVL.png; sourceTree = "<group>"; };
+		E4DC8C732C6BCCF600777D8F /* Tree234.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tree234.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,16 +154,24 @@
 		E4DC8C5F2C6A70F400777D8F /* asset */ = {
 			isa = PBXGroup;
 			children = (
+				E4DC8C702C6BCCF600777D8F /* HashTable.png */,
+				E4DC8C6C2C6BCCF600777D8F /* MaxHeap.png */,
+				E4DC8C722C6BCCF600777D8F /* AVL.png */,
+				E4DC8C732C6BCCF600777D8F /* Tree234.png */,
+				E4DC8C6D2C6BCCF600777D8F /* Trie.png */,
+				E4DC8C712C6BCCF600777D8F /* Graph.png */,
+				E4DC8C6E2C6BCCF600777D8F /* Light.png */,
+				E4DC8C6B2C6BCCF600777D8F /* Dark.png */,
+				E4DC8C6F2C6BCCF600777D8F /* BackPage.png */,
+				E4DC8C662C6A73E200777D8F /* Pause.png */,
 				E4DC8C6A2C6A786D00777D8F /* Replay.png */,
 				E4DC8C692C6A762500777D8F /* Play.png */,
-				E4DC8C652C6A73E200777D8F /* Arrow 1.png */,
-				E4DC8C672C6A73E200777D8F /* Chevron down.png */,
 				E4DC8C612C6A73E200777D8F /* Chevron left.png */,
-				E4DC8C622C6A73E200777D8F /* Chevron right.png */,
-				E4DC8C682C6A73E200777D8F /* Chevron up.png */,
 				E4DC8C642C6A73E200777D8F /* Chevrons left.png */,
+				E4DC8C622C6A73E200777D8F /* Chevron right.png */,
 				E4DC8C632C6A73E200777D8F /* Chevrons right.png */,
-				E4DC8C662C6A73E200777D8F /* Pause.png */,
+				E4DC8C672C6A73E200777D8F /* Chevron down.png */,
+				E4DC8C682C6A73E200777D8F /* Chevron up.png */,
 			);
 			path = asset;
 			sourceTree = "<group>";
