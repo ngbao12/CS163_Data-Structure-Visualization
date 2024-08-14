@@ -23,7 +23,7 @@ extern Texture2D NEXT;
 extern Texture2D DOUBLE_NEXT;
 extern Texture2D SPEED_UP;
 extern Texture2D SPEED_DOWN;
-extern Texture2D BACK_PAGE
+extern Texture2D BACK_PAGE;
 
 void initResource();
 Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount);
@@ -49,6 +49,8 @@ const Color SEPARATOR_COLOR = SKYBLUE;
 
 const float CODE_SIZE = 15;
 const float NODE_RADIUS = 15;
+
+const Font FONT = LoadFont("./Font/Roboto-Regular.ttf");
 
 //GUI
 const Vector2 ORIGIN ={0.0f, 0.0f};
