@@ -31,4 +31,39 @@ public:
     ButtonImage() : Button() {}
     void draw(float radius = 15);
 };
+
+class InputStr {
+private:
+    Rectangle textBox;
+    std::string text;
+    std::string placeHolder;
+    bool mouseOnText;
+    int framesCounter;
+    float fontSize;
+    Font font;
+public:
+    InputStr() {} ;
+    InputStr(float x, float y, float width, float height, std::string placeHolder, float fontSize, Font font) : textBox{x,y,width,height}, text(""), placeHolder(placeHolder), mouseOnText(false), framesCounter(0), fontSize(fontSize), font(font) {}
+    void update();
+    void draw();
+    void resetText();
+    std::string getText();
+    void changePlaceHolder(const std::string newPlaceHolder);
+};
+
+class CircleButton {
+private:
+    Vector2 center;
+    float radius;
+    Texture2D texture;
+    bool isHovered;
+public:
+    CircleButton() {}
+    CircleButton(Vector2 center, float radius, const char* file) : center(center), radius(radius), texture(LoadTexture(file)), isHovered(false) {};
+    void draw();
+    void handle();
+    void changeTexture(const char* file);
+    bool getIsHovered() {return this->isHovered;}
+};
+
 #endif /* GUI_hpp */
