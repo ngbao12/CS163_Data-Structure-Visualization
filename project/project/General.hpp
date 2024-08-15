@@ -14,7 +14,7 @@
 #include <functional>
 #include <stdint.h>
 
-extern Texture2D PLAY;
+const Texture2D PLAY = LoadTexture("./asset/Play.png");
 extern Texture2D PAUSE;
 extern Texture2D REPLAY;
 extern Texture2D BACK;
@@ -45,7 +45,7 @@ const Color HIGHTLIGHT_NODE_COLOR_1 = RED;
 const Color HIGHTLIGHT_NODE_COLOR_2 = BLUE;
 
 const Color SIDEBAR_COLOR = {150,150,150,200};
-const Color SEPARATOR_COLOR = SKYBLUE;
+const Color SEPERATOR_COLOR = SKYBLUE;
 
 const float CODE_SIZE = 15;
 const float NODE_RADIUS = 15;

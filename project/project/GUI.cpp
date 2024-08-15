@@ -118,3 +118,121 @@ void CircleButton::changeTexture(const char* file) {
     UnloadTexture(this->texture);
     this->texture = LoadTexture(file);
 }
+
+void ProgressBar::draw() {
+    DrawCircle(40, 790, 25, doubleBack ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(100, 790, 25 , back ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(172, 790, 37.5 , play ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(245, 790, 25 , next ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(305, 790, 25 , doubleNext ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(385, 755, 15 , up ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(385, 810, 25 , down ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    
+    DrawTextPro(font, TextFormat("%.1fx", this->speed), {368,775}, ORIGIN, 0.f, 15, 2, BLACK);
+    
+    drawPicture(DOUBLE_BACK, {15, 765, 50, 50});
+    drawPicture(BACK, {75,765, 50, 50});
+    drawPicture(PLAY, {135, 754, 75, 75}, 30.0f, {35.f, 35.f});
+    drawPicture(NEXT, {220, 765, 50, 50});
+    drawPicture(DOUBLE_NEXT, {280, 765, 50, 50});
+    drawPicture(SPEED_UP, {370, 740, 30, 30});
+    drawPicture(SPEED_DOWN, {370, 795, 30, 30});
+
+    DrawRectangleRec({25, 728, 300, 10}, NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawRectangleRec({25, 728, this->maxStep != 0 ? this->curStep*300.f/this->maxStep : 0, 10}, SEPERATOR_COLOR);
+}
+
+void ProgressBar::updateMaxStep(int max) {
+    this->maxStep = max;
+    this->curStep = 0;
+}
+
+void ProgressBar::updateSpeed(float speed) {
+    this->speed = speed;
+}
+
+//default -2 for skip back, 2 for skip next, else: back, next(-1,1)
+void ProgressBar::updateStep(int step) {
+    if (step == -2) this->curStep = 0;
+    else if (step == 2) this->curStep = maxStep;
+    else this->curStep += step;
+}
+
+int ProgressBar::handle() {
+    if (CheckCollisionPointCircle(GetMousePosition(), {40, 790}, 25)) {
+        this->doubleBack = true;
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            return -2;
+        }
+    } else this->doubleBack = false;
+    
+    if (CheckCollisionPointCircle(GetMousePosition(), {100, 790}, 25)) {
+        this->back = true;
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            return -1;
+        }
+    } else this->back = false;
+    
+    if (CheckCollisionPointCircle(GetMousePosition(), {172, 790}, 37.5)) {
+        this->play = true;
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            return 0;
+        }
+    } else this->play = false;
+
+    if (CheckCollisionPointCircle(GetMousePosition(), {245, 790}, 25)) {
+        this->next = true;
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            return 1;
+        }
+    } else this->next = false;
+
+    if (CheckCollisionPointCircle(GetMousePosition(), {305, 790}, 25)) {
+        this->doubleNext = true;
+        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+            return 2;
+        }
+    } else this->doubleNext = false;
+
+    if (CheckCollisionPointCircle(GetMousePosition(), {385, 755}, 15)) {
+        this->up = true;
+        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+            // std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            this->speed += (this->speed < 2) ? 0.1 : 0;
+            return 3;
+        }
+    } else this->up = false;
+
+    if (CheckCollisionPointCircle(GetMousePosition(), {385, 810}, 15)) {
+        this->down = true;
+        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
+            // std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            this->speed -= (this->speed > 0.5) ? 0.1 : 0;
+            return -3;
+        }
+    } else this->down = false;
+
+    return 10;
+}
+
+void drawInfor(const std::string infor, Font font) {
+    DrawTextEx(font, infor.c_str(), {50,371}, CODE_SIZE, 2, INFOR_COLOR);
+}
+
+void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font) {
+    int lineHeight = 17;
+    Vector2 CodeOffset = {25, 100};
+    
+    for (size_t i = 0; i<n; i++) {
+        bool flag = false;
+        for (auto line : highlight) {
+            if (i == line) {
+                flag = true;
+                break;
+            }
+        }
+        Color color = flag ? HIGHLIGHT_TEXT_COLOR : Color {0,0,0,0};
+        DrawRectangle(CodeOffset.x, CodeOffset.y + i * lineHeight, 375, lineHeight, color);
+    }
+    DrawTextEx(font, code.c_str(), {CodeOffset.x, CodeOffset.y + 1}, CODE_SIZE, 2, WHITE);
+}

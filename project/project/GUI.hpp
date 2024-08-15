@@ -66,4 +66,37 @@ public:
     bool getIsHovered() {return this->isHovered;}
 };
 
+class ProgressBar {
+private:
+    bool doubleBack;
+    bool back;
+    bool doubleNext;
+    bool next;
+    bool up;
+    bool down;
+    bool play;
+    
+    int curStep;
+    int maxStep;
+    float speed;
+    
+    int funcID;
+    Font font;
+public:
+    ProgressBar(Font font) : doubleBack(false), back(false), doubleNext(false), next(false), up(false), down(false), play(false), curStep(0), maxStep(0), speed(1), funcID(0), font(font) {}
+    ProgressBar() : ProgressBar(FONT) {}
+    void draw();
+    void updateMaxStep(int max);
+    void updateStep(int step);
+    void updateSpeed(float speed);
+    float getSpeed() {return this->speed;}
+    int getStep() {return this->curStep;}
+    int getMaxStep() {return this->maxStep;}
+    
+    int handle();
+};
+
+void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font);
+void drawInfor(std::string infor, Font font = FONT);
+void drawSideBar(std::string code, std::vector<int> lines, std::string infor, ProgressBar bar, Font font = FONT);
 #endif /* GUI_hpp */
