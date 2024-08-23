@@ -55,11 +55,15 @@ private:
 public:
     MaxHeap() {}
     int createFromFile(const char* filename);
-    void createWithRandomizedDta(int n, int range);
+    void createWithRandomizedData(int n, int range);
     void push(int value);
     int deleteElement(int value);
     void top();
     void size();
     std::vector<Max_Heap::Step> getSteps() {return this->steps;}
+};
+
+class MaxHeapVisualize {
+    
 };
 #endif /* MaxHeap_hpp */
