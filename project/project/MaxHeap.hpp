@@ -47,23 +47,65 @@ namespace Max_Heap {
 }
 
 class MaxHeap {
-private:
-    std::vector<int> data;
-    void heapifyDown(int index);
-    void saveStep(int index1, int index2, std::vector<int> lines, const std::string infor, std::string code, int type);
-    std::vector<Max_Heap::Step> steps;
-public:
-    MaxHeap() {}
-    int createFromFile(const char* filename);
-    void createWithRandomizedData(int n, int range);
-    void push(int value);
-    int deleteElement(int value);
-    void top();
-    void size();
-    std::vector<Max_Heap::Step> getSteps() {return this->steps;}
+    private:
+        std::vector<int> data;
+        void heapifyDown(int index);
+        void saveStep(int index1, int index2, std::vector<int> lines, const std::string infor, std::string code, int type);
+        std::vector<Max_Heap::Step> steps;
+    public:
+        MaxHeap() {}
+        int createFromFile(const char* filename);
+        void createWithRandomizedData(int n, int range);
+        void push(int value);
+        int deleteElement(int value);
+        void top();
+        void size();
+        std::vector<Max_Heap::Step> getSteps() {return this->steps;}
 };
 
 class MaxHeapVisualize {
-    
+    private:
+        MaxHeap heap;
+        Max_Heap::Step animation;
+        bool isPause;
+        ProgressBar progressBar;
+        int stepIndex;
+        int frame;
+        int numFrameOfAnimation;
+        
+        Button  createButton;
+        bool isCreateChosen;
+        Button randomButton;
+        Button loadFileButton;
+        
+        Button pushButton;
+        bool isPushChosen;
+        Button deleteButton;
+        bool isDeleteChosen;
+        InputStr inputNumber;
+        Button playButton;
+        
+        Button topButton;
+        Button sizeButton;
+        
+        Font font;
+    public:
+        MaxHeapVisualize(Font font);
+        MaxHeapVisualize() : MaxHeapVisualize(FONT) {} ;
+        Max_Heap::Step getAinimation() { return this->animation;}
+        void updateStep(int index);
+        int updateAnimation();
+        void updateStep();
+        void createWithRandomizedData(int n, int range);
+        void createFromFile(const char* filename);
+        void push();
+        void deleteNode();
+        void getTop();
+        void getSize();
+        
+        void drawButtons();
+        int handle();
+        void draw();
+        int buttonHandle();
 };
 #endif /* MaxHeap_hpp */

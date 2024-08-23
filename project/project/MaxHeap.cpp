@@ -174,3 +174,283 @@ void MaxHeap::size() {
     this->steps.clear();
     saveStep(-1, -1, {0}, TextFormat("Size of the Heap is: %d.", this->data.size()), Size_code, -1);
 }
+
+MaxHeapVisualize::MaxHeapVisualize(Font font) {
+    this->font = font;
+    this->progressBar = ProgressBar(font);
+    this->isCreateChosen = false;
+    this->isPushChosen = false;
+    this->isDeleteChosen = false;
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->isPause = false;
+    this->numFrameOfAnimation = FPS;
+
+    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
+    this->pushButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
+    this->deleteButton = Button({25, 580, 110, 30}, "Delete", -1, BLACK, 20, font);
+    srand((int)time(0));
+    this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
+    this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
+    this->topButton = Button({25, 625, 110, 30}, "Top", -1, BLACK, 20, font);
+    this->sizeButton = Button({25, 670, 110, 30}, "Size", -1, BLACK, 20, font);
+}
+
+void MaxHeapVisualize::updateStep(int index) {
+    this->animation = this->heap.getSteps()[index];
+    this->frame = 0;
+    this->stepIndex = index;
+    updateAnimation();
+}
+
+int MaxHeapVisualize::updateAnimation() {
+    this->frame++;
+    int flag = 0;
+    if (this->frame >= this->numFrameOfAnimation && !this->heap.getSteps().empty()) {
+        if (stepIndex == this->heap.getSteps().size() - 1) return 0;
+        updateStep(this->stepIndex + 1);
+        this->progressBar.updateStep(1);
+        flag = 1;
+    }
+    
+    switch (this->animation.type) {
+        case 1:{
+            Vector2 pos1 = this->heap.getSteps()[this->stepIndex].nodes[this->animation.Hightlight[0]].pos;
+            Vector2 pos2 = this->heap.getSteps()[this->stepIndex].nodes[this->animation.Hightlight[1]].pos;
+            this->animation.nodes[this->animation.Hightlight[0]].pos = Vector2Lerp(pos1, pos2, float(this->frame)/this->numFrameOfAnimation);
+            this->animation.nodes[this->animation.Hightlight[1]].pos = Vector2Lerp(pos2, pos1, float(this->frame)/this->numFrameOfAnimation);
+            break;
+        }
+
+        case 2:{
+            if(this->frame < this->numFrameOfAnimation/2){
+                // this->Animation.Nodes[this->Animation.Hightlight[0]].color.a = int(FloatLerp(255, 0, 2*float(this->frame)/this->num_frame_of_animation));
+                this->animation.nodes[this->animation.Hightlight[0]].fontSize = FloatLerp(CODE_SIZE, 0, 2*float(this->frame)/this->numFrameOfAnimation);
+            } else {
+                // this->Animation.Nodes[this->Animation.Hightlight[0]].color.a = int(FloatLerp(0, 255, 2*float(this->frame)/this->num_frame_of_animation));
+                this->animation.nodes[this->animation.Hightlight[0]].fontSize = FloatLerp(0, CODE_SIZE, 1.f - 2*float(this->frame)/this->numFrameOfAnimation);
+            }
+            break;
+        }
+
+        case 3:{
+            Vector2 pos1 = this->heap.getSteps()[this->stepIndex].nodes[this->animation.Hightlight[1]].pos;
+            Vector2 pos2 = this->heap.getSteps()[this->stepIndex].nodes[this->animation.Hightlight[0]].pos;
+            this->animation.nodes[this->animation.Hightlight[0]].pos = Vector2Lerp(pos1, pos2, float(this->frame)/this->numFrameOfAnimation);
+            this->animation.nodes[this->animation.Hightlight[0]].fontSize = FloatLerp(0, CODE_SIZE, float(this->frame)/this->numFrameOfAnimation);
+            // printf("(%f, %f) - (%f, %f)\n", pos1.x, pos1.y, pos2.x, pos2.y);
+            // printf("(%f, %f)\n", this->Animation.Nodes[this->Animation.Hightlight[0]].pos.x, this->Animation.Nodes[this->Animation.Hightlight[0]].pos.y);
+            break;
+        }
+
+        case 4:{
+            Vector2 pos1 = this->heap.getSteps()[this->stepIndex].nodes[this->animation.Hightlight[1]].pos;
+            Vector2 pos2 = this->heap.getSteps()[this->stepIndex].nodes[this->animation.Hightlight[0]].pos;
+            this->animation.nodes[this->animation.Hightlight[0]].pos = Vector2Lerp(pos2, pos1, float(this->frame)/this->numFrameOfAnimation);
+            this->animation.nodes[this->animation.Hightlight[0]].fontSize = FloatLerp(CODE_SIZE, 0, float(this->frame)/this->numFrameOfAnimation);
+            // printf("(%f, %f) - (%f, %f)\n", pos1.x, pos1.y, pos2.x, pos2.y);
+            // printf("(%f, %f)\n", this->Animation.Nodes[this->Animation.Hightlight[0]].pos.x, this->Animation.Nodes[this->Animation.Hightlight[0]].pos.y);
+            break;
+        }
+
+        default:
+            break;
+    }
+    return flag;
+}
+
+void MaxHeapVisualize::createWithRandomizedData(int n, int range) {
+    this->heap.createWithRandomizedData(n, range);
+    this->numFrameOfAnimation = 3;
+    this->animation =this->heap.getSteps().front();
+    this->progressBar.updateMaxStep((int)this->heap.getSteps().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void MaxHeapVisualize::createFromFile(const char* filename) {
+    this->heap.createFromFile(filename);
+    this->numFrameOfAnimation = 3;
+    this->animation =this->heap.getSteps().front();
+    this->progressBar.updateMaxStep((int)this->heap.getSteps().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+
+}
+void MaxHeapVisualize::push() {
+    this->heap.push(std::stoi(this->inputNumber.getText()));
+    this->numFrameOfAnimation = 60;
+    this->animation = this->heap.getSteps().front();
+    this->progressBar.updateMaxStep((int)this->heap.getSteps().size() -1);
+    this->stepIndex =0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void MaxHeapVisualize::deleteNode() {
+    this->heap.deleteElement(std::stoi(this->inputNumber.getText()));
+    this->numFrameOfAnimation = 60;
+    this->animation = this->heap.getSteps().front();
+    this->progressBar.updateMaxStep((int)this->heap.getSteps().size() -1);
+    this->stepIndex =0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+
+}
+
+void MaxHeapVisualize::getTop() {
+    this->heap.top();
+    //printf("get_top -- debug\n");
+    this->numFrameOfAnimation = 60;
+    this->animation = this->heap.getSteps().front();
+    this->progressBar.updateMaxStep((int)this->heap.getSteps().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void MaxHeapVisualize::getSize() {
+    this->heap.size();
+    this->numFrameOfAnimation = 60;
+    this->animation = this->heap.getSteps().front();
+    this->progressBar.updateMaxStep((int)this->heap.getSteps().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void MaxHeapVisualize::drawButtons() {
+    this->createButton.draw(50);
+    this->deleteButton.draw(50);
+    this->pushButton.draw(50);
+    this->topButton.draw(50);
+    this->sizeButton.draw(50);
+    if(this->isCreateChosen) {
+        this->randomButton.draw();
+        this->loadFileButton.draw();
+    }
+    if(this->isDeleteChosen || this->isPushChosen) {
+        this->inputNumber.draw();
+        this->inputNumber.update();
+        this->playButton.draw();
+    }
+}
+
+void MaxHeapVisualize::draw() {
+    drawSideBar(this->animation.Code, this->animation.lines, this->animation.Infor, this->progressBar, this->font);
+    drawButtons();
+    Max_Heap::drawHeap(this->animation, this->font);
+}
+
+int MaxHeapVisualize::handle() {
+    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        if (this->createButton.getIsHovered()) {
+            this->isCreateChosen = true;
+            this->isDeleteChosen = false;
+            this->isPushChosen = false;
+        }
+        if (this->deleteButton.getIsHovered()) {
+            this->isCreateChosen = false;
+            this->inputNumber.resetText();
+            this->isDeleteChosen = true;
+            this->isPushChosen = false;
+        }
+        if (this->pushButton.getIsHovered()) {
+            this->isCreateChosen = false;
+            this->isDeleteChosen = false;
+            this->inputNumber.resetText();
+            this->isPushChosen = true;
+        }
+    }
+
+    if (this->playButton.handle()) {
+        if (this->isPushChosen) {
+            push();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 2;
+        }
+        if (this->isDeleteChosen) {
+            deleteNode();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 3;
+        }
+    }
+
+    if (this->topButton.handle()) {
+        getTop();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 4;
+    }
+    if (this->sizeButton.handle()) {
+        getSize();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 5;
+    }
+
+    if (this->randomButton.handle()) {
+        createWithRandomizedData(20, 100);
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 1;
+    }
+    if (this->loadFileButton.handle()) {
+        createFromFile("Data/data.txt");
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 1;
+    }
+
+    int flag = this->progressBar.handle();
+    if ( flag != 10) {
+        printf("%d\n", flag);
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
+
+    switch (flag)
+    {
+        case -2:
+            if (this->progressBar.getMaxStep() == 0) break;
+            this->progressBar.updateStep(-2);
+            updateStep(0);
+            break;
+
+        case -1:
+            if (this->progressBar.getMaxStep() == 0) break;
+            this->progressBar.updateStep(-1);
+            if (stepIndex == 0) return 0;
+            updateStep(this->stepIndex - 1);
+            break;
+
+        case 1:
+            if (this->progressBar.getMaxStep() == 0) break;
+            if(stepIndex == this->heap.getSteps().size() - 1) break;
+            this->progressBar.updateStep(1);
+            updateStep(this->stepIndex + 1);
+            break;
+
+        case 2:
+            if (this->progressBar.getMaxStep() == 0) break;
+            updateStep((int)this->heap.getSteps().size() - 1);
+            this->progressBar.updateStep(2);
+
+        case 0:
+            printf("%s\n", isPause?"Play":"Pause");
+            this->isPause = !this->isPause;
+            break;
+
+        case 3: case -3:
+            this->numFrameOfAnimation = FPS/this->progressBar.getSpeed();
+
+            break;
+
+        default:
+            break;
+    }
+
+    if(this->isPause) this->frame--;
+    updateAnimation();
+
+    return 0;
+}

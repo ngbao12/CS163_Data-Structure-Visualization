@@ -14,7 +14,7 @@
 #include <functional>
 #include <stdint.h>
 
-const Texture2D PLAY = LoadTexture("./asset/Play.png");
+extern Texture2D PLAY;
 extern Texture2D PAUSE;
 extern Texture2D REPLAY;
 extern Texture2D BACK;
