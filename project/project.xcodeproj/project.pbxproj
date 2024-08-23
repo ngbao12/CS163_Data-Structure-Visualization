@@ -16,6 +16,7 @@
 		E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C532C69DBC000777D8F /* Application.cpp */; };
 		E4DC8C582C69DFBE00777D8F /* General.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C562C69DFBE00777D8F /* General.cpp */; };
 		E4DC8C5E2C6A013A00777D8F /* GUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C5C2C6A013A00777D8F /* GUI.cpp */; };
+		E4DC8CB02C77783600777D8F /* MaxHeap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8CAE2C77783600777D8F /* MaxHeap.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -84,6 +85,8 @@
 		E4DC8C722C6BCCF600777D8F /* AVL.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AVL.png; sourceTree = "<group>"; };
 		E4DC8C732C6BCCF600777D8F /* Tree234.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Tree234.png; sourceTree = "<group>"; };
 		E4DC8C742C6CF37600777D8F /* Font */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Font; sourceTree = "<group>"; };
+		E4DC8CAE2C77783600777D8F /* MaxHeap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MaxHeap.cpp; sourceTree = "<group>"; };
+		E4DC8CAF2C77783600777D8F /* MaxHeap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MaxHeap.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +136,8 @@
 				E4DC8C382C6279AD00777D8F /* Trie.hpp */,
 				E4DC8C3A2C6881A000777D8F /* Graph.cpp */,
 				E4DC8C3B2C6881A000777D8F /* Graph.hpp */,
+				E4DC8CAE2C77783600777D8F /* MaxHeap.cpp */,
+				E4DC8CAF2C77783600777D8F /* MaxHeap.hpp */,
 			);
 			path = project;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4DC8CB02C77783600777D8F /* MaxHeap.cpp in Sources */,
 				E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */,
 				E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */,
 				E4DC8C5E2C6A013A00777D8F /* GUI.cpp in Sources */,
