@@ -21,3 +21,28 @@ void Max_Heap::drawHeap(Step step, Font font) {
         drawNode(step.nodes, i);
     }
 }
+
+void MaxHeap::saveStep(int index1, int index2, std::vector<int> lines, const std::string infor, std::string code, int type) {
+    if (this->data.empty()) return;
+    
+    int size =(int) this->data.size();
+    Vector2 pos = {1013,100};
+    float dx = 50*log2(size), dy = 100;
+    std::vector<Max_Heap::Node> nodes;
+    nodes.push_back({this->data[0], pos, dx, CODE_SIZE, NODE_COLOR});
+    
+    for (int i=1; i<size; i++) {
+        dx = nodes[(i-1)/2].dx;
+        pos = nodes[(i-1)/2].pos;
+        nodes.push_back({this->data[i], {pos.x + ((i & 1) ? (-dx) : dx), pos.y + dy}, dx/2, CODE_SIZE, NODE_COLOR});
+    }
+    
+    if (type == 0 || type == 1 || type == 2) {
+        nodes[index2].color = HIGHTLIGHT_NODE_COLOR_2;
+        nodes[index1].color = HIGHTLIGHT_NODE_COLOR_1;
+    }
+    
+    this->steps.push_back({nodes, lines, {index1, index2}, infor, code, type});
+}
+
+

@@ -38,7 +38,7 @@ namespace Max_Heap {
         int Hightlight[2];
         std::string Infor;
         std::string Code;
-        int type; //-1: nine, 0: check, 1: swap, 2: change(num, text), 3: insert, 4: remove;
+        int type; //-1: none, 0: check, 1: swap, 2: change(num, text), 3: insert, 4: remove;
     };
 
     void drawEdge(Vector2 pos1, Vector2 pos2);
