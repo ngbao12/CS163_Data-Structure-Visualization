@@ -3,6 +3,7 @@
 
 #include "General.hpp"
 
+
 class Button {
     protected:
         Rectangle outerRect;
@@ -32,7 +33,7 @@ class ButtonImage : public Button {
         void draw(float radius = 15);
     };
 
-    class InputStr {
+class InputStr {
     private:
         Rectangle textBox;
         std::string text;

@@ -1,19 +1,31 @@
 #include "General.hpp"
 
+Texture2D PLAY;
+Texture2D PAUSE;
+Texture2D REPLAY;
+Texture2D NEXT;
+Texture2D DOUBLE_NEXT;
+Texture2D BACK;
+Texture2D DOUBLE_BACK;
+Texture2D SPEED_UP;
+Texture2D SPEED_DOWN;
+Texture2D BACK_PAGE;
+Font FONT;
 void initResource() {
-    PLAY = LoadTexture("./asset/Play.png");
-    PAUSE = LoadTexture("./asset/Pause.png");
-    REPLAY = LoadTexture("./asset/Replay.png");
-    BACK = LoadTexture("./asset/Chevron left.png");
-    DOUBLE_BACK = LoadTexture("./asset/Chevrons left.png");
-    NEXT = LoadTexture("./asset/Chevron right.png");
-    DOUBLE_NEXT = LoadTexture("./asset/Chevrons right.png");
-    SPEED_UP = LoadTexture("./asset/Chevron up.png");
-    SPEED_DOWN = LoadTexture("./asset/Chevron down.png");
-    BACK_PAGE = LoadTexture("./asset/BackPage.png");
+    PLAY = LoadTexture("asset/Play.png");
+    PAUSE = LoadTexture("asset/Pause.png");
+    REPLAY = LoadTexture("asset/Replay.png");
+    BACK = LoadTexture("asset/Chevron left.png");
+    DOUBLE_BACK = LoadTexture("asset/Chevrons left.png");
+    NEXT = LoadTexture("asset/Chevron right.png");
+    DOUBLE_NEXT = LoadTexture("asset/Chevrons right.png");
+    SPEED_UP = LoadTexture("asset/Chevron up.png");
+    SPEED_DOWN = LoadTexture("asset/Chevron down.png");
+    BACK_PAGE = LoadTexture("asset/BackPage.png");
+    FONT = LoadFont("./Font/Roboto-Regular.ttf");
 }
 
-Vector2 Vector2Lerf(Vector2 start, Vector2 end, float amount) {
+Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount) {
     return (Vector2) {
         start.x + amount * (end.x - start.x),
         start.y + amount * (end.y - start.y)
@@ -41,6 +53,7 @@ void drawPicture(Texture2D texture, Rectangle desRec, float rotation, Vector2 or
 
 void drawRectangleWithBorder(Rectangle rec, Color colorRec, float widthBorder, Color colorBorder, int radiusBorder) {
     DrawRectangleRounded(rec, 1.0*radiusBorder/100, 64, colorRec);
+    //DrawRectangleRoundedLines(rec, 1.0*radiusBorder/100, 64, widthBorder, colorBorder);
     DrawRectangleRoundedLinesEx(rec, 1.0*radiusBorder/100, 64, widthBorder, colorBorder);
 }
 
@@ -90,3 +103,6 @@ void drawShrinkingText(const char* text, Vector2 position, int fontSize, float* 
     DrawTextEx(FONT, text, textPosition, fontSize* (*scale), 1, Fade(BLACK, *alpha));
 }
 
+void DrawRectangleRoundedLinesEx(Rectangle rec, float roundness, int segments, float lineThick, Color color) {
+    DrawRectangleRoundedLines(rec, roundness, segments, color);
+}

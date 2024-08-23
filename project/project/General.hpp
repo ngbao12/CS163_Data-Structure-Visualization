@@ -29,8 +29,8 @@ void initResource();
 Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount);
 float FloatLerp(float start, float end, float amount);
 
-const int SCREEN_WIDTH = 1600;
-const int SCREEN_HEIGHT = 900;
+const int SCREEN_WIDTH = 1280;
+const int SCREEN_HEIGHT = 700;
 const int FPS = 60;
 
 const Color LIGHT_THEME = {229,247,255,255};
@@ -50,7 +50,7 @@ const Color SEPERATOR_COLOR = SKYBLUE;
 const float CODE_SIZE = 15;
 const float NODE_RADIUS = 15;
 
-const Font FONT = LoadFont("./Font/Roboto-Regular.ttf");
+extern Font FONT;
 
 //GUI
 const Vector2 ORIGIN ={0.0f, 0.0f};
@@ -60,4 +60,5 @@ void drawRectangleWithBorder(Rectangle rec, Color colorRec, float widthBorder, C
 Texture2D textureFromImageWithRoundedCorner(const char* path, int radius = 0);
 void drawShrinkingText(const char* text, Vector2 position, int fontSize, float* scale, float* alpha, float shrinkRate, float fadeRate);
 
+void DrawRectangleRoundedLinesEx(Rectangle rec, float roundness, int segments, float lineThick, Color color);
 #endif /* General_hpp */

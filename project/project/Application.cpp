@@ -1,6 +1,5 @@
 #include "Application.hpp"
 
-#include "Application.hpp"
 
 Menu::Menu() {
     this->avlTree = ButtonImage({180, 260, 240, 160}, {190, 270, 220, 120}, "./asset/HashTable.png", "Hash Table", 390, {145, 95, 35, 255}, 20);
@@ -47,6 +46,7 @@ int8_t Menu::clicked() {
 void Application::run() {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Data Visualized");
+    initResource();
     SetTargetFPS(FPS);
     while (!WindowShouldClose() && this->tab != -1) {
         switch (this->tab) {
@@ -84,8 +84,7 @@ int Application::menu() {
 
 int Application::maxHeap() {
     // MaxHeapVisualize heap;
-    int flag = 0;
-    MaxHeapVisualize maxHeap;
+    MaxHeapVisualize maxHeap = MaxHeapVisualize(FONT);
     while(!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(LIGHT_THEME);

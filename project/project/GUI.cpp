@@ -236,3 +236,14 @@ void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font)
     }
     DrawTextEx(font, code.c_str(), {CodeOffset.x, CodeOffset.y + 1}, CODE_SIZE, 2, WHITE);
 }
+
+void drawSideBar(std::string code, std::vector<int> lines, std::string infor, ProgressBar bar, Font font) {
+    DrawRectangleRounded({0, 70, 425, 765}, 0.10f, 32, SIDEBAR_COLOR);
+    DrawLineEx({0, 350}, {425, 350}, 2, SEPERATOR_COLOR);
+    DrawLineEx({0, 470}, {425, 470}, 2, SEPERATOR_COLOR);
+    DrawLineEx({170, 470}, {170, 715}, 2, SEPERATOR_COLOR);
+    DrawLineEx({0, 715}, {425, 715}, 2, SEPERATOR_COLOR);
+    drawCode(code, 8, lines, font);
+    drawInfor(infor, font);
+    bar.draw();
+}

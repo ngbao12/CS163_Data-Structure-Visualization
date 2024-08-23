@@ -3,6 +3,7 @@
 
 #include "GUI.hpp"
 
+
 const std::string Push_code(
     "i = size, size++\n"
     "A[i] = value\n"

@@ -11,12 +11,12 @@
 		E472413F2C5BC2BD00C87622 /* Tree234.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E472413D2C5BC2BD00C87622 /* Tree234.cpp */; };
 		E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C372C6279AD00777D8F /* Trie.cpp */; };
 		E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C3A2C6881A000777D8F /* Graph.cpp */; };
-		E4DC8C4A2C69D99A00777D8F /* libraylib.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; };
-		E4DC8C4B2C69D99A00777D8F /* libraylib.4.5.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C532C69DBC000777D8F /* Application.cpp */; };
 		E4DC8C582C69DFBE00777D8F /* General.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C562C69DFBE00777D8F /* General.cpp */; };
 		E4DC8C5E2C6A013A00777D8F /* GUI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C5C2C6A013A00777D8F /* GUI.cpp */; };
 		E4DC8CB02C77783600777D8F /* MaxHeap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8CAE2C77783600777D8F /* MaxHeap.cpp */; };
+		E4DC8CCD2C78C37400777D8F /* libraylib.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; };
+		E4DC8CCE2C78C37400777D8F /* libraylib.4.5.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,13 +29,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 1;
 		};
-		E4DC8C4C2C69D99A00777D8F /* Embed Libraries */ = {
+		E4DC8CCF2C78C37400777D8F /* Embed Libraries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E4DC8C4B2C69D99A00777D8F /* libraylib.4.5.0.dylib in Embed Libraries */,
+				E4DC8CCE2C78C37400777D8F /* libraylib.4.5.0.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -94,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E4DC8C4A2C69D99A00777D8F /* libraylib.4.5.0.dylib in Frameworks */,
+				E4DC8CCD2C78C37400777D8F /* libraylib.4.5.0.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -193,7 +193,7 @@
 				E472412F2C5BC22400C87622 /* Sources */,
 				E47241302C5BC22400C87622 /* Frameworks */,
 				E47241312C5BC22400C87622 /* CopyFiles */,
-				E4DC8C4C2C69D99A00777D8F /* Embed Libraries */,
+				E4DC8CCF2C78C37400777D8F /* Embed Libraries */,
 			);
 			buildRules = (
 			);

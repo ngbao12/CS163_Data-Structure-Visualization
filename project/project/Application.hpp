@@ -1,6 +1,7 @@
 #ifndef Application_hpp
 #define Application_hpp
 
+#include "raylib.h"
 #include "MaxHeap.hpp"
 
 class Menu {
