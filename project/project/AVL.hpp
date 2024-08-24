@@ -48,7 +48,7 @@ struct AVLNode {
 struct AVLStep {
     AVLNode* root;
     std::vector<int> line;
-    int hightlight;
+    int highlight;
     std::string infor;
     std::string code;
     int type;
@@ -101,7 +101,7 @@ class AVLTreeVisualize {
 private:
     AVLTree tree;
     AVLStep step;
-    int ype = 0;
+    int type = 0;
     ProgressBar progressBar;
     int stepIndex;
     int frame;
@@ -109,14 +109,35 @@ private:
     
     Button createButton;
     bool isCreateChosen;
+    Button randomButton;
+    Button loadFileButton;
+    
+    Button insertButton;
+    bool isInsertChosen;
     Button deleteButton;
-    bool isDeteleChosen;
+    bool isDeleteChosen;
     Button searchButton;
     bool isSearchChosen;
     InputStr inputNumber;
     Button playButton;
     
     Font font;
+public:
+    AVLTreeVisualize(Font font);
+    AVLTreeVisualize() : AVLTreeVisualize(FONT){}
+    void updateStep(int step);
+    void createWithRandomizedData(int n, int range);
+    void createFromFile();
+    void insert();
+    void deleteNode();
+    void search();
+    
+    void drawTree();
+    void drawButtons();
+    int handle();
+    
+    void draw();
+    int buttonHandle();
 };
 
 #endif /* AVL_hpp */

@@ -376,3 +376,269 @@ void AVLTree::printInOrder() {
         node = node->right;
     }
 }
+
+AVLTreeVisualize::AVLTreeVisualize(Font font) {
+    this->font = font;
+    this->progressBar = ProgressBar(font);
+    this->isCreateChosen = false;
+    this->isInsertChosen = false;
+    this->isDeleteChosen = false;
+    this->isSearchChosen = false;
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->numFrameOfAnimation = FPS;
+
+    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
+    this->insertButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
+    this->deleteButton = Button({25, 580, 110, 30}, "Delete", -1, BLACK, 20, font);
+    srand((int)time(0));
+    this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
+    this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
+    this->searchButton = Button({25, 625, 110, 30}, "Top", -1, BLACK, 20, font);
+}
+
+void AVLTreeVisualize::updateStep(int index) {
+    this->step = this->tree.getProcess()[index];
+    this->frame = 0;
+    this->stepIndex = index;
+    // update_animation();
+}
+
+void AVLTreeVisualize::createFromFile() {
+    this->tree.createFromFile("Data/data.txt");
+    this->numFrameOfAnimation = 5/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+    this->type = 1;
+}
+
+void AVLTreeVisualize::createWithRandomizedData(int n, int range) {
+    n = 15;
+    this->tree.createWithRandomizedData(n, range);
+    this->numFrameOfAnimation = 5/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+    this->type = 1;
+}
+
+void AVLTreeVisualize::insert() {
+    this->tree.insert(std::stoi(this->inputNumber.getText()));
+    this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+    this->type = 1;
+}
+
+void AVLTreeVisualize::deleteNode() {
+    this->tree.deleteNode(std::stoi(this->inputNumber.getText()));
+    this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+    this->type = 1;
+}
+
+void AVLTreeVisualize::search() {
+    this->tree.search(std::stoi(this->inputNumber.getText()));
+    this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+    this->type = 1;
+}
+
+void drawNode(AVLNode *root, int specialValue, int frame, int numFrame, Font font, bool isNotification = false) {
+    if (!root) return;
+    Vector2 root_pos = Vector2Lerp(root->start, root->end, float(frame)/numFrame);
+    if (root->left) DrawLineEx(root_pos, Vector2Lerp(root->left->start, root->left->end, float(frame)/numFrame), 2, NODE_COLOR);
+    if (root->right) DrawLineEx(root_pos, Vector2Lerp(root->right->start, root->right->end, float(frame)/numFrame), 2, NODE_COLOR);
+    DrawCircle(root_pos.x, root_pos.y, NODE_RADIUS, (root->key == specialValue && isNotification) ? HIGHLIGHT_NODE_COLOR_1 : NODE_COLOR);
+    Vector2 text_size = MeasureTextEx(font, TextFormat("%d", root->key), CODE_SIZE, 0);
+    DrawTextPro(font, TextFormat("%d", root->key), {root_pos.x - text_size.x/2, root_pos.y - text_size.y/2}, {0.f, 0.f}, 0, CODE_SIZE, 0, WHITE);
+    drawNode(root->left, specialValue, frame, numFrame, font, isNotification);
+    drawNode(root->right, specialValue, frame, numFrame, font, isNotification);
+}
+
+void AVLTreeVisualize::drawTree() {
+    if (this->tree.getProcess().empty()) return;
+    drawNode(this->step.root, this->step.highlight, this->frame, this->numFrameOfAnimation, this->font, this->step.type == -1);
+    if (this->type == 2 || this->type == 0) return;
+    this->frame++;
+    if(this->frame >= this->numFrameOfAnimation && !this->tree.getProcess().empty()) {
+        if (stepIndex == this->tree.getProcess().size() - 1) {
+            this->type = 2;
+            return;
+        }
+        updateStep(this->stepIndex + 1);
+        this->progressBar.updateStep(1);
+    }
+}
+
+void AVLTreeVisualize::drawButtons() {
+    this->createButton.draw(50);
+    this->deleteButton.draw(50);
+    this->insertButton.draw(50);
+    this->searchButton.draw(50);
+
+    if(this->isCreateChosen) {
+        this->randomButton.draw();
+        this->loadFileButton.draw();
+    }
+
+    if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {
+        this->inputNumber.draw();
+        this->inputNumber.update();
+        this->playButton.draw();
+    }
+}
+
+int AVLTreeVisualize::handle() {
+    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        if (this->createButton.getIsHovered()) {
+            this->isCreateChosen = true;
+            this->isDeleteChosen = false;
+            this->isInsertChosen = false;
+            this->isSearchChosen = false;
+        }
+        if (this->deleteButton.getIsHovered()) {
+            this->inputNumber.resetText();
+            this->isCreateChosen = false;
+            this->isDeleteChosen = true;
+            this->isInsertChosen = false;
+            this->isSearchChosen = false;
+        }
+        if (this->insertButton.getIsHovered()) {
+            this->inputNumber.resetText();
+            this->isCreateChosen = false;
+            this->isDeleteChosen = false;
+            this->isInsertChosen = true;
+            this->isSearchChosen = false;
+        }
+        if (this->searchButton.getIsHovered()) {
+            this->inputNumber.resetText();
+            this->isCreateChosen = false;
+            this->isDeleteChosen = false;
+            this->isInsertChosen = false;
+            this->isSearchChosen = true;
+        }
+    }
+
+    if (this->playButton.handle()) {
+        if (this->isInsertChosen) {
+            insert();
+            printf("INSERTING...\n");
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 2;
+        }
+        if (this->isDeleteChosen) {
+            deleteNode();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 3;
+        }
+        if (this->isSearchChosen) {
+            search();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 4;
+        }
+    }
+
+    if (this->randomButton.handle()) {
+        createWithRandomizedData(20, 100);
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 1;
+    }
+    if (this->loadFileButton.handle()) {
+        createFromFile();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 1;
+    }
+
+    int flag = this->progressBar.handle();
+    if ( flag != 10) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
+
+    switch (flag)
+    {
+        case -2:
+            if (this->progressBar.getMaxStep() == 0) break;
+            this->progressBar.updateStep(-2);
+            updateStep(0);
+            break;
+
+        case -1:
+            if (this->progressBar.getMaxStep() == 0) break;
+            this->progressBar.updateStep(-1);
+            if (stepIndex == 0) return 0;
+            updateStep(this->stepIndex - 1);
+            break;
+
+        case 1:
+            if (this->progressBar.getMaxStep() == 0) break;
+            if(stepIndex == this->tree.getProcess().size() - 1) break;
+            this->progressBar.updateStep(1);
+            updateStep(this->stepIndex + 1);
+            break;
+
+        case 2:
+            if (this->progressBar.getMaxStep() == 0) break;
+            updateStep(this->tree.getProcess().size() - 1);
+            this->progressBar.updateStep(2);
+            this->type = 2;
+            break;
+
+        case 0:
+            if (this->type == 2) {
+                if (this->progressBar.getMaxStep() == 0) break;
+                this->progressBar.updateStep(-2);
+                updateStep(0);
+                this->type = 1;
+                break;
+            }
+            if (this->type == 1) {
+                this->type = 0;
+                break;
+            }
+            if (this->type == 0) {
+                this->type = 1;
+                break;
+            }
+
+        case 3: case -3:
+            this->numFrameOfAnimation = FPS/this->progressBar.getSpeed();
+
+            break;
+            
+        default:
+            break;
+    }
+
+    return 0;
+}
+
+void AVLTreeVisualize::draw() {
+    
+    drawSideBar(type, this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
+    drawButtons();
+    drawTree();
+}
