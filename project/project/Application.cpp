@@ -13,7 +13,6 @@ Menu::Menu() {
 
 void Menu::draw() {
     DrawTextPro(FONT, "DATA STRUCTURE VISUALIZATION", {(SCREEN_WIDTH - MeasureTextEx(FONT, "DATA STRUCTURE VISUALIZATION", 45, 5).x)/2, 75.0f}, {0.0f, 0.0f}, 0, 45, 5, {255, 160, 0, 255});
-
     avlTree.draw();
     hashTable.draw();
     Tree234.draw();
@@ -47,6 +46,7 @@ void Application::run() {
     SetConfigFlags(FLAG_MSAA_4X_HINT);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Data Visualized");
     initResource();
+    SetTextureFilter(FONT.texture, TEXTURE_FILTER_POINT);
     SetTargetFPS(FPS);
     while (!WindowShouldClose() && this->tab != -1) {
         switch (this->tab) {

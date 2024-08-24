@@ -22,7 +22,8 @@ void initResource() {
     SPEED_UP = LoadTexture("asset/Chevron up.png");
     SPEED_DOWN = LoadTexture("asset/Chevron down.png");
     BACK_PAGE = LoadTexture("asset/BackPage.png");
-    FONT = LoadFont("./Font/Roboto-Regular.ttf");
+    //FONT = LoadFont("./Font/Roboto-Regular.ttf");
+    FONT = LoadFontEx("./Font/Roboto-Regular.ttf", 50, 0, 255);
 }
 
 Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount) {
