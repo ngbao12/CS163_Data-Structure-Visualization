@@ -129,9 +129,9 @@
 		E47241352C5BC22500C87622 /* project */ = {
 			isa = PBXGroup;
 			children = (
+				E47241362C5BC22500C87622 /* main.cpp */,
 				E4DC8CD12C78EB5B00777D8F /* tinyfiledialogs.cpp */,
 				E4DC8CD02C78EB5B00777D8F /* tinyfiledialogs.h */,
-				E47241362C5BC22500C87622 /* main.cpp */,
 				E4DC8C532C69DBC000777D8F /* Application.cpp */,
 				E4DC8C542C69DBC000777D8F /* Application.hpp */,
 				E4DC8C562C69DFBE00777D8F /* General.cpp */,

@@ -14,7 +14,7 @@ Button::Button(Rectangle rect, const std::string text, float yText, Color textCo
 void Button::draw(float radius) {
     this->isHovered = CheckCollisionPointRec(GetMousePosition(), this->outerRect);
     DrawRectangleRounded(this->outerRect, radius/100, 32, this->isHovered ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawTextEx(FONT, this->content.c_str(), this->contentPos, this->fontSize, 2, this->contentColor);
+    DrawTextPro(this->font, this->content.c_str(), this->contentPos, ORIGIN, 0, this->fontSize, 2, this->contentColor);
 }
 
 int Button::handle() {
@@ -37,6 +37,7 @@ ButtonImage::ButtonImage(Rectangle outerRect, Rectangle innerRect, const char* p
 }
 
 void ButtonImage::draw(float radius) {
+    this->isHovered = CheckCollisionPointRec(GetMousePosition(), this->outerRect);
     DrawRectangleRounded(outerRect, radius/100, 32,this->isHovered ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
     drawPicture(this->texture, this->innerRect);
     DrawTextPro(this->font, this->content.c_str(), this->contentPos, ORIGIN, 0, this->fontSize, 2, this->contentColor);
@@ -120,22 +121,22 @@ void CircleButton::changeTexture(const char* file) {
 }
 
 void ProgressBar::draw() {
-    DrawCircle(40, 790, 25, doubleBack ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(100, 790, 25 , back ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(172, 790, 37.5 , play ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(245, 790, 25 , next ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(305, 790, 25 , doubleNext ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(385, 755, 15 , up ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(385, 810, 25 , down ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(33.5, 643.5, 17.5, doubleBack ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(72.5, 643.5, 17.5 , back ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(122, 643.5, 25.5 , play ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(169.5, 643.5, 17.5 , next ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(208.5, 643.5, 17.5 , doubleNext ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(263.5, 610.5, 12.5 , up ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(263.5, 670.5, 12.5 , down ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
     
     DrawTextPro(font, TextFormat("%.1fx", this->speed), {368,775}, ORIGIN, 0.f, 15, 2, BLACK);
     
-    drawPicture(DOUBLE_BACK, {15, 765, 50, 50});
-    drawPicture(BACK, {75,765, 50, 50});
-    drawPicture(PLAY, {135, 754, 75, 75}, 30.0f, {35.f, 35.f});
-    drawPicture(NEXT, {220, 765, 50, 50});
-    drawPicture(DOUBLE_NEXT, {280, 765, 50, 50});
-    drawPicture(SPEED_UP, {370, 740, 30, 30});
+    drawPicture(DOUBLE_BACK, {19.5, 627.75, 28, 30.63});
+    drawPicture(BACK, {56.75, 630.38, 28, 28});
+    drawPicture(PLAY, {145, 650.5, 25, 25}, 0, {35.f, 35.f});
+    drawPicture(NEXT, {194, 626, 28, 30.63});
+    drawPicture(DOUBLE_NEXT, {254, 601, 20, 20});
+    drawPicture(SPEED_UP, {251, 740, 30, 30});
     drawPicture(SPEED_DOWN, {370, 795, 30, 30});
 
     DrawRectangleRec({25, 728, 300, 10}, NONHOVERED_BUTTON_LIGHT_THEME);

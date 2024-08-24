@@ -30,7 +30,7 @@ Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount);
 float FloatLerp(float start, float end, float amount);
 
 const int SCREEN_WIDTH = 1280;
-const int SCREEN_HEIGHT = 700;
+const int SCREEN_HEIGHT = 750;
 const int FPS = 60;
 
 const Color LIGHT_THEME = {229,247,255,255};
