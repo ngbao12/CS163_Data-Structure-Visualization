@@ -2,8 +2,6 @@
 #define AVL_hpp
 
 #include "GUI.hpp"
-#include "raymath.h"
-#include "tinyfiledialogs.h"
 
 const std::string AVL_INSERT(
     "Insert v\n"

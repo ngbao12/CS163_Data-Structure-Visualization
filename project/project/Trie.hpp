@@ -2,8 +2,6 @@
 #define Trie_hpp
 
 #include "GUI.hpp"
-#include "raymath.h"
-#include "tinyfiledialogs.h"
 
 const std::string Trie_INSERT(
     "cur = root\n"

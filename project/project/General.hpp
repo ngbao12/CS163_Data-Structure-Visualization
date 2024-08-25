@@ -3,8 +3,11 @@
 #define General_hpp
 
 #include "raylib.h"
+#include "raymath.h"
 #include <iostream>
 #include <vector>
+#include <queue>
+#include <stack>
 #include <fstream>
 #include <algorithm>
 #include <ctime>
@@ -13,6 +16,7 @@
 #include <chrono>
 #include <functional>
 #include <stdint.h>
+#include "tinyfiledialogs.h"
 
 extern Texture2D PLAY;
 extern Texture2D PAUSE;

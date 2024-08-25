@@ -254,7 +254,7 @@ void TrieVisualize::insert() {
     this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
 
     this->step = this->tree.getProcess().front();
-    this->progressBar.updateMaxStep(this->Tree.getProcess().size() - 1);
+    this->progressBar.updateMaxStep(this->tree.getProcess().size() - 1);
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
@@ -275,7 +275,7 @@ void TrieVisualize::search() {
     this->tree.search(this->inputNumber.getText());
     this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
 
-    this->step = this->Tree.getProcess().front();
+    this->step = this->tree.getProcess().front();
     this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
     this->stepIndex = 0;
     this->frame = 0;
@@ -326,7 +326,7 @@ void TrieVisualize::drawTree() {
 
 }
 
-void TrieVisualize::draw_buttons() {
+void TrieVisualize::drawButtons() {
     this->createButton.draw(50);
     this->deleteButton.draw(50);
     this->insertButton.draw(50);
@@ -394,7 +394,7 @@ int TrieVisualize::handle() {
     }
 
     if (this->randomButton.handle()) {
-        createWithRandomizedData();
+        //createWithRandomizedData();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         return 1;
     }
@@ -453,7 +453,7 @@ int TrieVisualize::handle() {
 }
 
 void TrieVisualize::draw() {
-    drawSidebar(this->Step.Code, this->Step.Line, this->Step.Infor, this->Progress_bar, this->font);
+    //drawSidebar(this->step.Code, this->step.Line, this->step.Infor, this->Progress_bar, this->font);
     drawButtons();
     drawTree();
 }

@@ -393,6 +393,7 @@ int MaxHeapVisualize::handle() {
 
     if (this->randomButton.handle()) {
         createWithRandomizedData(20, 100);
+        printf("123\n");
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         return 1;
     }

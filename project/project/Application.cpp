@@ -86,10 +86,11 @@ int Application::maxHeap() {
     // MaxHeapVisualize heap;
     MaxHeapVisualize maxHeap = MaxHeapVisualize(FONT);
     while(!WindowShouldClose()) {
+        maxHeap.handle();
         BeginDrawing();
         ClearBackground(LIGHT_THEME);
         maxHeap.draw();
-         
+        
         EndDrawing();
     }
     return -1;
