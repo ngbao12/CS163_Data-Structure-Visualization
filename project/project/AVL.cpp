@@ -602,7 +602,7 @@ int AVLTreeVisualize::handle() {
 
         case 2:
             if (this->progressBar.getMaxStep() == 0) break;
-            updateStep(this->tree.getProcess().size() - 1);
+            updateStep((int)this->tree.getProcess().size() - 1);
             this->progressBar.updateStep(2);
             this->type = 2;
             break;

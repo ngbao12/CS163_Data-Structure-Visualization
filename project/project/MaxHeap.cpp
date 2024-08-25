@@ -38,8 +38,8 @@ void MaxHeap::saveStep(int index1, int index2, std::vector<int> lines, const std
     }
     
     if (type == 0 || type == 1 || type == 2) {
-        nodes[index2].color = HIGHTLIGHT_NODE_COLOR_2;
-        nodes[index1].color = HIGHTLIGHT_NODE_COLOR_1;
+        nodes[index2].color = HIGHLIGHT_NODE_COLOR_2;
+        nodes[index1].color = HIGHLIGHT_NODE_COLOR_1;
     }
     
     this->steps.push_back({nodes, lines, {index1, index2}, infor, code, type});
