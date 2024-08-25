@@ -83,28 +83,18 @@ class Tree234 {
             updatePos(this->root, true, false);
             Node234* newRoot = cloneTree(this->root);
             std::queue<Node234*> q;
-            q.push(new_root);
+            q.push(newRoot);
 
             while (!q.empty()) {
                 Node234* current = q.front();
                 q.pop();
-
-                // In ra các giá trị trong nút hiện tại
-                // printf("(");
-                // for (const auto& key : current->keys) {
-                //     std::cout << key.value << " ";
-                // }
-                // printf(") ");
-                current->log_keys();
-                // Thêm các con của nút hiện tại vào hàng đợi
+                current->logKeys();
                 for (Node234* child : current->children) {
                     if (child != nullptr) {
                         q.push(child);
                     }
                 }
             }
-
-            std::cout << std::endl;
         }
 };
 
@@ -113,45 +103,43 @@ class Tree234Visualize {
     private:
         Tree234 Tree;
         Step234 Step;
-        bool is_pause;
-        progress_bar Progress_bar;
-        int step_index;
+        bool isPause;
+        ProgressBar progressBar;
+        int stepIndex;
         int frame;
-        int num_frame_of_animation;
+        int numFrameOfAnimation;
         
-        Button Create;
-        bool is_create_btn_chosen;
-        Button Random;
-        Button Load_file;
+        Button createButton;
+        bool isCreateChosen;
+        Button randomButton;
+        Button loadFileButton;
         
-        Button Insert;
-        bool is_insert_btn_chosen;
-        Button Delete;
-        bool is_delete_btn_chosen;
-        Button Search;
-        bool is_search_btn_chosen;
-        InputStr Input_Number;
-        Button Play;
+        Button insertButton;
+        bool isInsertChosen;
+        Button deleteButton;
+        bool isDeleteChosen;
+        Button searchButton;
+        bool isSearchChosen;
+        InputStr inputNumber;
+        Button playButton;
 
         Font font;
     public:
         Tree234Visualize(Font font);
-        Tree234Visualize() : Tree234Visualize(GetFontDefault()) {};
-        void update_step(int index);
-        // int update_animation();
-        void create_with_randomized_data(int n = 15, int range = 100);
-        void create_from_file();
+        Tree234Visualize() : Tree234Visualize(FONT) {};
+        void updateStep(int index);
+        void createWithRandomizedData(int n = 15, int range = 100);
+        void createFromFile();
         void insert();
-        void delete_node();
+        void deleteNode();
         void search();
         
-        void draw_node(Node234 *root, int frame, int num_frame, Font font, bool is_notification = false);
-        void draw_tree();
-        void draw_buttons();
+        void drawNode(Node234 *root, int frame, int num_frame, Font font, bool is_notification = false);
+        void drawTree();
+        void drawButtons();
         int handle();
-        // void draw_heap(const std::vector<int>& heap, int highlightIndex[2], size_t index = 0, float x = 1015, float y = 100, int level = 0, float dx = 150, float font_size=20);
         void draw();
-        int btn_handle();
+        int buttonHandle();
 };
 
 #endif /* Tree234_hpp */
