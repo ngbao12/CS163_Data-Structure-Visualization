@@ -179,4 +179,104 @@ Node234* Tree234::split(Node234* &node) {
     return returnNode;
 }
 
+Node234* Tree234::merge(Node234* &predecessor) {
+    if (!predecessor || !predecessor->parent) return nullptr;
+    Node234* parent = predecessor->parent;
+    int pos = 0;
+
+    for (pos = 0; pos < int(parent->children.size()); ++pos) {
+        if (parent->children[pos] == predecessor) break;
+    }
+
+    Node234* leftSibling = (pos > 0) ? parent->children[pos - 1] : nullptr;
+    Node234* rightSibling = (pos < int(parent->children.size()) - 1) ? parent->children[pos + 1] : nullptr;
+
+    if (leftSibling && leftSibling->keys.size() > 1) {
+        predecessor->keys.insert(predecessor->keys.begin(), parent->keys[pos - 1]);
+        parent->keys[pos - 1] = leftSibling->keys.back();
+        leftSibling->keys.pop_back();
+
+        if (!leftSibling->isLeaf()) {
+            predecessor->children.insert(predecessor->children.begin(), leftSibling->children.back());
+            leftSibling->children.pop_back();
+        }
+    }
+    else if (rightSibling && rightSibling->keys.size() > 1) {
+        // Mượn khóa từ right_sibling
+        predecessor->keys.push_back(parent->keys[pos]);
+        parent->keys[pos] = rightSibling->keys.front();
+        rightSibling->keys.erase(rightSibling->keys.begin());
+
+        if (!rightSibling->isLeaf()) {
+            predecessor->children.push_back(rightSibling->children.front());
+            rightSibling->children.erase(rightSibling->children.begin());
+        }
+    }
+    else {
+        if (leftSibling) {
+            leftSibling->keys.push_back(parent->keys[pos - 1]);
+            leftSibling->keys.insert(leftSibling->keys.end(), predecessor->keys.begin(), predecessor->keys.end());
+
+            if (!predecessor->isLeaf()) {
+                leftSibling->children.insert(leftSibling->children.end(), predecessor->children.begin(), predecessor->children.end());
+            }
+            parent->keys.erase(parent->keys.begin() + (pos - 1));
+            parent->children.erase(parent->children.begin() + pos);
+            delete predecessor;
+            predecessor = nullptr;
+        }
+        else if (rightSibling) {
+            predecessor->keys.push_back(parent->keys[pos]);
+            predecessor->keys.insert(predecessor->keys.end(), rightSibling->keys.begin(), rightSibling->keys.end());
+
+            if (!rightSibling->isLeaf()) {
+                predecessor->children.insert(predecessor->children.end(), rightSibling->children.begin(), rightSibling->children.end());
+            }
+            parent->keys.erase(parent->keys.begin() + pos);
+            parent->children.erase(parent->children.begin() + (pos + 1));
+            delete rightSibling;
+            rightSibling = nullptr;
+        }
+    }
+    if (parent == this->root) {
+        root = parent->children[0];
+        delete parent;
+        parent = nullptr;
+    }
+    return parent;
+}
+
+void Tree234::insert(int key) {
+    clearProcess();
+    if (!root) {
+        root = new Node234(key);
+        saveStep(root, -1, 0, {}, "insert at root...", "", false);
+        return;
+    }
+    Node234* current = root;
+    while (current) {
+        saveStep(current, -1, 0, {}, "checking is_leaf()", "", false);
+        if (current->isFull()) {
+            saveStep(current, -1, 0, {}, "checking...", "", false);
+            current = split(current);
+            saveStep(nullptr, -1, 1, {}, "split...", "", false);
+        }
+        if(current->isLeaf()) {
+            saveStep(current, -1, 0, {}, "this node is leaf, insert key", "", false);
+            break;
+        }
+        if (key < current->keys[0].value) {
+            current = current->children[0];
+        } else if (current->keys.size() == 1 || (current->keys.size() > 1 && key < current->keys[1].value)) {
+            current = current->children[1];
+        } else {
+            current = current->children[2];
+        }
+        saveStep(current, -1, 0, {}, "go to child...", "", false);
+    }
+    Node234* tmp = current;
+
+    current->insert(key);
+    saveStep(current, -1, 0, {}, "inserting...", "", false);
+}
 
