@@ -254,7 +254,7 @@ void TrieVisualize::insert() {
     this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
 
     this->step = this->tree.getProcess().front();
-    this->progressBar.updateMaxStep(this->tree.getProcess().size() - 1);
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);

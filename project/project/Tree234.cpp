@@ -391,4 +391,3 @@ void Tree234::createRandom(int n, int range) {
     saveStep(nullptr, -1, -1, {}, "Creating...", "", true);
     saveStep(nullptr, -1, -1, {}, "Create succesfully", "");
 }
-
