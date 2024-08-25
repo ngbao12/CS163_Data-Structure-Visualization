@@ -33,23 +33,6 @@ void Node234::remove(int key) {
     keys.erase(keys.begin() + i);
 }
 
-void Node234::logKeys() {
-    printf("log_key --> pointer = %p | width = %d | keys = (", this, this->width);
-    if (this->keys.empty()) {
-        printf("EMPTY)\n");
-        return;
-    }
-    for (auto i : this->keys) {
-        printf("%d ", i.value);
-    }
-    printf(")");
-    printf(" | pos: ");
-    for(int i = 0; i < keys.size(); i++) {
-        printf("%d - st: (%.1f, %.1f) | end: (%.1f, %.1f) | hl: %d -||- ", keys[i].start.x, keys[i].start.y, keys[i].end.x, keys[i].end.y, keys[i].highlight);
-    }
-    printf("\n");
-}
-
 void Tree234::freeTree(Node234* &node) {
     if(!node) return;
     node->keys.clear();
@@ -191,6 +174,7 @@ Node234* Tree234::split(Node234* &node) {
     node = nullptr;
     if (returnNode != nullptr && returnNode->isFull()) {
         returnNode = split(returnNode);
+
     }
     return returnNode;
 }

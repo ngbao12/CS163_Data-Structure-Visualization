@@ -25,7 +25,6 @@ struct Node234 {
     bool isFull() const;
     int insert(int k);
     void remove(int key);
-    void logKeys();
 };
 
 struct Step234 {
