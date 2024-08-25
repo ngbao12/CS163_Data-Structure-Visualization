@@ -280,3 +280,115 @@ void Tree234::insert(int key) {
     saveStep(current, -1, 0, {}, "inserting...", "", false);
 }
 
+bool Tree234::search(int key) {
+    clearProcess();
+    Node234* current = root;
+    while (current != nullptr) {
+        saveStep(current, -1, 0, {}, "checking", "", false);
+        int i = 0;
+        for (; i < int(current->keys.size()); i++) {
+            if (key == current->keys[i].value) {
+                saveStep(current, i, 0, {}, "FOUND", "", false);
+
+                return true;
+            }
+            if (key < current->keys[i].value) break;
+        }
+        if (current->isLeaf()) {
+            saveStep(nullptr, -1, -1, {}, "not found", "", false);
+            return false;
+        }
+        current = current->children[i];
+        saveStep(current, -1, 0, {}, "go to child", "", false);
+    }
+    saveStep(nullptr, -1, -1, {}, "not found", "", false);
+    return false;
+}
+
+bool Tree234::remove(int key) {
+    clearProcess();
+    if (!root) {
+        saveStep(nullptr, -2, -1, {}, "empty tree", "");
+        return 0;
+    }
+
+    Node234* node = root;
+    int i = 0;
+    while(node) {
+        saveStep(node, -1, 0, {}, "Finding key", "", false);
+        for(i = 0; i < node->keys.size() && node->keys[i].value < key; i++);
+        if (i < node->keys.size() && node->keys[i].value == key) break;
+        if (i < node->children.size()) node = node->children[i];
+        else node = nullptr;
+    }
+    if (!node) {
+        saveStep(nullptr, -1, -1, {}, "NOT FOUND", "", false);
+
+        return 0;
+    }
+    saveStep(node, i, 0, {}, "FOUND, start removing", "", false);
+
+    if (node->isLeaf()) {
+        saveStep(node, i, 0, {}, "key in leaf node", "", false);
+        node->remove(key);
+        if(node->keys.size() == 0) {
+            do {
+                node = merge(node);
+                saveStep(node, -1, 0, {}, "merge", "", false);
+            } while (node && node->keys.size() == 0);
+        }
+        // log_tree(this->root);
+        saveStep(nullptr, -1, -1, {}, "finish", "", false);
+
+        
+        return 1;
+    }
+
+    
+    Node234* predecessor = node->children[i];
+    while(!predecessor->isLeaf()) {
+        predecessor = predecessor->children.back();
+    }
+    node->keys[i].value = predecessor->keys.back().value;
+    predecessor->keys.pop_back();
+    saveStep(node, i, 0, {}, "replace by predecessor", "", false);
+    if (predecessor->keys.size() == 0) {
+        do {
+            predecessor = merge(predecessor);
+        } while (predecessor && predecessor->keys.size() == 0);
+        saveStep(predecessor, -1, 0, {}, "merge", "", false);
+
+    }
+}
+
+void Tree234::createFromFile(const char* filename) {
+    freeTree(this->root);
+    this->root = nullptr;
+        std::ifstream file(filename);
+    if (!file.is_open()) {
+        std::cerr << "Cannot open file: " << filename << std::endl;
+        return;
+    }
+
+    int key;
+    while (file >> key) {
+        insert(key);
+    }
+    clearProcess();
+    saveStep(nullptr ,-1, -1, {}, "Creating...", "", true);
+    saveStep(nullptr, -1, -1, {}, "Create succesfully", "");
+    file.close();
+}
+
+void Tree234::createRandom(int n, int range) {
+    freeTree(this->root);
+    srand((int)time(0));
+    for(int i = 0; i < n; i++) {
+        insert(rand() % range);
+        
+    }
+    clearProcess();
+    saveStep(nullptr, -1, -1, {}, "Creating...", "", true);
+    saveStep(nullptr, -1, -1, {}, "Create succesfully", "");
+}
+
