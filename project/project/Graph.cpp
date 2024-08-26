@@ -192,7 +192,7 @@ void Graph::mstKruskal() {
                     break;
                 }
             }
-            nodes[u]->color = true;
+            nodes[u]->color = false;
         }
     }
 }
