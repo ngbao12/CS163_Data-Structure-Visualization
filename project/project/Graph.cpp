@@ -177,8 +177,8 @@ void Graph::mstKruskal() {
             unionNodes(parent, rank, u, v);
             
             // Highlight the nodes and the edges in the MST
-            nodes[u]->color = true;
-            nodes[v]->color = true;
+            nodes[u]->color = false;
+            nodes[v]->color = false;
 
             for (auto& edge : nodes[u]->neighbors) {
                 if (getNodeIndex(edge.neighborNode) == v) {
