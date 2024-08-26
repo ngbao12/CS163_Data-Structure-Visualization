@@ -391,3 +391,57 @@ void Tree234::createRandom(int n, int range) {
     saveStep(nullptr, -1, -1, {}, "Creating...", "", true);
     saveStep(nullptr, -1, -1, {}, "Create succesfully", "");
 }
+
+Tree234Visualize::Tree234Visualize(Font font) {
+    this->font = font;
+    this->progressBar = ProgressBar(font);
+    this->isCreateChosen = false;
+    this->isInsertChosen = false;
+    this->isDeleteChosen = false;
+    this->isSearchChosen = false;
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->isPause = false;
+    this->numFrameOfAnimation = FPS;
+
+    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
+    this->insertButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
+    this->deleteButton = Button({25, 580, 110, 30}, "Delete", -1, BLACK, 20, font);
+    srand((int)time(0));
+    this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
+    this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
+    this->searchButton = Button({25, 625, 110, 30}, "Search", -1, BLACK, 20, font);
+}
+
+void Tree234Visualize::updateStep(int index) {
+    this->step = this->tree.getProcess()[index];
+    this->frame = 0;
+    this->stepIndex = index;
+}
+
+void Tree234Visualize::createFromFile() {
+    this->tree.createFromFile("Data/data.txt");
+    if(this->tree.getProcess().empty()) return;
+    this->numFrameOfAnimation = 10/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void Tree234Visualize::createWithRandomizedData(int n, int range) {
+    this->tree.createRandom(n, range);
+    if(this->tree.getProcess().empty()) return;
+    this->numFrameOfAnimation = 10/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+

@@ -100,8 +100,8 @@ class Tree234 {
 
 class Tree234Visualize {
     private:
-        Tree234 Tree;
-        Step234 Step;
+        Tree234 tree;
+        Step234 step;
         bool isPause;
         ProgressBar progressBar;
         int stepIndex;
