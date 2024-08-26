@@ -1,8 +1,12 @@
 #ifndef Application_hpp
 #define Application_hpp
 
-#include "raylib.h"
+#include "GUI.hpp
 #include "MaxHeap.hpp"
+#include "Graph.hpp"
+#include "AVL.hpp"
+#include "Tree234.hpp"
+#include "Trie.hpp"
 
 class Menu {
     private:
