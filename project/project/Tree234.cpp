@@ -359,6 +359,7 @@ bool Tree234::remove(int key) {
         saveStep(predecessor, -1, 0, {}, "merge", "", false);
 
     }
+    return 0;
 }
 
 void Tree234::createFromFile(const char* filename) {
@@ -404,7 +405,7 @@ Tree234Visualize::Tree234Visualize(Font font) {
     this->isPause = false;
     this->numFrameOfAnimation = FPS;
 
-    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
     this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
     this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
     this->insertButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
@@ -659,7 +660,7 @@ int Tree234Visualize::handle() {
 }
 
 void Tree234Visualize::draw() {
-    drawSidebar(this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
+    drawSideBar(this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
     drawButtons();
     drawTree();
 }

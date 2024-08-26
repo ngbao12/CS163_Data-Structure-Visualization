@@ -388,15 +388,15 @@ AVLTreeVisualize::AVLTreeVisualize(Font font) {
     this->frame = 0;
     this->numFrameOfAnimation = FPS;
 
-    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
-    this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
-    this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
-    this->insertButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
-    this->deleteButton = Button({25, 580, 110, 30}, "Delete", -1, BLACK, 20, font);
+    this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->randomButton = Button({156.5, 449.3, 110, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);
+    this->insertButton = Button({8, 458, 110, 30}, "Push", -1, BLACK, 20, font);
+    this->deleteButton = Button({8, 504, 110, 30}, "Delete", -1, BLACK, 20, font);
     srand((int)time(0));
     this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
     this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
-    this->searchButton = Button({25, 625, 110, 30}, "Top", -1, BLACK, 20, font);
+    this->searchButton = Button({8, 545, 110, 30}, "Top", -1, BLACK, 20, font);
 }
 
 void AVLTreeVisualize::updateStep(int index) {
@@ -638,7 +638,7 @@ int AVLTreeVisualize::handle() {
 
 void AVLTreeVisualize::draw() {
     
-    drawSideBar(type, this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
+    //drawSideBar(type, this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
     drawButtons();
     drawTree();
 }

@@ -53,14 +53,26 @@ void Application::run() {
             case 0:
                 this->tab = menu();
                 break;
-
+            case 1:
+                break;
+            case 2:
+                this->tab = avlTree();
+                break;
+            case 3:
+                this->tab = Tree234();
+                break;
             case 4:
                 this->tab = maxHeap();
+                break;
+            case 5:
+                this->tab = trie();
+                break;
+            case 6:
+                this->tab = graph();
                 break;
         
             default:
                 this->tab = -1;
-                printf("HEHE\n");
                 break;
         }
         
@@ -90,6 +102,62 @@ int Application::maxHeap() {
         BeginDrawing();
         ClearBackground(LIGHT_THEME);
         maxHeap.draw();
+        
+        EndDrawing();
+    }
+    return -1;
+}
+
+int Application::avlTree() {
+    
+    AVLTreeVisualize avlTree = AVLTreeVisualize(FONT);
+    while(!WindowShouldClose()) {
+        avlTree.handle();
+        BeginDrawing();
+        ClearBackground(LIGHT_THEME);
+        avlTree.draw();
+        
+        EndDrawing();
+    }
+    return -1;
+}
+
+int Application::Tree234() {
+    
+    Tree234Visualize Tree234 = Tree234Visualize(FONT);
+    while(!WindowShouldClose()) {
+        Tree234.handle();
+        BeginDrawing();
+        ClearBackground(LIGHT_THEME);
+        Tree234.draw();
+        
+        EndDrawing();
+    }
+    return -1;
+}
+
+int Application::trie() {
+    
+    TrieVisualize trie = TrieVisualize(FONT);
+    while(!WindowShouldClose()) {
+        trie.handle();
+        BeginDrawing();
+        ClearBackground(LIGHT_THEME);
+        trie.draw();
+        
+        EndDrawing();
+    }
+    return -1;
+}
+
+int Application::graph() {
+    
+    GraphVisualize graph = GraphVisualize(FONT);
+    while(!WindowShouldClose()) {
+        graph.handle();
+        BeginDrawing();
+        ClearBackground(LIGHT_THEME);
+        graph.draw();
         
         EndDrawing();
     }

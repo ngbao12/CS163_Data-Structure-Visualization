@@ -323,7 +323,7 @@ void GraphVisualize::drawGraph() {
 }
 
 void GraphVisualize::draw() {
-    drawSidebar("", {}, this->infor, this->progressBar, this->font);
+    drawSideBar("", {}, this->infor, this->progressBar, this->font);
     drawButton();
     drawGraph();
 }
@@ -373,7 +373,7 @@ void GraphVisualize::randomize() {
     this->infor = TextFormat("Randomize graph with v = %s, e = %s", v.c_str(), e.c_str());
     this->graph.randomize(std::stoi(v), std::stoi(e), 100);
     this->progressBar.updateMaxStep(1);
-    this->ProgressBar.updateStep(1);
+    this->progressBar.updateStep(1);
 }
 
 void GraphVisualize::loadFile() {

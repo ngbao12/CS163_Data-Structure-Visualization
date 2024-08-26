@@ -23,15 +23,15 @@ void initResource() {
     SPEED_DOWN = LoadTexture("asset/Chevron down.png");
     BACK_PAGE = LoadTexture("asset/BackPage.png");
     //FONT = LoadFont("./Font/Roboto-Regular.ttf");
-    FONT = LoadFontEx("./Font/Roboto-Regular.ttf", 100, 0, 255);
+    FONT = LoadFontEx("./Font/SF-Pro-Display-Regular.otf", 40, 0, 255);
 }
 
-Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount) {
+/*Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount) {
     return (Vector2) {
         start.x + amount * (end.x - start.x),
         start.y + amount * (end.y - start.y)
     };
-}
+}*/
 
 float FloatLerp(float start, float end, float amount) {
     return start + amount * (end - start);

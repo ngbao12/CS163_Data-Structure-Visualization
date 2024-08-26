@@ -123,24 +123,24 @@ void CircleButton::changeTexture(const char* file) {
 void ProgressBar::draw() {
     DrawCircle(33.5, 643.5, 17.5, doubleBack ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
     DrawCircle(72.5, 643.5, 17.5 , back ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(122, 643.5, 25.5 , play ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(169.5, 643.5, 17.5 , next ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(208.5, 643.5, 17.5 , doubleNext ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(121.77, 643.5, 25.5 , play ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(168.5, 643.5, 17.5 , next ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircle(207.5, 643.5, 17.5 , doubleNext ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
     DrawCircle(263.5, 610.5, 12.5 , up ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
     DrawCircle(263.5, 670.5, 12.5 , down ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
     
-    DrawTextPro(font, TextFormat("%.1fx", this->speed), {368,775}, ORIGIN, 0.f, 15, 2, BLACK);
+    DrawTextPro(font, TextFormat("%.1fx", this->speed), {246, 631}, ORIGIN, 0.f, 20, 1, BLACK);
     
-    drawPicture(DOUBLE_BACK, {19.5, 627.75, 28, 30.63});
-    drawPicture(BACK, {56.75, 630.38, 28, 28});
+    drawPicture(DOUBLE_BACK, {19.5, 629, 28, 28});
+    drawPicture(BACK, {56.75, 629, 28, 28});
     drawPicture(PLAY, {145, 650.5, 25, 25}, 0, {35.f, 35.f});
-    drawPicture(NEXT, {194, 626, 28, 30.63});
-    drawPicture(DOUBLE_NEXT, {254, 601, 20, 20});
-    drawPicture(SPEED_UP, {251, 740, 30, 30});
-    drawPicture(SPEED_DOWN, {370, 795, 30, 30});
+    drawPicture(NEXT, {155, 629, 28, 28});
+    drawPicture(DOUBLE_NEXT, {194, 629, 28, 28});
+    drawPicture(SPEED_UP, {250.5, 598, 25, 25});
+    drawPicture(SPEED_DOWN, {250.5, 658, 25, 25});
 
-    DrawRectangleRec({25, 728, 300, 10}, NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawRectangleRec({25, 728, this->maxStep != 0 ? this->curStep*300.f/this->maxStep : 0, 10}, SEPERATOR_COLOR);
+    //DrawRectangleRec({4.02, 589, 297, 6}, NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawRectangleRec({0, 590, this->maxStep != 0 ? this->curStep*297.f/this->maxStep : 0, 4}, {249,208,208,255});
 }
 
 void ProgressBar::updateMaxStep(int max) {
@@ -160,42 +160,42 @@ void ProgressBar::updateStep(int step) {
 }
 
 int ProgressBar::handle() {
-    if (CheckCollisionPointCircle(GetMousePosition(), {40, 790}, 25)) {
+    if (CheckCollisionPointCircle(GetMousePosition(), {33.5, 643.5}, 17.5)) {
         this->doubleBack = true;
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             return -2;
         }
     } else this->doubleBack = false;
     
-    if (CheckCollisionPointCircle(GetMousePosition(), {100, 790}, 25)) {
+    if (CheckCollisionPointCircle(GetMousePosition(), {72.5, 643.5}, 17.5)) {
         this->back = true;
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             return -1;
         }
     } else this->back = false;
     
-    if (CheckCollisionPointCircle(GetMousePosition(), {172, 790}, 37.5)) {
+    if (CheckCollisionPointCircle(GetMousePosition(), {121.77, 643.5}, 25.5)) {
         this->play = true;
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             return 0;
         }
     } else this->play = false;
 
-    if (CheckCollisionPointCircle(GetMousePosition(), {245, 790}, 25)) {
+    if (CheckCollisionPointCircle(GetMousePosition(), {168.5, 643.5}, 17.5)) {
         this->next = true;
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             return 1;
         }
     } else this->next = false;
 
-    if (CheckCollisionPointCircle(GetMousePosition(), {305, 790}, 25)) {
+    if (CheckCollisionPointCircle(GetMousePosition(), {207.5, 643.5}, 17.5)) {
         this->doubleNext = true;
         if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
             return 2;
         }
     } else this->doubleNext = false;
 
-    if (CheckCollisionPointCircle(GetMousePosition(), {385, 755}, 15)) {
+    if (CheckCollisionPointCircle(GetMousePosition(), {263.5, 610.5}, 12.5)) {
         this->up = true;
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
             // std::this_thread::sleep_for(std::chrono::milliseconds(200));
@@ -204,7 +204,7 @@ int ProgressBar::handle() {
         }
     } else this->up = false;
 
-    if (CheckCollisionPointCircle(GetMousePosition(), {385, 810}, 15)) {
+    if (CheckCollisionPointCircle(GetMousePosition(), {263.5, 670.5}, 12.5)) {
         this->down = true;
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
             // std::this_thread::sleep_for(std::chrono::milliseconds(200));
@@ -239,11 +239,11 @@ void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font)
 }
 
 void drawSideBar(std::string code, std::vector<int> lines, std::string infor, ProgressBar bar, Font font) {
-    DrawRectangleRounded({0, 70, 425, 765}, 0.10f, 32, SIDEBAR_COLOR);
-    DrawLineEx({0, 350}, {425, 350}, 2, SEPERATOR_COLOR);
-    DrawLineEx({0, 470}, {425, 470}, 2, SEPERATOR_COLOR);
-    DrawLineEx({170, 470}, {170, 715}, 2, SEPERATOR_COLOR);
-    DrawLineEx({0, 715}, {425, 715}, 2, SEPERATOR_COLOR);
+    DrawRectangleRounded({0, 110, 297, 584}, 0.10f, 32, SIDEBAR_COLOR);
+    DrawLineEx({0, 326}, {297, 326}, 1.3, SEPERATOR_COLOR);
+    DrawLineEx({0, 408}, {297, 408}, 1.3, SEPERATOR_COLOR);
+    DrawLineEx({126, 408}, {126, 592}, 1.3, SEPERATOR_COLOR);
+    DrawLineEx({0, 592}, {297, 592}, 1.3, SEPERATOR_COLOR);
     drawCode(code, 8, lines, font);
     drawInfor(infor, font);
     bar.draw();

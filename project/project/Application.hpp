@@ -1,7 +1,7 @@
 #ifndef Application_hpp
 #define Application_hpp
 
-#include "GUI.hpp
+#include "GUI.hpp"
 #include "MaxHeap.hpp"
 #include "Graph.hpp"
 #include "AVL.hpp"
@@ -33,6 +33,10 @@ class Application {
         void run();
         int menu();
         int maxHeap();
+        int avlTree();
+        int Tree234();
+        int graph();
+        int trie();
 };
 
 
