@@ -549,3 +549,117 @@ void Tree234Visualize::drawButtons() {
         this->playButton.draw();
     }
 }
+
+int Tree234Visualize::handle() {
+    if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        if (this->createButton.getIsHovered()) {
+            this->isCreateChosen = true;
+            this->isDeleteChosen = false;
+            this->isInsertChosen = false;
+            this->isSearchChosen = false;
+        }
+        if (this->deleteButton.getIsHovered()) {
+            this->inputNumber.resetText();
+            this->isCreateChosen = false;
+            this->isDeleteChosen = true;
+            this->isInsertChosen = false;
+            this->isSearchChosen = false;
+        }
+        if (this->insertButton.getIsHovered()) {
+            this->inputNumber.resetText();
+            this->isCreateChosen = false;
+            this->isDeleteChosen = false;
+            this->isInsertChosen = true;
+            this->isSearchChosen = false;
+        }
+        if (this->searchButton.getIsHovered()) {
+            this->inputNumber.resetText();
+            this->isCreateChosen = false;
+            this->isDeleteChosen = false;
+            this->isInsertChosen = false;
+            this->isSearchChosen = true;
+        }
+    }
+
+    if (this->playButton.handle()) {
+        if (this->isInsertChosen) {
+            insert();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 2;
+        }
+        if (this->isDeleteChosen) {
+            deleteNode();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 3;
+        }
+        if (this->isSearchChosen) {
+            search();
+            std::this_thread::sleep_for(std::chrono::milliseconds(200));
+            return 4;
+        }
+    }
+
+    if (this->randomButton.handle()) {
+        createWithRandomizedData();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 1;
+    }
+    if (this->loadFileButton.handle()) {
+        createFromFile();
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        return 1;
+    }
+
+    int flag = this->progressBar.handle();
+    if ( flag != 10) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
+
+    switch (flag)
+    {
+        case -2:
+            if (this->progressBar.getMaxStep() == 0) break;
+            this->progressBar.updateStep(-2);
+            updateStep(0);
+            break;
+
+        case -1:
+            if (this->progressBar.getMaxStep() == 0) break;
+            this->progressBar.updateStep(-1);
+            if (stepIndex == 0) return 0;
+            updateStep(this->stepIndex - 1);
+            break;
+
+        case 1:
+            if (this->progressBar.getMaxStep() == 0) break;
+            if(stepIndex == this->tree.getProcess().size() - 1) break;
+            this->progressBar.updateStep(1);
+            updateStep(this->stepIndex + 1);
+            break;
+
+        case 2:
+            if (this->progressBar.getMaxStep() == 0) break;
+            updateStep((int)this->tree.getProcess().size() - 1);
+            this->progressBar.updateStep(2);
+
+        case 0:
+            this->isPause = !this->isPause;
+            break;
+
+        case 3: case -3:
+            this->numFrameOfAnimation = FPS/this->progressBar.getSpeed();
+
+            break;
+
+        default:
+            break;
+    }
+
+    return 0;
+}
+
+void Tree234Visualize::draw() {
+    drawSidebar(this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
+    drawButtons();
+    drawTree();
+}
