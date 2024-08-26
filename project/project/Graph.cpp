@@ -93,3 +93,106 @@ void Graph::randomize(int nodeCount, int edgeCount, int maxWeight) {
         }
     }
 }
+
+void Graph::initFromFile(const char* filename) {
+    clearGraph();
+    std::ifstream file(filename);
+    int n;
+    file >> n;
+
+    for (int i = 0; i < n; ++i) {
+        addNode();
+    }
+    
+    int weight;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            file >> weight;
+            addEdge(i, j, weight);
+        }
+    }
+
+    file.close();
+}
+
+void Graph::resetMark() {
+    for(auto node : nodes) {
+        for(auto edge : node->neighbors) {
+            edge.highlight = false;
+        }
+        node->color = false;
+    }
+}
+int Graph::connectedComponent() {
+    resetMark();
+    std::vector<bool> visited(nodes.size(), false);
+    int currentColor = 0;
+    for (int i = 0; i < nodes.size(); ++i) {
+        if (!visited[i]) {
+            std::queue<int> q;
+            q.push(i);
+            visited[i] = true;
+            nodes[i]->color = currentColor;
+
+            while (!q.empty()) {
+                int node = q.front();
+                q.pop();
+
+                for (auto& edge : nodes[node]->neighbors) {
+                    int neighborIndex = getNodeIndex(edge.neighborNode);
+                    if (!visited[neighborIndex]) {
+                        q.push(neighborIndex);
+                        visited[neighborIndex] = true;
+                        nodes[neighborIndex]->color = currentColor;
+                    }
+                }
+            }
+            currentColor++;
+        }
+    }
+    return currentColor;
+}
+void Graph::mstKruskal() {
+    resetMark();
+    std::vector<std::tuple<int, int, int>> edges;
+    
+    for (int i = 0; i < nodes.size(); ++i) {
+        for (auto& edge : nodes[i]->neighbors) {
+            edges.push_back({ edge.weight, i, getNodeIndex(edge.neighborNode) });
+        }
+    }
+
+    std::sort(edges.begin(), edges.end());
+
+    std::vector<int> parent(nodes.size());
+    std::vector<int> rank(nodes.size(), 0);
+
+    for (int i = 0; i < nodes.size(); ++i) {
+        parent[i] = i;
+    }
+
+    // Kruskal's algorithm
+    for (auto& [weight, u, v] : edges) {
+        if (findParent(parent, u) != findParent(parent, v)) {
+            unionNodes(parent, rank, u, v);
+            
+            // Highlight the nodes and the edges in the MST
+            nodes[u]->color = true;
+            nodes[v]->color = true;
+
+            for (auto& edge : nodes[u]->neighbors) {
+                if (getNodeIndex(edge.neighborNode) == v) {
+                    edge.highlight = true;
+                    break;
+                }
+            }
+            for (auto& edge : nodes[v]->neighbors) {
+                if (getNodeIndex(edge.neighborNode) == u) {
+                    edge.highlight = true;
+                    break;
+                }
+            }
+            nodes[u]->color = true;
+        }
+    }
+}
