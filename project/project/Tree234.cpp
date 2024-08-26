@@ -445,3 +445,107 @@ void Tree234Visualize::createWithRandomizedData(int n, int range) {
     this->progressBar.updateStep(0);
 }
 
+
+void Tree234Visualize::insert() {
+    this->tree.insert(std::stoi(this->inputNumber.getText()));
+    if(this->tree.getProcess().empty()) return;
+
+    this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void Tree234Visualize::deleteNode() {
+    this->tree.remove(std::stoi(this->inputNumber.getText()));
+    if(this->tree.getProcess().empty()) return;
+    this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void Tree234Visualize::search() {
+    this->tree.search(std::stoi(this->inputNumber.getText()));
+    if(this->tree.getProcess().empty()) return;
+    this->numFrameOfAnimation = 60/this->progressBar.getSpeed();
+
+    this->step = this->tree.getProcess().front();
+    this->progressBar.updateMaxStep((int)this->tree.getProcess().size() - 1);
+    this->stepIndex = 0;
+    this->frame = 0;
+    this->progressBar.updateStep(0);
+}
+
+void Tree234Visualize::drawNode(Node234 *root, int frame, int numFrame, Font font, bool isNotification) {
+    if (!root) return;
+    if (root->keys.size() == 0) {
+        Vector2 pos = Vector2Lerp(root->start, root->end, float(frame)/numFrame);
+        DrawRectangleV(Vector2Add(pos, (Vector2){-15.f, 0.f}), {30.f, 30.f}, HIGHLIGHT_NODE_COLOR_1);
+        DrawLineEx(Vector2Add(pos, (Vector2){-0.f, 30.f}), Vector2Lerp(root->children[0]->start, root->children[0]->end, float(frame)/numFrame), 2, NODE_COLOR);
+    } else {
+        for (int i = 0; i < root->children.size(); i++) {
+            if(root->children[i]) {
+                Vector2 linePos;
+                if (i >= root->keys.size()) linePos = Vector2Add(Vector2Lerp(root->keys.back().start, root->keys.back().end, float(frame)/numFrame) , (Vector2){30.f, 30.f});
+                else linePos = Vector2Add(Vector2Lerp(root->keys[i].start, root->keys[i].end, float(frame)/numFrame), (Vector2){0.f, 30.f});
+                DrawLineEx(linePos, Vector2Lerp(root->children[i]->start, root->children[i]->end, float(frame)/numFrame), 2, NODE_COLOR);
+            }
+        }
+    }
+    for (int i = 0; i < root->keys.size(); i++) {
+        Color color = root->keys[i].highlight ? HIGHLIGHT_NODE_COLOR_1 : NODE_COLOR;
+        Vector2 keyPos = Vector2Lerp(root->keys[i].start, root->keys[i].end, float(frame)/numFrame);
+        DrawRectangleV(keyPos, {30.f, 30.f}, color);
+        Vector2 textSize = MeasureTextEx(font, TextFormat("%d", root->keys[i].value), CODE_SIZE, 0);
+        DrawTextPro(font, TextFormat("%d", root->keys[i].value), {keyPos.x + 15 - textSize.x/2, keyPos.y + 15 - textSize.y/2}, {0.f, 0.f}, 0, CODE_SIZE, 0, BLACK);
+    }
+    for (int i = 0; i < root->children.size(); i++) {
+        if(root->children[i]) {
+            drawNode(root->children[i], frame, numFrame, font, isNotification);
+        }
+    }
+}
+
+void Tree234Visualize::drawTree() {
+    if (this->tree.getProcess().empty()) return;
+    drawNode(this->step.root, this->frame, this->numFrameOfAnimation, this->font, this->step.type == -1);
+    
+    if (this->isPause) {
+        return;
+    }
+    this->frame++;
+    if(this->frame >= this->numFrameOfAnimation && !this->tree.getProcess().empty()) {
+        if (stepIndex == this->tree.getProcess().size() - 1) {
+            this->frame--;
+            return;
+        }
+        updateStep(this->stepIndex + 1);
+        this->progressBar.updateStep(1);
+    }
+
+}
+
+void Tree234Visualize::drawButtons() {
+    this->createButton.draw(50);
+    this->deleteButton.draw(50);
+    this->insertButton.draw(50);
+    this->searchButton.draw(50);
+
+    if(this->isCreateChosen) {
+        this->randomButton.draw();
+        this->loadFileButton.draw();
+    }
+
+    if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {
+        this->inputNumber.draw();
+        this->inputNumber.update();
+        this->playButton.draw();
+    }
+}
