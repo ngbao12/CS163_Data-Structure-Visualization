@@ -16,7 +16,7 @@ struct GraphNode {
 
 class Graph {
     private:
-        std::vector<GraphNode*> Nodes;
+        std::vector<GraphNode*> nodes;
         int frameCounting = 0;
         int findParent(std::vector<int>& parent, int node);
         void unionNodes(std::vector<int>& parent, std::vector<int>& rank, int u, int v);
@@ -61,7 +61,7 @@ class GraphVisualize {
     public:
         GraphVisualize(Font font = FONT);
         void randomize();
-        void loadfile();
+        void loadFile();
         void connectedComponent();
         void mstKruskal();
         void drawGraph();

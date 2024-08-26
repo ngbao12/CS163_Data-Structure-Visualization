@@ -87,7 +87,6 @@ class Tree234 {
             while (!q.empty()) {
                 Node234* current = q.front();
                 q.pop();
-                current->logKeys();
                 for (Node234* child : current->children) {
                     if (child != nullptr) {
                         q.push(child);
