@@ -196,3 +196,79 @@ void Graph::mstKruskal() {
         }
     }
 }
+
+void Graph::drawGraph(Font font, std::vector<Color> color) {
+    if(!color.empty()) {
+        for (auto node : nodes) {
+            for (auto edge : node->neighbors) {
+                DrawLineEx(node->pos, edge.neighborNode->pos, 2, color[node->color]);
+                Vector2 mid = { (node->pos.x + edge.neighborNode->pos.x) / 2, (node->pos.y + edge.neighborNode->pos.y) / 2 };
+                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, WHITE);
+            }
+        }
+        for(int i = 0; i < nodes.size(); i++) {
+            Vector2 size = MeasureTextEx(font, TextFormat("%d", i), 15, 2);
+            DrawCircleV(nodes[i]->pos, 15, color[nodes[i]->color]);
+            printf("Color: (%d, %d, %d, %d)\n", color[nodes[i]->color].r, color[nodes[i]->color].g, color[nodes[i]->color].b, color[nodes[i]->color].a);
+            DrawTextEx(font, TextFormat("%d", i), {nodes[i]->pos.x - size.x/2, nodes[i]->pos.y - size.y/2}, 15, 2, BLACK);
+        }
+    } else {
+        for (auto node : nodes) {
+            for (auto edge : node->neighbors) {
+                DrawLineEx(node->pos, edge.neighborNode->pos, 2, edge.highlight ? RED : NODE_COLOR);
+                Vector2 mid = { (node->pos.x + edge.neighborNode->pos.x) / 2, (node->pos.y + edge.neighborNode->pos.y) / 2 };
+                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, WHITE);
+            }
+        }
+        for(int i = 0; i < nodes.size(); i++) {
+            Vector2 size = MeasureTextEx(font, TextFormat("%d", i), 15, 2);
+            DrawCircleV(nodes[i]->pos, 15, nodes[i]->color ? RED : NODE_COLOR);
+            DrawTextEx(font, TextFormat("%d", i), {nodes[i]->pos.x - size.x/2, nodes[i]->pos.y - size.y/2}, 15, 2, BLACK);
+        }
+    }
+}
+
+void Graph::updatePositions() {
+    float repulsion_const = 500000.0f;
+    float attraction_const = 0.1f;
+
+    for (auto node : nodes) {
+        Vector2 force = {0, 0};
+
+        for (auto other : nodes) {
+            if (node != other) {
+                float dx = node->pos.x - other->pos.x;
+                float dy = node->pos.y - other->pos.y;
+                float dis = sqrt(dx * dx + dy * dy);
+
+                if (dis > 0) {
+                    float repulsion = repulsion_const / (dis * dis);
+                    force.x += repulsion * dx / dis;
+                    force.y += repulsion * dy / dis;
+                }
+            }
+        }
+
+        //Spring Force
+        for (auto edge : node->neighbors) {
+            float dx = node->pos.x - edge.neighborNode->pos.x;
+            float dy = node->pos.y - edge.neighborNode->pos.y;
+            float dis = sqrt(dx * dx + dy * dy);
+
+            if (dis > 0) {
+                float attraction = attraction_const * (dis - edge.weight);
+                force.x -= attraction * dx / dis;
+                force.y -= attraction * dy / dis;
+            }
+        }
+
+        if(this->frameCounting > 2000) continue;
+        
+        node->pos.x += force.x;
+        node->pos.y += force.y;
+
+        node->pos.x = std::max(std::min(1450.f, node->pos.x), 500.f);
+        node->pos.y = std::max(std::min(750.f, node->pos.y), 100.f);
+        frameCounting++;
+    }
+}
