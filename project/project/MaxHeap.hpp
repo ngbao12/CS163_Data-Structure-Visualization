@@ -36,9 +36,9 @@ namespace Max_Heap {
     struct Step {
         std::vector<Node> nodes;
         std::vector<int> lines;
-        int Hightlight[2];
-        std::string Infor;
-        std::string Code;
+        int highlight[2];
+        std::string infor;
+        std::string code;
         int type; //-1: none, 0: check, 1: swap, 2: change(num, text), 3: insert, 4: remove;
     };
 
