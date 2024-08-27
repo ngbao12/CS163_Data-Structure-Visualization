@@ -44,17 +44,17 @@ int Trie::estimateWidth(TrieNode* root) {
 
 void Trie::updatePos(TrieNode* root, bool updateStart, bool forCreate, Vector2 parentPos, Vector2 delta) {
     if (!root) return;
-        if (forCreate) root->start = {779.f, 124.f};
-        if (updateStart && !forCreate) {
-            root->start = Vector2Add(parentPos, delta);
-        }
-        root->end = Vector2Add(parentPos, delta);
+    if (forCreate) root->start = {779.f, 124.f};
+    if (updateStart && !forCreate) {
+        root->start = Vector2Add(parentPos, delta);
+    }
+    root->end = Vector2Add(parentPos, delta);
     
     float pos = 0;
     for (int i = 0; i < ALPHABET_SIZE; i++) {
         if(!root->children[i]) continue;
         int childWidth = root->children[i]->width;
-        updatePos(root->children[i], updateStart, forCreate, root->end, {40.f * (pos + float(childWidth)/2 - float(root->width)/2), 100.f});
+        updatePos(root->children[i], updateStart, forCreate, root->end, {50.f * (pos + float(childWidth)/2 - float(root->width)/2), 60.f});
         pos += childWidth;
     }
 }
@@ -177,6 +177,7 @@ void Trie::createFromFile(const char* filename) {
     }
     
     file.close();
+    printf("DONE");
     clearProcess();
     saveStep(nullptr, -1, {}, "Creating...", "", true);
 }
@@ -225,7 +226,6 @@ void TrieVisualize::updateStep(int index) {
     this->step = this->tree.getProcess()[index];
     this->frame = 0;
     this->stepIndex = index;
-    
 }
 
 void TrieVisualize::createFromFile() {
@@ -334,8 +334,8 @@ void TrieVisualize::drawButtons() {
     this->searchButton.draw(50);
 
     if(this->isCreateChosen) {
-        this->randomButton.draw(50);
-        this->loadFileButton.draw(50);
+        this->randomButton.draw();
+        this->loadFileButton.draw();
     }
 
     if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {
@@ -395,7 +395,7 @@ int TrieVisualize::handle() {
     }
 
     if (this->randomButton.handle()) {
-        //createWithRandomizedData();
+        createWithRandomizedData();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         return 1;
     }
@@ -454,7 +454,8 @@ int TrieVisualize::handle() {
 }
 
 void TrieVisualize::draw() {
-    //drawSidebar(this->step.Code, this->step.Line, this->step.Infor, this->Progress_bar, this->font);
+    drawSideBar(this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
     drawButtons();
     drawTree();
 }
+

@@ -86,7 +86,6 @@ private:
     std::vector<TrieStep> process;
     void saveStep(TrieNode* highlight, int type, std::vector<int> lines, const std::string infor, const std::string code, bool forCreate = false);
     void updatePos(TrieNode* root, bool updateStart = true, bool forCreate = false, Vector2 parentPos = {779.f, 124.f}, Vector2 delta = {0.f, 0.f});
-    // void update_target_pos(TrieNode* root, Vector2 parent_pos = {1013.f, 100.f}, Vector2 delta = {0.f, 0.f}, bool for_create = false);
     bool deleteWord(TrieNode* node, const std::string& key, int depth = 0);
 
 public:
@@ -136,7 +135,7 @@ public:
     TrieVisualize() : TrieVisualize(FONT) {};
     void updateStep(int index);
     // int update_animation();
-    void createWithRandomizedData(int n, int length);
+    void createWithRandomizedData(int n = 5, int length = 5);
     void createFromFile();
     void insert();
     void deleteNode();
