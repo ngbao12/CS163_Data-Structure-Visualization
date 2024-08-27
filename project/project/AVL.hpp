@@ -64,8 +64,8 @@ class AVLTree {
         AVLNode* cloneTree(AVLNode* node);
         
         void saveStep(int speacialValue, int type, std::vector<int> line, const std::string infor, const std::string code, bool forCreate = false);
-        void updateStandardPos(AVLNode* root, Vector2 parentPos = {1013, 100}, Vector2 delta = {0.0f, 0.0f});
-        void updateTargetPos(AVLNode* root, Vector2 parentPos = {1013,100}, Vector2 delta = {0.0f, 0.0f}, bool forCreate = false);
+        void updateStandardPos(AVLNode* root, Vector2 parentPos = {779, 124}, Vector2 delta = {0.0f, 0.0f});
+        void updateTargetPos(AVLNode* root, Vector2 parentPos = {779, 124}, Vector2 delta = {0.0f, 0.0f}, bool forCreate = false);
         
         int height (AVLNode* node) {
             return node ? node->height : 0;
@@ -89,7 +89,7 @@ class AVLTree {
         std::vector<AVLStep> getProcess() {return this->process;}
         void createFromFile (const char* filename);
         void createWithRandomizedData(int n, int range);
-        void insert(int key, Vector2 start = {1013,100}, Vector2 end = {1013,100});
+        void insert(int key, Vector2 start = {779, 124}, Vector2 end = {779, 124});
         void deleteNode(int key);
         bool search(int key);
         void printInOrder();
@@ -124,7 +124,7 @@ public:
     AVLTreeVisualize(Font font);
     AVLTreeVisualize() : AVLTreeVisualize(FONT){}
     void updateStep(int step);
-    void createWithRandomizedData(int n, int range);
+    void createWithRandomizedData(int n = 15, int range = 100);
     void createFromFile();
     void insert();
     void deleteNode();

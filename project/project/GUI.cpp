@@ -13,7 +13,7 @@ Button::Button(Rectangle rect, const std::string text, float yText, Color textCo
 
 void Button::draw(float radius) {
     this->isHovered = CheckCollisionPointRec(GetMousePosition(), this->outerRect);
-    DrawRectangleRounded(this->outerRect, radius/100, 32, this->isHovered ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawRectangleRounded(this->outerRect, radius/55, 32, this->isHovered ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
     DrawTextPro(this->font, this->content.c_str(), this->contentPos, ORIGIN, 0, this->fontSize, 2, this->contentColor);
 }
 

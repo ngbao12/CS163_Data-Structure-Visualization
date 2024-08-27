@@ -45,7 +45,7 @@ struct TrieNode {
     Vector2 end;
     int width;
     
-    TrieNode(char ch, Vector2 st = {1013.f, 100.f}, Vector2 des = {1013.f, 100.f}) {
+    TrieNode(char ch, Vector2 st = {779.f, 124.f}, Vector2 des = {779.f, 124.f}) {
         isEndStr = false;
         numOfChild = 0;
         width = 1;
@@ -61,7 +61,7 @@ struct TrieNode {
         numOfChild = 0;
         width = 1;
         character = '\0';
-        start = end = {1013.f, 100.f};
+        start = end = {779.f, 124.f};
         for (int i = 0; i < ALPHABET_SIZE; i++)
             children[i] = nullptr;
     }
@@ -85,7 +85,7 @@ private:
     std::pair<TrieNode*, TrieNode*> cloneTrie(TrieNode* root, TrieNode* highlight = nullptr); //first: root, second: highlight
     std::vector<TrieStep> process;
     void saveStep(TrieNode* highlight, int type, std::vector<int> lines, const std::string infor, const std::string code, bool forCreate = false);
-    void updatePos(TrieNode* root, bool updateStart = true, bool forCreate = false, Vector2 parentPos = {1013.f, 100.f}, Vector2 delta = {0.f, 0.f});
+    void updatePos(TrieNode* root, bool updateStart = true, bool forCreate = false, Vector2 parentPos = {779.f, 124.f}, Vector2 delta = {0.f, 0.f});
     // void update_target_pos(TrieNode* root, Vector2 parent_pos = {1013.f, 100.f}, Vector2 delta = {0.f, 0.f}, bool for_create = false);
     bool deleteWord(TrieNode* node, const std::string& key, int depth = 0);
 

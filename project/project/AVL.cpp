@@ -38,7 +38,7 @@ void AVLTree::updateStandardPos(AVLNode* root, Vector2 parentPos, Vector2 delta)
 
 void AVLTree::updateTargetPos(AVLNode* root, Vector2 parentPos, Vector2 delta, bool forCreate) {
     if (!root) return;
-    if (forCreate) root->start = {1013.f, 100.f};
+    if (forCreate) root->start = {779.f, 124.f};
     root->end = Vector2Add(parentPos, delta);
     updateTargetPos(root->left, root->end, root->left ? (Vector2){-float(pow(2,root->left->height))*10, 50.f} : (Vector2){0.f, 0.f}, forCreate);
     updateTargetPos(root->right, root->end, root->right ? (Vector2){float(pow(2,root->right->height))*10, 50.f} : (Vector2){0.f, 0.f}, forCreate);
@@ -53,7 +53,7 @@ int AVLTree::updateAllHeight(AVLNode* node) {
 void AVLTree::saveStep(int specialValue, int type, std::vector<int> line, const std::string infor, const std::string code, bool forCreate) {
     AVLNode* newRoot = cloneTree(this->root);
     updateAllHeight(newRoot);
-    updateTargetPos(newRoot, {1013.f, 100.f}, {0.f, 0.f}, forCreate);
+    updateTargetPos(newRoot, {779.f, 124.f}, {0.f, 0.f}, forCreate);
     this->process.push_back({newRoot, line, specialValue, infor, code, type});
     updateAllHeight(this->root);
     updateStandardPos(this->root);
@@ -107,7 +107,7 @@ std::pair<AVLNode*, int> AVLTree::balance(AVLNode* node, const std::string code)
 void AVLTree::insert(int key, Vector2 start, Vector2 end) {
     clearProcess();
     if (!this->root) {
-        this->root = new AVLNode(key, {1013, 150}, {1013, 150});
+        this->root = new AVLNode(key, {779, 150}, {779, 150});
         saveStep(key, 1, {0}, "Insert at Root.", AVL_INSERT);
         saveStep(-1, -1, {}, "Finish Insert", AVL_INSERT);
         return;
@@ -391,12 +391,12 @@ AVLTreeVisualize::AVLTreeVisualize(Font font) {
     this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
     this->randomButton = Button({156.5, 449.3, 110, 30}, "Random", -1, BLACK, 20, font);
     this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);
-    this->insertButton = Button({8, 458, 110, 30}, "Push", -1, BLACK, 20, font);
+    this->insertButton = Button({8, 458, 110, 30}, "Insert", -1, BLACK, 20, font);
     this->deleteButton = Button({8, 504, 110, 30}, "Delete", -1, BLACK, 20, font);
     srand((int)time(0));
-    this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
-    this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
-    this->searchButton = Button({8, 545, 110, 30}, "Top", -1, BLACK, 20, font);
+    this->inputNumber = InputStr(156.5, 449.3, 110, 30, TextFormat("%d", rand() % 100), 20, this->font);
+    this->playButton = Button({173, 492, 70, 30}, "Play", -1, BLACK, 20, font);
+    this->searchButton = Button({8, 545, 110, 30}, "Search", -1, BLACK, 20, font);
 }
 
 void AVLTreeVisualize::updateStep(int index) {
@@ -501,8 +501,8 @@ void AVLTreeVisualize::drawButtons() {
     this->searchButton.draw(50);
 
     if(this->isCreateChosen) {
-        this->randomButton.draw();
-        this->loadFileButton.draw();
+        this->randomButton.draw(50);
+        this->loadFileButton.draw(50);
     }
 
     if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {

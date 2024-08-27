@@ -8,7 +8,7 @@ struct Key234 {
     Vector2 start, end;
     bool highlight;
     Key234() {}
-    Key234(int v, Vector2 st = {1013.f-15, 100.f}, Vector2 des = {1013.f-15, 100.f}) : value(v), start(st), end(des), highlight(0) {}
+    Key234(int v, Vector2 st = {779.f-15, 124.f}, Vector2 des = {779.f-15, 124.f}) : value(v), start(st), end(des), highlight(0) {}
 };
 
 struct Node234 {
@@ -18,8 +18,8 @@ struct Node234 {
     int width;
     Vector2 start;
     Vector2 end;
-    Node234() : parent(nullptr), keys({}), width(1), start({1013.f, 100.f}), end(start) {}
-    Node234(int key, Vector2 start = {1013.f, 100.f}, Vector2 end={1013.f, 100.f}, Node234* parent = nullptr);
+    Node234() : parent(nullptr), keys({}), width(1), start({779.f, 124.f}), end(start) {}
+    Node234(int key, Vector2 start = {779.f, 124.f}, Vector2 end={779.f, 124.f}, Node234* parent = nullptr);
 
     bool isLeaf() const;
     bool isFull() const;
@@ -49,7 +49,7 @@ class Tree234 {
         Node234* cloneTree(Node234* root, Node234* highlight=nullptr, int index=-1);
         std::vector<Step234> process;
         void saveStep(Node234* highlight, int indexHighlight, int type, std::vector<int> lines, const std::string infor, const std::string code, bool forCreate = false);
-        void updatePos(Node234* root, bool updateStart = false, bool forCreate = false, Vector2 parentPos = {1013.f, 100.f}, Vector2 delta = {0.f, 0.f});
+        void updatePos(Node234* root, bool updateStart = false, bool forCreate = false, Vector2 parentPos = {779.f, 124.f}, Vector2 delta = {0.f, 0.f});
     public:
         Tree234() : root(nullptr) {}
         void insert(int key);

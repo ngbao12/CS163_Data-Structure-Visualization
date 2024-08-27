@@ -44,7 +44,7 @@ int Trie::estimateWidth(TrieNode* root) {
 
 void Trie::updatePos(TrieNode* root, bool updateStart, bool forCreate, Vector2 parentPos, Vector2 delta) {
     if (!root) return;
-        if (forCreate) root->start = {1013.f, 100.f};
+        if (forCreate) root->start = {779.f, 124.f};
         if (updateStart && !forCreate) {
             root->start = Vector2Add(parentPos, delta);
         }
@@ -62,7 +62,7 @@ void Trie::updatePos(TrieNode* root, bool updateStart, bool forCreate, Vector2 p
 void Trie::saveStep(TrieNode* highlight, int type, std::vector<int> lines, const std::string infor, const std::string code, bool forCreate) {
     std::pair<TrieNode*, TrieNode*> newTrie = cloneTrie(this->root, highlight);
     estimateWidth(newTrie.first);
-    updatePos(newTrie.first, false, forCreate, {1013.f, 100.f}, {0.f, 0.f});
+    updatePos(newTrie.first, false, forCreate, {779.f, 124.f}, {0.f, 0.f});
     this->process.push_back({newTrie.first, lines, newTrie.second, infor, code, type});
     estimateWidth(this->root);
     updatePos(this->root, true, false);
@@ -209,15 +209,16 @@ TrieVisualize::TrieVisualize(Font font) {
     this->isPause = false;
     this->numFrameOfAnimation = FPS;
 
-    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
-    this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
-    this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
-    this->insertButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
-    this->deleteButton = Button({25, 580, 110, 30}, "Delete", -1, BLACK, 20, font);
+    this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->randomButton = Button({156.5, 449.3, 110, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);
+    this->insertButton = Button({8, 458, 110, 30}, "Insert", -1, BLACK, 20, font);
+    this->deleteButton = Button({8, 504, 110, 30}, "Delete", -1, BLACK, 20, font);
     srand((int)time(0));
-    this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
-    this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
-    this->searchButton = Button({25, 625, 110, 30}, "Search", -1, BLACK, 20, font);
+    this->inputNumber = InputStr(156.5, 449.3, 110, 30, TextFormat("%d", rand() % 100), 20, this->font);
+    this->playButton = Button({173, 492, 70, 30}, "Play", -1, BLACK, 20, font);
+    this->searchButton = Button({8, 545, 110, 30}, "Search", -1, BLACK, 20, font);
+
 }
 
 void TrieVisualize::updateStep(int index) {
@@ -305,7 +306,7 @@ void drawNode(TrieNode *root, TrieNode* highlight, int frame, int numFrame, Font
 
 void TrieVisualize::drawTree() {
     if (this->tree.empty()) {
-        DrawCircle(1013, 100, NODE_RADIUS, NODE_COLOR);
+        DrawCircle(779, 124, NODE_RADIUS, NODE_COLOR);
         return;
     }
     if (this->tree.getProcess().empty()) return;
@@ -333,8 +334,8 @@ void TrieVisualize::drawButtons() {
     this->searchButton.draw(50);
 
     if(this->isCreateChosen) {
-        this->randomButton.draw();
-        this->loadFileButton.draw();
+        this->randomButton.draw(50);
+        this->loadFileButton.draw(50);
     }
 
     if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {

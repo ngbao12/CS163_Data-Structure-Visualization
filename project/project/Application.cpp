@@ -126,6 +126,7 @@ int Application::Tree234() {
     
     Tree234Visualize Tree234 = Tree234Visualize(FONT);
     while(!WindowShouldClose()) {
+        
         Tree234.handle();
         BeginDrawing();
         ClearBackground(LIGHT_THEME);

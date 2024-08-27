@@ -75,7 +75,7 @@ void Tree234::updatePos(Node234* root, bool updateStart, bool forCreate, Vector2
     float pos = 0;
 
     if (updateStart) {
-        if (forCreate) root->start = {1013.f, 100.f};
+        if (forCreate) root->start = {779.f, 124.f};
         else root->start = Vector2Add(parentPos, delta);
         for(int i = 0; i < root->keys.size(); i++) {
             root->keys[i].start.x = pos + root->start.x - width/2;
@@ -124,7 +124,7 @@ Node234* Tree234::cloneTree(Node234* root, Node234* highlight, int index) {
 void Tree234::saveStep(Node234* highlight, int indexHighlight, int type, std::vector<int> lines, const std::string infor, const std::string code, bool forCreate) {
     Node234* newRoot = cloneTree(this->root, highlight, indexHighlight);
     estimateWidth(newRoot);
-    updatePos(newRoot, forCreate, forCreate, {1013.f, 100.f}, {0.f, 0.f});
+    updatePos(newRoot, forCreate, forCreate, {779.f, 124.f}, {0.f, 0.f});
     this->process.push_back({newRoot, lines, infor, code, type});
     estimateWidth(this->root);
     updatePos(this->root, true, false);
@@ -406,14 +406,15 @@ Tree234Visualize::Tree234Visualize(Font font) {
     this->numFrameOfAnimation = FPS;
 
     this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
-    this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
-    this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
-    this->insertButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
-    this->deleteButton = Button({25, 580, 110, 30}, "Delete", -1, BLACK, 20, font);
+    this->randomButton = Button({156.5, 449.3, 110, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);
+    this->insertButton = Button({8, 458, 110, 30}, "Insert", -1, BLACK, 20, font);
+    this->deleteButton = Button({8, 504, 110, 30}, "Delete", -1, BLACK, 20, font);
     srand((int)time(0));
-    this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
-    this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
-    this->searchButton = Button({25, 625, 110, 30}, "Search", -1, BLACK, 20, font);
+    this->inputNumber = InputStr(156.5, 449.3, 110, 30, TextFormat("%d", rand() % 100), 20, this->font);
+    this->playButton = Button({173, 492, 70, 30}, "Play", -1, BLACK, 20, font);
+    this->searchButton = Button({8, 545, 110, 30}, "Search", -1, BLACK, 20, font);
+
 }
 
 void Tree234Visualize::updateStep(int index) {
@@ -540,8 +541,8 @@ void Tree234Visualize::drawButtons() {
     this->searchButton.draw(50);
 
     if(this->isCreateChosen) {
-        this->randomButton.draw();
-        this->loadFileButton.draw();
+        this->randomButton.draw(50);
+        this->loadFileButton.draw(50);
     }
 
     if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {
