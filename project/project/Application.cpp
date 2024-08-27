@@ -97,12 +97,14 @@ int Application::menu() {
 int Application::maxHeap() {
     // MaxHeapVisualize heap;
     MaxHeapVisualize maxHeap = MaxHeapVisualize(FONT);
+    TittleButton tittle = TittleButton({465, 34, 350, 40}, "Max Heap", -1, BLACK, 20);
     while(!WindowShouldClose()) {
+        if (tittle.handle() == 1) return 0;
         maxHeap.handle();
         BeginDrawing();
         ClearBackground(LIGHT_THEME);
         maxHeap.draw();
-        
+        tittle.draw();
         EndDrawing();
     }
     return -1;
@@ -111,12 +113,14 @@ int Application::maxHeap() {
 int Application::avlTree() {
     
     AVLTreeVisualize avlTree = AVLTreeVisualize(FONT);
+    TittleButton tittle = TittleButton({465, 34, 350, 40}, "AVL Tree", -1, BLACK, 20);
     while(!WindowShouldClose()) {
+        if (tittle.handle() == 1) return 0;
         avlTree.handle();
         BeginDrawing();
         ClearBackground(LIGHT_THEME);
         avlTree.draw();
-        
+        tittle.draw();
         EndDrawing();
     }
     return -1;
@@ -125,13 +129,14 @@ int Application::avlTree() {
 int Application::Tree234() {
     
     Tree234Visualize Tree234 = Tree234Visualize(FONT);
+    TittleButton tittle = TittleButton({465, 34, 350, 40}, "2-3-4 Tree", -1, BLACK, 20);
     while(!WindowShouldClose()) {
-        
+        if (tittle.handle() == 1) return 0;
         Tree234.handle();
         BeginDrawing();
         ClearBackground(LIGHT_THEME);
         Tree234.draw();
-        
+        tittle.draw();
         EndDrawing();
     }
     return -1;
@@ -140,12 +145,14 @@ int Application::Tree234() {
 int Application::trie() {
     
     TrieVisualize trie = TrieVisualize(FONT);
+    TittleButton tittle = TittleButton({465, 34, 350, 40}, "Trie", -1, BLACK, 20);
     while(!WindowShouldClose()) {
+        if (tittle.handle() == 1) return 0;
         trie.handle();
         BeginDrawing();
         ClearBackground(LIGHT_THEME);
         trie.draw();
-        
+        tittle.draw();
         EndDrawing();
     }
     return -1;
@@ -154,13 +161,15 @@ int Application::trie() {
 int Application::graph() {
     
     GraphVisualize graph = GraphVisualize(FONT);
+    TittleButton tittle = TittleButton({465, 34, 350, 40}, "Graph", -1, BLACK, 20);
     while(!WindowShouldClose()) {
+        if (tittle.handle() == 1) return 0;
         graph.handle();
         BeginDrawing();
         ClearBackground(LIGHT_THEME);
         graph.draw();
-        
-        EndDrawing();
+        tittle.draw();
+        EndDrawing(); 
     }
     return -1;
 }

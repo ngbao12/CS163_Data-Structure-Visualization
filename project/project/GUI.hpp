@@ -23,6 +23,20 @@ class Button {
         virtual ~Button() = default;
 };
 
+class TittleButton : public Button {
+protected:
+    Vector2 backPagePos;
+    float backPageRadius;
+    Texture2D backPage;
+    bool isHoveredBackPage;
+public:
+    TittleButton(Rectangle rect, const std::string text, float ytext, Color textColor, float fontSize, Font font = FONT);
+    TittleButton() : TittleButton({465, 34, 350, 40}, "", 0.0f, {249,208,208,255},0) {}
+    void draw(float radius = 50);
+    int handle();
+    bool getIsHovered() {return this->isHovered;}
+};
+
 class ButtonImage : public Button {
     protected:
         Rectangle innerRect;

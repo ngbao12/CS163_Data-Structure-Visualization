@@ -24,6 +24,38 @@ int Button::handle() {
     return 0;
 }
 
+TittleButton::TittleButton(Rectangle rect, const std::string text, float yText, Color textColor, float fontSize, Font font) {
+    this->outerRect = rect;
+    this->content = text;
+    this->fontSize = fontSize;
+    this->font = font;
+    this->contentColor = textColor;
+    Vector2 textSize = MeasureTextEx(this->font, text.c_str(), this->fontSize,2);
+    this->contentPos = {this->outerRect.x + (this->outerRect.width-textSize.x)/2, (yText == -1) ? (rect.y + (rect.height - textSize.y)/2) : yText};
+    this->isHovered = false;
+    this->isHoveredBackPage = false;
+    this->backPage = BACK_PAGE;
+    this->backPageRadius = 20;
+    this->backPagePos = {432,54};
+}
+
+void TittleButton::draw(float radius) {
+    this->isHovered = CheckCollisionPointRec(GetMousePosition(), this->outerRect);
+    DrawRectangleRounded(this->outerRect, radius/55, 32, this->isHovered ? Color{234,119,119,255} : Color{249,208,208,255});
+    DrawTextPro(this->font, this->content.c_str(), this->contentPos, ORIGIN, 0, this->fontSize, 2, this->contentColor);
+    this->isHoveredBackPage = CheckCollisionPointCircle(GetMousePosition(), this->backPagePos
+                                                        , this->backPageRadius);
+    DrawCircleV(this->backPagePos, this->backPageRadius, this->isHoveredBackPage ? Color{234,119,119,255} : Color{249,208,208,255});
+    drawPicture(this->backPage, {421, 43,22,22});
+}
+
+int TittleButton::handle() {
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && this->isHoveredBackPage) {
+        return 1;
+    }
+    return 0;
+}
+
 ButtonImage::ButtonImage(Rectangle outerRect, Rectangle innerRect, const char* path, const std::string text, float yText, Color textColor, float fontSize, Font font) {
     this->outerRect = outerRect;
     this->innerRect = innerRect;
