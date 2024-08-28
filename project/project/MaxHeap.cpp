@@ -23,7 +23,11 @@ void Max_Heap::drawHeap(Step step, Font font) {
 }
 
 void MaxHeap::saveStep(int index1, int index2, std::vector<int> lines, const std::string infor, std::string code, int type) {
-    if (this->data.empty()) return;
+    
+    if (this->data.empty()) {
+            this->steps.push_back({{}, {}, {-1, -1}, "Heap is empty!", "", -1});
+            return;
+        }
 
     int size =(int) this->data.size();
     Vector2 pos = {779, 124};
@@ -171,7 +175,10 @@ int MaxHeap::deleteElement(int value) {
 
 void MaxHeap::top() {
     this->steps.clear();
-
+    if (this->data.empty()) {
+        this->steps.push_back({{}, {}, {-1, -1}, "Heap is empty!", "", -1});
+        return;
+    }
     saveStep(0, 0, {0}, TextFormat("Top of the Heap is: %d.", this->data[0]), Top_code, 0);
 }
 
