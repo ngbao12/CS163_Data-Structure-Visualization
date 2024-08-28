@@ -34,7 +34,6 @@ void Menu::hanlde() {
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && CheckCollisionPointCircle(GetMousePosition(), {1220,60}, 27.5)) {
         this->isDarkMode = !this->isDarkMode;
         THEME.change();
-        printf("123");
     }
 }
 

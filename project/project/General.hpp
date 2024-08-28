@@ -16,7 +16,6 @@
 #include <chrono>
 #include <functional>
 #include <stdint.h>
-#include "tinyfiledialogs.h"
 #include "portable-file-dialogs.h"
 
 extern Texture2D PLAY;

@@ -434,7 +434,7 @@ int TrieVisualize::handle() {
     if (this->loadFileButton.handle()) {
         createFromFile();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        return 1;
+        return 5;
     }
 
     int flag = this->progressBar.handle();

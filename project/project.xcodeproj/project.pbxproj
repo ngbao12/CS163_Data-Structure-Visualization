@@ -22,7 +22,6 @@
 		E4DC8CB02C77783600777D8F /* MaxHeap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8CAE2C77783600777D8F /* MaxHeap.cpp */; };
 		E4DC8CCD2C78C37400777D8F /* libraylib.4.5.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; };
 		E4DC8CCE2C78C37400777D8F /* libraylib.4.5.0.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E4DC8C492C69D99A00777D8F /* libraylib.4.5.0.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		E4DC8CD22C78EB5B00777D8F /* tinyfiledialogs.c in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8CD12C78EB5B00777D8F /* tinyfiledialogs.c */; };
 		E4DC8CD52C78EB8800777D8F /* AVL.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8CD32C78EB8800777D8F /* AVL.cpp */; };
 /* End PBXBuildFile section */
 
@@ -104,8 +103,6 @@
 		E4DC8C742C6CF37600777D8F /* Font */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Font; sourceTree = "<group>"; };
 		E4DC8CAE2C77783600777D8F /* MaxHeap.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = MaxHeap.cpp; sourceTree = "<group>"; };
 		E4DC8CAF2C77783600777D8F /* MaxHeap.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MaxHeap.hpp; sourceTree = "<group>"; };
-		E4DC8CD02C78EB5B00777D8F /* tinyfiledialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tinyfiledialogs.h; sourceTree = "<group>"; };
-		E4DC8CD12C78EB5B00777D8F /* tinyfiledialogs.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tinyfiledialogs.c; sourceTree = "<group>"; };
 		E4DC8CD32C78EB8800777D8F /* AVL.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = AVL.cpp; sourceTree = "<group>"; };
 		E4DC8CD42C78EB8800777D8F /* AVL.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = AVL.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -148,8 +145,6 @@
 				E4A916612C7F538500C304E6 /* portable-file-dialogs.h */,
 				E47241362C5BC22500C87622 /* main.cpp */,
 				E4A9165F2C7F349F00C304E6 /* test.cpp */,
-				E4DC8CD12C78EB5B00777D8F /* tinyfiledialogs.c */,
-				E4DC8CD02C78EB5B00777D8F /* tinyfiledialogs.h */,
 				E4DC8C532C69DBC000777D8F /* Application.cpp */,
 				E4DC8C542C69DBC000777D8F /* Application.hpp */,
 				E4DC8C562C69DFBE00777D8F /* General.cpp */,
@@ -286,7 +281,6 @@
 			files = (
 				E4DC8CB02C77783600777D8F /* MaxHeap.cpp in Sources */,
 				E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */,
-				E4DC8CD22C78EB5B00777D8F /* tinyfiledialogs.c in Sources */,
 				E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */,
 				E4DC8C5E2C6A013A00777D8F /* GUI.cpp in Sources */,
 				E4A916602C7F349F00C304E6 /* test.cpp in Sources */,
