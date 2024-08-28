@@ -140,7 +140,7 @@ HashTableVisualize::HashTableVisualize(Font font) {
     this->frame = 0;
     this->numFrameOfAnimation = FPS;
 
-    this->inputSize = InputStr(156.5, 422, 110, 30, TextFormat("%d", 40), 20, this->font);
+    this->inputSize = InputStr(156.5, 422, 110, 30, "", 20, this->font);
     this->resizeButton = Button({156.5, 466, 110, 30}, "Resize", -1, BLACK, 20, font);
     this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
     this->randomButton = Button({156.5, 511, 110, 30}, "Random", -1, BLACK, 20, font);

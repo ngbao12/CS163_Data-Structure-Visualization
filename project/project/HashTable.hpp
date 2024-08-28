@@ -44,6 +44,7 @@ public:
     void createRandom(int numKeys, int maxValue);
     std::vector<HashStep> getProcess() {return this->process;}
     void display();
+    //int getSize() {return this->capacity;}
 };
 
 class HashTableVisualize {
