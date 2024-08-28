@@ -2,6 +2,7 @@
 #define Application_hpp
 
 #include "GUI.hpp"
+#include "HashTable.hpp"
 #include "MaxHeap.hpp"
 #include "Graph.hpp"
 #include "AVL.hpp"
@@ -34,11 +35,12 @@ class Application {
         Application(): tab(0), theme(THEME.BACKGROUND) {}
         void run();
         int menu();
+        int hashTable();
         int maxHeap();
         int avlTree();
         int Tree234();
-        int graph();
         int trie();
+        int graph();
 };
 
 

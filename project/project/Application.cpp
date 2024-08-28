@@ -62,6 +62,7 @@ void Application::run() {
                 this->tab = menu();
                 break;
             case 1:
+                this->tab = hashTable();
                 break;
             case 2:
                 this->tab = avlTree();
@@ -180,6 +181,22 @@ int Application::graph() {
         graph.draw();
         tittle.draw();
         EndDrawing(); 
+    }
+    return -1;
+}
+
+int Application::hashTable() {
+    
+    HashTableVisualize hashTable = HashTableVisualize(FONT);
+    TittleButton tittle = TittleButton({465, 34, 350, 40}, "HashTable - Linear Probing", -1, BLACK, 20);
+    while(!WindowShouldClose()) {
+        if (tittle.handle() == 1) return 0;
+        hashTable.handle();
+        BeginDrawing();
+        ClearBackground(THEME.BACKGROUND);
+        hashTable.draw();
+        tittle.draw();
+        EndDrawing();
     }
     return -1;
 }
