@@ -13,7 +13,7 @@ Button::Button(Rectangle rect, const std::string text, float yText, Color textCo
 
 void Button::draw(float radius) {
     this->isHovered = CheckCollisionPointRec(GetMousePosition(), this->outerRect);
-    DrawRectangleRounded(this->outerRect, radius/55, 32, this->isHovered ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawRectangleRounded(this->outerRect, radius/55, 32, this->isHovered ? THEME.HOVER_BUTTON : THEME.BUTTON);
     DrawTextPro(this->font, this->content.c_str(), this->contentPos, ORIGIN, 0, this->fontSize, 2, this->contentColor);
 }
 
@@ -51,6 +51,7 @@ void TittleButton::draw(float radius) {
 
 int TittleButton::handle() {
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && this->isHoveredBackPage) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         return 1;
     }
     return 0;
@@ -70,7 +71,7 @@ ButtonImage::ButtonImage(Rectangle outerRect, Rectangle innerRect, const char* p
 
 void ButtonImage::draw(float radius) {
     this->isHovered = CheckCollisionPointRec(GetMousePosition(), this->outerRect);
-    DrawRectangleRounded(outerRect, radius/100, 32,this->isHovered ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawRectangleRounded(outerRect, radius/100, 32,this->isHovered ? THEME.HOVER_MENU : THEME.MENU_BUTTON);
     drawPicture(this->texture, this->innerRect);
     DrawTextPro(this->font, this->content.c_str(), this->contentPos, ORIGIN, 0, this->fontSize, 2, this->contentColor);
 }
@@ -80,10 +81,10 @@ void InputStr::draw() {
     DrawRectangleRoundedLinesEx(this->textBox, 0.2f, 64, 3, mouseOnText ? BLACK : GRAY);
     Vector2 size = MeasureTextEx(this->font, this->text.c_str(), this->fontSize, 2);
     if (this->text.empty() && !this->mouseOnText) {
-        DrawTextEx(this->font, this->placeHolder.c_str(), {this->textBox.x + 16 + size.x, this->textBox.y + float(this->textBox.height - size.y)/2}, this->fontSize, 2, BLACK);
+        DrawTextEx(this->font, this->placeHolder.c_str(), {this->textBox.x + 16 , this->textBox.y + float(this->textBox.height - size.y)/2}, this->fontSize, 2, BLACK);
     }
     else {
-        DrawTextEx(this->font, this->text.c_str(), {this->textBox.x + 16 + size.x, this->textBox.y + float(this->textBox.height - size.y)/2}, this->fontSize, 2, BLACK);
+        DrawTextEx(this->font, this->text.c_str(), {this->textBox.x + 16 , this->textBox.y + float(this->textBox.height - size.y)/2}, this->fontSize, 2, BLACK);
     }
     
     if (this->mouseOnText) {
@@ -139,7 +140,7 @@ std::string InputStr::getText() {
 }
 
 void CircleButton::draw() {
-    DrawCircleV(this->center, this->radius, this->isHovered ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+    DrawCircleV(this->center, this->radius, this->isHovered ? THEME.HOVER_BUTTON : THEME.BUTTON);
     drawPicture(this->texture, {center.x - radius + 2, center.y - radius +2, 2*radius -4, 2*radius -4});
 }
 
@@ -152,20 +153,22 @@ void CircleButton::changeTexture(const char* file) {
     this->texture = LoadTexture(file);
 }
 
-void ProgressBar::draw() {
-    DrawCircle(33.5, 643.5, 17.5, doubleBack ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(72.5, 643.5, 17.5 , back ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(121.77, 643.5, 25.5 , play ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(168.5, 643.5, 17.5 , next ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(207.5, 643.5, 17.5 , doubleNext ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(263.5, 610.5, 12.5 , up ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
-    DrawCircle(263.5, 670.5, 12.5 , down ? HOVERED_BUTTON_LIGHT_THEME : NONHOVERED_BUTTON_LIGHT_THEME);
+void ProgressBar::draw(int type) {
+    DrawCircle(33.5, 643.5, 17.5, CheckCollisionPointCircle(GetMousePosition(), {33.5, 643.5}, 17.5) ? THEME.HOVER_BUTTON : THEME.BUTTON);
+    DrawCircle(72.5, 643.5, 17.5 , CheckCollisionPointCircle(GetMousePosition(), {72.5, 643.5}, 17.5) ? THEME.HOVER_BUTTON : THEME.BUTTON);
+    DrawCircle(121.77, 643.5, 25.5 , CheckCollisionPointCircle(GetMousePosition(), {121.77, 643.5}, 25.5) ? THEME.HOVER_BUTTON : THEME.BUTTON);
+    DrawCircle(168.5, 643.5, 17.5 , CheckCollisionPointCircle(GetMousePosition(), {168.5, 643.5}, 17.5) ? THEME.HOVER_BUTTON : THEME.BUTTON);
+    DrawCircle(207.5, 643.5, 17.5 , CheckCollisionPointCircle(GetMousePosition(), {207.5, 643.5}, 17.5) ? THEME.HOVER_BUTTON : THEME.BUTTON);
+    DrawCircle(263.5, 610.5, 12.5 , CheckCollisionPointCircle(GetMousePosition(), {263.5, 610.5}, 12.5) ? THEME.HOVER_BUTTON : THEME.BUTTON);
+    DrawCircle(263.5, 670.5, 12.5 , CheckCollisionPointCircle(GetMousePosition(), {263.5, 670.5}, 12.5) ? THEME.HOVER_BUTTON : THEME.BUTTON);
     
     DrawTextPro(font, TextFormat("%.1fx", this->speed), {246, 631}, ORIGIN, 0.f, 20, 1, BLACK);
     
     drawPicture(DOUBLE_BACK, {19.5, 629, 28, 28});
     drawPicture(BACK, {56.75, 629, 28, 28});
-    drawPicture(PLAY, {145, 650.5, 25, 25}, 0, {35.f, 35.f});
+    if (type == 0) drawPicture(PAUSE, {110, 629, 25, 25});
+    else if (type == 1) drawPicture(PLAY, {110, 629, 25, 25});
+    else drawPicture(REPLAY, {110, 629, 25, 25});
     drawPicture(NEXT, {155, 629, 28, 28});
     drawPicture(DOUBLE_NEXT, {194, 629, 28, 28});
     drawPicture(SPEED_UP, {250.5, 598, 25, 25});
@@ -192,69 +195,84 @@ void ProgressBar::updateStep(int step) {
 }
 
 int ProgressBar::handle() {
-    if (CheckCollisionPointCircle(GetMousePosition(), {33.5, 643.5}, 17.5)) {
-        this->doubleBack = true;
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            return -2;
+    int flag = 10;
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
+        if (CheckCollisionPointCircle(GetMousePosition(), {33.5, 643.5}, 17.5)) {
+            flag = -2;
         }
-    } else this->doubleBack = false;
-    
-    if (CheckCollisionPointCircle(GetMousePosition(), {72.5, 643.5}, 17.5)) {
-        this->back = true;
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            return -1;
+        if (CheckCollisionPointCircle(GetMousePosition(), {72.5, 643.5}, 17.5)) {
+            flag = -1;
         }
-    } else this->back = false;
-    
-    if (CheckCollisionPointCircle(GetMousePosition(), {121.77, 643.5}, 25.5)) {
-        this->play = true;
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            return 0;
+        if (CheckCollisionPointCircle(GetMousePosition(), {121.77, 643.5}, 25.5)) {
+            flag = 0;
         }
-    } else this->play = false;
-
-    if (CheckCollisionPointCircle(GetMousePosition(), {168.5, 643.5}, 17.5)) {
-        this->next = true;
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            return 1;
+        if (CheckCollisionPointCircle(GetMousePosition(), {168.5, 643.5}, 17.5)) {
+            flag = 1;
         }
-    } else this->next = false;
-
-    if (CheckCollisionPointCircle(GetMousePosition(), {207.5, 643.5}, 17.5)) {
-        this->doubleNext = true;
-        if (IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
-            return 2;
+        if (CheckCollisionPointCircle(GetMousePosition(), {207.5, 643.5}, 17.5)) {
+            flag = 2;
         }
-    } else this->doubleNext = false;
-
-    if (CheckCollisionPointCircle(GetMousePosition(), {263.5, 610.5}, 12.5)) {
-        this->up = true;
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-            // std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        if (CheckCollisionPointCircle(GetMousePosition(), {263.5, 610.5}, 12.5)) {
             this->speed += (this->speed < 2) ? 0.1 : 0;
-            return 3;
+            flag = 3;
         }
-    } else this->up = false;
-
-    if (CheckCollisionPointCircle(GetMousePosition(), {263.5, 670.5}, 12.5)) {
-        this->down = true;
-        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON)) {
-            // std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        if (CheckCollisionPointCircle(GetMousePosition(), {263.5, 670.5}, 12.5)) {
             this->speed -= (this->speed > 0.5) ? 0.1 : 0;
-            return -3;
+            flag = -3;
         }
-    } else this->down = false;
+    }
+    if (flag != 10) {
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
+    }
+    return flag;
+}
 
-    return 10;
+
+
+void DrawTextInRect(Font font, const char *text, Rectangle rect, int fontSize, Color textColor) {
+    int maxWidth = (int)rect.width;
+    int textHeight = fontSize;
+    char lineBuffer[1024];
+    const char *currentChar = text;
+    int lineCount = 0;
+
+    while (currentChar && *currentChar) {
+        int lineWidth = 0;
+        int charsToFit = 0;
+        while (*currentChar && (lineWidth < maxWidth)) {
+            lineBuffer[charsToFit++] = *currentChar;
+            lineBuffer[charsToFit] = '\0'; 
+
+            lineWidth = MeasureTextEx(font, lineBuffer, fontSize, 2).x;
+            currentChar++;
+
+            if (lineWidth > maxWidth) {
+                currentChar--;
+                lineBuffer[--charsToFit] = '\0';
+                break;
+            }
+        }
+        Vector2 textPosition;
+        textPosition.x = rect.x;
+        textPosition.y = rect.y + lineCount * textHeight;
+        DrawTextEx(font, lineBuffer, textPosition, fontSize, 2, textColor);
+
+        lineCount++;
+
+        while (*currentChar && (*currentChar == ' ' || *currentChar == '\n')) {
+            currentChar++;
+        }
+        if ((rect.y + lineCount * textHeight) >= (rect.y + rect.height)) break;
+    }
 }
 
 void drawInfor(const std::string infor, Font font) {
-    DrawTextEx(font, infor.c_str(), {50,371}, CODE_SIZE, 2, INFOR_COLOR);
+    DrawTextInRect(font, infor.c_str(), {20, 335, 260, 65}, CODE_SIZE, THEME.INFOR);
 }
 
 void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font) {
-    int lineHeight = 17;
-    Vector2 CodeOffset = {25, 100};
+    int lineHeight = CODE_SIZE + 2;
+    Vector2 CodeOffset = {20, 130};
     
     for (size_t i = 0; i<n; i++) {
         bool flag = false;
@@ -264,19 +282,19 @@ void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font)
                 break;
             }
         }
-        Color color = flag ? HIGHLIGHT_TEXT_COLOR : Color {0,0,0,0};
-        DrawRectangle(CodeOffset.x, CodeOffset.y + i * lineHeight, 375, lineHeight, color);
+        Color color = flag ? THEME.HIGHLIGHT_TEXT : Color {0,0,0,0};
+        DrawRectangle(CodeOffset.x, CodeOffset.y + i * lineHeight, 260, lineHeight, color);
     }
-    DrawTextEx(font, code.c_str(), {CodeOffset.x, CodeOffset.y + 1}, CODE_SIZE, 2, WHITE);
+    DrawTextEx(font, code.c_str(), {CodeOffset.x, CodeOffset.y + 1}, CODE_SIZE, 2, BLACK);
 }
 
-void drawSideBar(std::string code, std::vector<int> lines, std::string infor, ProgressBar bar, Font font) {
-    DrawRectangleRounded({0, 110, 297, 584}, 0.10f, 32, SIDEBAR_COLOR);
-    DrawLineEx({0, 326}, {297, 326}, 1.3, SEPERATOR_COLOR);
-    DrawLineEx({0, 408}, {297, 408}, 1.3, SEPERATOR_COLOR);
-    DrawLineEx({126, 408}, {126, 592}, 1.3, SEPERATOR_COLOR);
-    DrawLineEx({0, 592}, {297, 592}, 1.3, SEPERATOR_COLOR);
+void drawSideBar(int type, std::string code, std::vector<int> lines, std::string infor, ProgressBar bar, Font font) {
+    DrawRectangleRounded({0, 110, 297, 584}, 0.10f, 32, THEME.SIDEBAR);
+    DrawLineEx({0, 326}, {297, 326}, 1.3, THEME.SEPERATOR);
+    DrawLineEx({0, 408}, {297, 408}, 1.3, THEME.SEPERATOR);
+    DrawLineEx({126, 408}, {126, 592}, 1.3, THEME.SEPERATOR);
+    DrawLineEx({0, 592}, {297, 592}, 1.3, THEME.SEPERATOR);
     drawCode(code, 8, lines, font);
     drawInfor(infor, font);
-    bar.draw();
+    bar.draw(type);
 }

@@ -101,7 +101,7 @@ class Tree234Visualize {
     private:
         Tree234 tree;
         Step234 step;
-        bool isPause;
+        int type = 0;
         ProgressBar progressBar;
         int stepIndex;
         int frame;

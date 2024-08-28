@@ -15,7 +15,7 @@ class Button {
         bool isHovered;
     public:
         Button(Rectangle rect, const std::string text, float yText, Color textColor, float fontSize, Font font = FONT);
-        Button() : Button({0,0,0,0}, "", 0.0f, HOVERED_BUTTON_LIGHT_THEME, 0) {}
+        Button() : Button({0,0,0,0}, "", 0.0f, BLUE, 0) {}
         void draw(float radius = 15);
         int handle();
         bool getIsHovered() {return this->isHovered;}
@@ -83,14 +83,6 @@ class CircleButton {
 
 class ProgressBar {
     private:
-        bool doubleBack;
-        bool back;
-        bool doubleNext;
-        bool next;
-        bool up;
-        bool down;
-        bool play;
-        
         int curStep;
         int maxStep;
         float speed;
@@ -98,9 +90,9 @@ class ProgressBar {
         int funcID;
         Font font;
     public:
-        ProgressBar(Font font) : doubleBack(false), back(false), doubleNext(false), next(false), up(false), down(false), play(false), curStep(0), maxStep(0), speed(1), funcID(0), font(font) {}
+        ProgressBar(Font font) : curStep(0), maxStep(0), speed(1), funcID(0), font(font) {}
         ProgressBar() : ProgressBar(FONT) {}
-        void draw();
+        void draw(int type);
         void updateMaxStep(int max);
         void updateStep(int step);
         void updateSpeed(float speed);
@@ -113,5 +105,5 @@ class ProgressBar {
 
 void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font);
 void drawInfor(std::string infor, Font font = FONT);
-void drawSideBar(std::string code, std::vector<int> lines, std::string infor, ProgressBar bar, Font font = FONT);
+void drawSideBar(int type, std::string code, std::vector<int> lines, std::string infor, ProgressBar bar, Font font = FONT);
 #endif /* GUI_hpp */

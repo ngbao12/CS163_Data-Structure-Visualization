@@ -4,10 +4,11 @@
 Menu::Menu() {
     this->avlTree = ButtonImage({180, 260, 240, 160}, {190, 270, 220, 120}, "./asset/HashTable.png", "Hash Table", 390, {145, 95, 35, 255}, 20);
     this->hashTable = ButtonImage({520, 260, 240, 160}, {530, 270, 220, 120}, "./asset/AVL.png", "AVL Tree", 390, {145, 95, 35, 255}, 20);
-    this->Tree234 = ButtonImage({860, 260, 240, 160}, {870, 270, 220, 120}, "asset/Tree234.png", "2-3-4 Tree", 390, {145, 95, 35, 255}, 20);
-    this->maxHeap = ButtonImage({180, 500, 240, 160}, {190, 510, 220, 120}, "asset/MaxHeap.png", "Max Heap", 635, {145, 95, 35, 255}, 20);
-    this->trie = ButtonImage({520, 500, 240, 160}, {530, 510, 220, 120}, "asset/Trie.png", "Trie", 635, {145, 95, 35, 255}, 20);
-    this->graph = ButtonImage({860, 500, 240, 160}, {870, 510, 220, 120}, "asset/Graph.png", "Graph", 635, {145, 95, 35, 255}, 20);
+    this->Tree234 = ButtonImage({860, 260, 240, 160}, {870, 270, 220, 120}, "./asset/Tree234.png", "2-3-4 Tree", 390, {145, 95, 35, 255}, 20);
+    this->maxHeap = ButtonImage({180, 500, 240, 160}, {190, 510, 220, 120}, "./asset/MaxHeap.png", "Max Heap", 635, {145, 95, 35, 255}, 20);
+    this->trie = ButtonImage({520, 500, 240, 160}, {530, 510, 220, 120}, "./asset/Trie.png", "Trie", 635, {145, 95, 35, 255}, 20);
+    this->graph = ButtonImage({860, 500, 240, 160}, {870, 510, 220, 120}, "./asset/Graph.png", "Graph", 635, {145, 95, 35, 255}, 20);
+    this->mode = isDarkMode ? LoadTexture("./asset/Dark.png") : LoadTexture("./asset/Light.png");
 }
 
 
@@ -19,6 +20,8 @@ void Menu::draw() {
     maxHeap.draw();
     trie.draw();
     graph.draw();
+    DrawCircle(1220, 60, 27.5, CheckCollisionPointCircle(GetMousePosition(), {1220,60}, 27.5) ? THEME.HOVER_MENU : THEME.MENU_BUTTON);
+    drawPicture(mode, {1200,40,40,40});
 }
 
 void Menu::hanlde() {
@@ -28,6 +31,11 @@ void Menu::hanlde() {
     maxHeap.handle();
     trie.handle();
     graph.handle();
+    if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && CheckCollisionPointCircle(GetMousePosition(), {1220,60}, 27.5)) {
+        this->isDarkMode = !this->isDarkMode;
+        THEME.change();
+        printf("123");
+    }
 }
 
 int8_t Menu::clicked() {
@@ -84,9 +92,9 @@ int Application::menu() {
     Menu menu;
     int8_t flag = -1;
     do {
+        menu.hanlde();
         BeginDrawing();
-            ClearBackground(this->theme);
-            menu.hanlde();
+            ClearBackground(THEME.BACKGROUND);
             menu.draw();
             flag = menu.clicked();
         EndDrawing();
@@ -99,10 +107,12 @@ int Application::maxHeap() {
     MaxHeapVisualize maxHeap = MaxHeapVisualize(FONT);
     TittleButton tittle = TittleButton({465, 34, 350, 40}, "Max Heap", -1, BLACK, 20);
     while(!WindowShouldClose()) {
-        if (tittle.handle() == 1) return 0;
+        if (tittle.handle() == 1) {
+            return 0;
+        }
         maxHeap.handle();
         BeginDrawing();
-        ClearBackground(LIGHT_THEME);
+        ClearBackground(THEME.BACKGROUND);
         maxHeap.draw();
         tittle.draw();
         EndDrawing();
@@ -118,7 +128,7 @@ int Application::avlTree() {
         if (tittle.handle() == 1) return 0;
         avlTree.handle();
         BeginDrawing();
-        ClearBackground(LIGHT_THEME);
+        ClearBackground(THEME.BACKGROUND);
         avlTree.draw();
         tittle.draw();
         EndDrawing();
@@ -134,7 +144,7 @@ int Application::Tree234() {
         if (tittle.handle() == 1) return 0;
         Tree234.handle();
         BeginDrawing();
-        ClearBackground(LIGHT_THEME);
+        ClearBackground(THEME.BACKGROUND);
         Tree234.draw();
         tittle.draw();
         EndDrawing();
@@ -150,7 +160,7 @@ int Application::trie() {
         if (tittle.handle() == 1) return 0;
         trie.handle();
         BeginDrawing();
-        ClearBackground(LIGHT_THEME);
+        ClearBackground(THEME.BACKGROUND);
         trie.draw();
         tittle.draw();
         EndDrawing();
@@ -166,7 +176,7 @@ int Application::graph() {
         if (tittle.handle() == 1) return 0;
         graph.handle();
         BeginDrawing();
-        ClearBackground(LIGHT_THEME);
+        ClearBackground(THEME.BACKGROUND);
         graph.draw();
         tittle.draw();
         EndDrawing(); 

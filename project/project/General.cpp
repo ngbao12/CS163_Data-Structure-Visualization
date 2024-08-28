@@ -10,28 +10,74 @@ Texture2D DOUBLE_BACK;
 Texture2D SPEED_UP;
 Texture2D SPEED_DOWN;
 Texture2D BACK_PAGE;
+theme THEME;
 Font FONT;
+
 void initResource() {
-    PLAY = LoadTexture("asset/Play.png");
-    PAUSE = LoadTexture("asset/Pause.png");
-    REPLAY = LoadTexture("asset/Replay.png");
-    BACK = LoadTexture("asset/Chevron left.png");
-    DOUBLE_BACK = LoadTexture("asset/Chevrons left.png");
-    NEXT = LoadTexture("asset/Chevron right.png");
-    DOUBLE_NEXT = LoadTexture("asset/Chevrons right.png");
-    SPEED_UP = LoadTexture("asset/Chevron up.png");
-    SPEED_DOWN = LoadTexture("asset/Chevron down.png");
-    BACK_PAGE = LoadTexture("asset/BackPage.png");
+    PLAY = LoadTexture("./asset/Play.png");
+    PAUSE = LoadTexture("./asset/Pause.png");
+    REPLAY = LoadTexture("./asset/Replay.png");
+    BACK = LoadTexture("./asset/Chevron left.png");
+    DOUBLE_BACK = LoadTexture("./asset/Chevrons left.png");
+    NEXT = LoadTexture("./asset/Chevron right.png");
+    DOUBLE_NEXT = LoadTexture("./asset/Chevrons right.png");
+    SPEED_UP = LoadTexture("./asset/Chevron up.png");
+    SPEED_DOWN = LoadTexture("./asset/Chevron down.png");
+    BACK_PAGE = LoadTexture("./asset/BackPage.png");
+    
+    //Color
+    THEME.BACKGROUND = {229,247,255, 255};
+    THEME.MENU_BUTTON = {255,255,255,255};
+    THEME.HOVER_MENU = {197,252,245,255};
+    THEME.BUTTON = {229,247,255, 255};
+    THEME.HOVER_BUTTON = {125,215,255, 255};
+    THEME.SEPERATOR = {3, 178, 255, 255};
+    THEME.INFOR = {6, 155, 91, 255};
+    THEME.HIGHLIGHT_TEXT = {157, 238, 238, 255};
+    THEME.HIGHLIGHT_NODE_1 = RED;
+    THEME.HIGHLIGHT_NODE_2 = BLUE;
+    THEME.NODE = {249,208,208,255};
+    THEME.LINE = {30,30,30, 255};
+    THEME.SIDEBAR = {250, 254, 255, 255};
     //FONT = LoadFont("./Font/Roboto-Regular.ttf");
     FONT = LoadFontEx("./Font/SF-Pro-Display-Regular.otf", 40, 0, 255);
 }
 
-/*Vector2 Vector2Lerp(Vector2 start, Vector2 end, float amount) {
-    return (Vector2) {
-        start.x + amount * (end.x - start.x),
-        start.y + amount * (end.y - start.y)
-    };
-}*/
+void theme::change() {
+    if (!isDarkMode) {
+        THEME.BACKGROUND = {229,247,255, 255};
+        THEME.MENU_BUTTON = {255,255,255,255};
+        THEME.HOVER_BUTTON = {197,252,245,255};
+        THEME.BUTTON = {229,247,255, 255};
+        THEME.HOVER_BUTTON = {125,215,255, 255};
+        THEME.SEPERATOR = {3, 178, 255, 255};
+        THEME.INFOR = {6, 155, 91, 255};
+        THEME.HIGHLIGHT_TEXT = {157, 238, 238, 255};
+        THEME.HIGHLIGHT_NODE_1 = RED;
+        THEME.HIGHLIGHT_NODE_2 = BLUE;
+        THEME.NODE = {249,208,208,255};
+        THEME.LINE = {30,30,30, 255};
+        THEME.SIDEBAR = {250,254,255,255};
+    }
+    else {
+        THEME.BACKGROUND = {45,69,81, 255};
+        THEME.MENU_BUTTON = {204, 204, 204,255};
+        THEME.HOVER_BUTTON = {136,184,163 ,255};
+        THEME.BUTTON = {229,247,255, 255};
+        THEME.HOVER_BUTTON = {125,215,255, 255};
+        THEME.SEPERATOR = {3, 178, 255, 255};
+        THEME.INFOR = {255, 255, 114, 255};
+        THEME.HIGHLIGHT_TEXT = {180,237,230, 255};
+        THEME.HIGHLIGHT_NODE_1 = {255,245,131,255};
+        THEME.HIGHLIGHT_NODE_2 = {55,221,149,255};
+        THEME.NODE = {182,234,255,255};
+        THEME.LINE = {147,177,169, 255};
+        THEME.SIDEBAR = {96,124,135,255};
+    }
+    isDarkMode = !isDarkMode;
+    std::this_thread::sleep_for(std::chrono::milliseconds(200));
+}
+
 
 float FloatLerp(float start, float end, float amount) {
     return start + amount * (end - start);

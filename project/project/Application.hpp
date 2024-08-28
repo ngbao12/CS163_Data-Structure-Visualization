@@ -16,12 +16,14 @@ class Menu {
         ButtonImage trie;
         ButtonImage maxHeap;
         ButtonImage graph;
-    
+        Texture2D mode;
+        bool isDarkMode = false;
     public:
         Menu();
         void draw();
         void hanlde();
         int8_t clicked();
+        bool getDarkMode() { return this->isDarkMode;}
 };
 
 class Application {
@@ -29,7 +31,7 @@ class Application {
         int tab;
         Color theme;
     public:
-        Application(): tab(0), theme(DARK_THEME) {}
+        Application(): tab(0), theme(THEME.BACKGROUND) {}
         void run();
         int menu();
         int maxHeap();

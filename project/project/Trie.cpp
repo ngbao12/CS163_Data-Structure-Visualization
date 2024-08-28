@@ -92,31 +92,54 @@ std::pair<TrieNode*, TrieNode*> Trie::cloneTrie(TrieNode* root, TrieNode* highli
     return newElement;
 }
 
+bool Trie::isEmptyTrieNode(TrieNode* node) {
+    if (node == nullptr) {
+        return true; 
+    }
+    
+    if (node->isEndStr) {
+        return false;
+    }
+
+    for (int i = 0; i < ALPHABET_SIZE; ++i) {
+        if (node->children[i] != nullptr && !isEmptyTrieNode(node->children[i])) {
+            return false;
+        }
+    }
+    
+    return true;
+}
+
+
 bool Trie::deleteWord(TrieNode* node, const std::string& key, int depth) {
     if (!node) {
         saveStep(nullptr, -1, {1}, "Not Found Str", Trie_DELETE);
         return false;
     }
+    printf("%c - %d\n", node->character, isEmptyTrieNode(node));
 
     if (depth == key.size()) {
         if (node->isEndStr){
             node->isEndStr = false;
             saveStep(node, 0, {2}, "remove str...", Trie_DELETE);
+        } else {
+            saveStep(node, 0, {2}, "sdhafgbhsdjjf", Trie_DELETE);
         }
-
-        return node->isEndStr == false && !node->numOfChild;
+        return !node->isEndStr && isEmptyTrieNode(node);
     }
 
-    int index = key[depth] - 'a';
+    int index = key[depth] - 'a'; 
     saveStep(node, 0, {0}, "Searching Str...", Trie_DELETE);
     if (deleteWord(node->children[index], key, depth + 1)) {
+        printf("1/%c - %d\n", node->children[index]->character, isEmptyTrieNode(node->children[index]));
+
         delete node->children[index];
         node->numOfChild--;
         node->children[index] = nullptr;
         saveStep(node->children[index], 0, {3,4,5,6,7}, "remove non_exist node...", Trie_DELETE);
         return !node->isEndStr && !node->numOfChild;
     }
-
+    saveStep(nullptr, -1, {0}, TextFormat("Finish"), Trie_DELETE); 
     return false;
 }
 
@@ -137,6 +160,7 @@ void Trie::insert(std::string key) {
     }
     node->isEndStr = true;
     saveStep(node, 0, {6}, TextFormat("node->isEnd = true"), Trie_INSERT);
+    saveStep(nullptr, -1, {0}, TextFormat("Finish"), Trie_INSERT);
 }
 
 bool Trie::search(std::string key) {
@@ -148,6 +172,7 @@ bool Trie::search(std::string key) {
         int index = key[i] - 'a';
         if (!node->children[index]){
             saveStep(nullptr, -1, {2,3}, "NOT_FOUND", Trie_SEARCH);
+            
             return false;
         }
         node = node->children[index];
@@ -207,7 +232,7 @@ TrieVisualize::TrieVisualize(Font font) {
     this->isSearchChosen = false;
     this->stepIndex = 0;
     this->frame = 0;
-    this->isPause = false;
+    this->type = false;
     this->numFrameOfAnimation = FPS;
 
     this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
@@ -215,8 +240,7 @@ TrieVisualize::TrieVisualize(Font font) {
     this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);
     this->insertButton = Button({8, 458, 110, 30}, "Insert", -1, BLACK, 20, font);
     this->deleteButton = Button({8, 504, 110, 30}, "Delete", -1, BLACK, 20, font);
-    srand((int)time(0));
-    this->inputNumber = InputStr(156.5, 449.3, 110, 30, TextFormat("%d", rand() % 100), 20, this->font);
+    this->inputNumber = InputStr(156.5, 449.3, 110, 30, "", 20, this->font);
     this->playButton = Button({173, 492, 70, 30}, "Play", -1, BLACK, 20, font);
     this->searchButton = Button({8, 545, 110, 30}, "Search", -1, BLACK, 20, font);
 
@@ -229,7 +253,12 @@ void TrieVisualize::updateStep(int index) {
 }
 
 void TrieVisualize::createFromFile() {
-    this->tree.createFromFile("Data/input.txt");
+    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
+    if (!path) {
+        std::cout << 123;
+        return;
+    }
+    this->tree.createFromFile(path);
     this->numFrameOfAnimation = 10/this->progressBar.getSpeed();
 
     this->step = this->tree.getProcess().front();
@@ -237,6 +266,7 @@ void TrieVisualize::createFromFile() {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void TrieVisualize::createWithRandomizedData(int n, int length) {
@@ -248,6 +278,7 @@ void TrieVisualize::createWithRandomizedData(int n, int length) {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void TrieVisualize::insert() {
@@ -259,6 +290,7 @@ void TrieVisualize::insert() {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void TrieVisualize::deleteNode() {
@@ -270,6 +302,7 @@ void TrieVisualize::deleteNode() {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void TrieVisualize::search() {
@@ -281,6 +314,7 @@ void TrieVisualize::search() {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void drawNode(TrieNode *root, TrieNode* highlight, int frame, int numFrame, Font font, bool isNotification = false) {
@@ -288,15 +322,15 @@ void drawNode(TrieNode *root, TrieNode* highlight, int frame, int numFrame, Font
     Vector2 rootPos = Vector2Lerp(root->start, root->end, float(frame)/numFrame);
     for (int i = 0; i < ALPHABET_SIZE; i++) {
         if(root->children[i]) {
-            DrawLineEx(rootPos, Vector2Lerp(root->children[i]->start, root->children[i]->end, float(frame)/numFrame), 2, NODE_COLOR);
+            DrawLineEx(rootPos, Vector2Lerp(root->children[i]->start, root->children[i]->end, float(frame)/numFrame), 2, THEME.LINE);
         }
     }
-    Color color = NODE_COLOR;
-    if(root->isEndStr) color = HIGHLIGHT_NODE_COLOR_2;
-    if(root == highlight && !isNotification) color = HIGHLIGHT_NODE_COLOR_1;
+    Color color = THEME.NODE;
+    if(root->isEndStr) color = THEME.HIGHLIGHT_NODE_2;
+    if(root == highlight && !isNotification) color = THEME.HIGHLIGHT_NODE_1;
     DrawCircle(rootPos.x, rootPos.y, NODE_RADIUS, color);
     Vector2 textSize = MeasureTextEx(font, TextFormat("%c", root->character), CODE_SIZE, 0);
-    DrawTextPro(font, TextFormat("%c", root->character), {rootPos.x - textSize.x/2, rootPos.y - textSize.y/2}, {0.f, 0.f}, 0, CODE_SIZE, 0, WHITE);
+    DrawTextPro(font, TextFormat("%c", root->character), {rootPos.x - textSize.x/2, rootPos.y - textSize.y/2}, {0.f, 0.f}, 0, CODE_SIZE, 0, BLACK);
     for (int i = 0; i < ALPHABET_SIZE; i++) {
         if(root->children[i]) {
             drawNode(root->children[i], highlight, frame, numFrame, font, isNotification);
@@ -306,19 +340,16 @@ void drawNode(TrieNode *root, TrieNode* highlight, int frame, int numFrame, Font
 
 void TrieVisualize::drawTree() {
     if (this->tree.empty()) {
-        DrawCircle(779, 124, NODE_RADIUS, NODE_COLOR);
+        DrawCircle(779, 124, NODE_RADIUS, THEME.NODE);
         return;
     }
     if (this->tree.getProcess().empty()) return;
     drawNode(this->step.root, this->step.highlight, this->frame, this->numFrameOfAnimation, this->font, this->step.type == -1);
-    
-    if (this->isPause) {
-        return;
-    }
+    if (this->type == 2 || this->type == 0) return;
     this->frame++;
     if(this->frame >= this->numFrameOfAnimation && !this->tree.getProcess().empty()) {
         if (stepIndex == this->tree.getProcess().size() - 1) {
-            this->frame--;
+            this->type = 2;
             return;
         }
         updateStep(this->stepIndex + 1);
@@ -334,8 +365,8 @@ void TrieVisualize::drawButtons() {
     this->searchButton.draw(50);
 
     if(this->isCreateChosen) {
-        this->randomButton.draw();
-        this->loadFileButton.draw();
+        this->randomButton.draw(50);
+        this->loadFileButton.draw(50);
     }
 
     if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {
@@ -354,21 +385,18 @@ int TrieVisualize::handle() {
             this->isSearchChosen = false;
         }
         if (this->deleteButton.getIsHovered()) {
-            this->inputNumber.resetText();
             this->isCreateChosen = false;
             this->isDeleteChosen = true;
             this->isInsertChosen = false;
             this->isSearchChosen = false;
         }
         if (this->insertButton.getIsHovered()) {
-            this->inputNumber.resetText();
             this->isCreateChosen = false;
             this->isDeleteChosen = false;
             this->isInsertChosen = true;
             this->isSearchChosen = false;
         }
         if (this->searchButton.getIsHovered()) {
-            this->inputNumber.resetText();
             this->isCreateChosen = false;
             this->isDeleteChosen = false;
             this->isInsertChosen = false;
@@ -436,10 +464,25 @@ int TrieVisualize::handle() {
             if (this->progressBar.getMaxStep() == 0) break;
             updateStep((int)this->tree.getProcess().size() - 1);
             this->progressBar.updateStep(2);
+            this->type = 2;
+            break; 
 
         case 0:
-            this->isPause = !this->isPause;
-            break;
+            if (this->type == 2) {
+                if (this->progressBar.getMaxStep() == 0) break;
+                this->progressBar.updateStep(-2);
+                updateStep(0);
+                this->type = 1;
+                break;
+            }
+            if (this->type == 1) {
+                this->type = 0;
+                break;
+            }
+            if (this->type == 0 && this->step.root->numOfChild) {
+                this->type = 1;
+                break;
+            }
 
         case 3: case -3:
             this->numFrameOfAnimation = FPS/this->progressBar.getSpeed();
@@ -454,7 +497,7 @@ int TrieVisualize::handle() {
 }
 
 void TrieVisualize::draw() {
-    drawSideBar(this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
+    drawSideBar(this->type, this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
     drawButtons();
     drawTree();
 }

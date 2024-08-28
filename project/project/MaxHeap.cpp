@@ -1,7 +1,7 @@
 #include "MaxHeap.hpp"
 
 void Max_Heap::drawEdge(Vector2 pos1, Vector2 pos2) {
-    DrawLineEx(pos1, pos2, 2, NODE_COLOR);
+    DrawLineEx(pos1, pos2, 2, THEME.LINE);
 }
 
 void Max_Heap::drawNode(std::vector<Node> scene, int index, Font font) {
@@ -12,7 +12,7 @@ void Max_Heap::drawNode(std::vector<Node> scene, int index, Font font) {
     DrawCircle(scene[index].pos.x, scene[index].pos.y, NODE_RADIUS, scene[index].color);
     if(scene[index].fontSize == 0) return;
     Vector2 text_size = MeasureTextEx(font, TextFormat("%d", scene[index].value), scene[index].fontSize, 0);
-    DrawTextPro(font, TextFormat("%d", scene[index].value), {scene[index].pos.x - text_size.x/2, scene[index].pos.y - text_size.y/2}, {0.f, 0.f}, 0, scene[index].fontSize, 0, WHITE);
+    DrawTextPro(font, TextFormat("%d", scene[index].value), {scene[index].pos.x - text_size.x/2, scene[index].pos.y - text_size.y/2}, {0.f, 0.f}, 0, scene[index].fontSize, 0, BLACK);
 }
 
 void Max_Heap::drawHeap(Step step, Font font) {
@@ -29,17 +29,17 @@ void MaxHeap::saveStep(int index1, int index2, std::vector<int> lines, const std
     Vector2 pos = {779, 124};
     float dx = 50*log2(this->data.size()), dy = 100;
     std::vector<Max_Heap::Node> nodes;
-    nodes.push_back({this->data[0], pos, dx, CODE_SIZE, NODE_COLOR});
+    nodes.push_back({this->data[0], pos, dx, CODE_SIZE, THEME.NODE});
 
     for (int i = 1; i < size; i++) {
         dx = nodes[(i - 1) / 2].dx;
         pos = nodes[(i - 1) / 2].pos;
-        nodes.push_back({this->data[i], pos.x + ((i & 1) ? (-dx) : dx), pos.y + dy, dx / 2, CODE_SIZE, NODE_COLOR});
+        nodes.push_back({this->data[i], pos.x + ((i & 1) ? (-dx) : dx), pos.y + dy, dx / 2, CODE_SIZE, THEME.NODE});
     }
 
     if (type == 0 || type == 1 || type == 2) {
-        nodes[index2].color = HIGHLIGHT_NODE_COLOR_2;
-        nodes[index1].color = HIGHLIGHT_NODE_COLOR_1;
+        nodes[index2].color = THEME.HIGHLIGHT_NODE_2;
+        nodes[index1].color = THEME.HIGHLIGHT_NODE_1;
     }
     if (type == 3 || type == 4) {
         index2 = index1 ? (index1-1)/2 : 0;
@@ -117,7 +117,7 @@ void MaxHeap::push(int value) {
     saveStep(index, -1, {0, 1}, TextFormat("%d is inserted at the back of compact array A.", value), Push_code, 3);
     while (index > 0 && this->data[index] > this->data[(index - 1)/2]) {
         saveStep(index, (index - 1)/2, {2}, "Comparing between current node and its parent.", Push_code, 0);
-        saveStep(index, (index - 1)/2, {3}, TextFormat("%d > %d, so swap them.\n\n Update index.", this->data[index], this->data[(index-1)/2]), Push_code, 1);
+        saveStep(index, (index - 1)/2, {3}, TextFormat("%d > %d, so swap them.\n Update index.", this->data[index], this->data[(index-1)/2]), Push_code, 1);
         std::swap(this->data[index], this->data[(index-1)/2]);
         index = (index - 1)/2;
     }
@@ -189,19 +189,18 @@ MaxHeapVisualize::MaxHeapVisualize(Font font) {
     this->isDeleteChosen = false;
     this->stepIndex = 0;
     this->frame = 0;
-    this->isPause = false;
+    this->type = 0;
     this->numFrameOfAnimation = FPS;
 
-    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
-    this->randomButton = Button({230, 535, 125, 30}, "Random", -1, BLACK, 20, font);
-    this->loadFileButton = Button({230, 625, 125, 30}, "Load File", -1, BLACK, 20, font);
-    this->pushButton = Button({25, 535, 110, 30}, "Push", -1, BLACK, 20, font);
-    this->deleteButton = Button({25, 580, 110, 30}, "Delete", -1, BLACK, 20, font);
-    srand((int)time(0));
-    this->inputNumber = InputStr(225, 565, 145, 25, TextFormat("%d", rand() % 100), 20, this->font);
-    this->playButton = Button({235, 610, 125, 30}, "Play", -1, BLACK, 20, font);
-    this->topButton = Button({25, 625, 110, 30}, "Top", -1, BLACK, 20, font);
-    this->sizeButton = Button({25, 670, 110, 30}, "Size", -1, BLACK, 20, font);
+    this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->randomButton = Button({156.5, 449.3, 110, 30}, "Random", -1, BLACK, 20, font);                        /////////////////
+    this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);                       ///////////
+    this->pushButton = Button({8, 450, 110, 30}, "Push", -1, BLACK, 20, font);
+    this->deleteButton = Button({8, 485, 110, 30}, "Delete", -1, BLACK, 20, font);
+    this->inputNumber = InputStr(225, 565, 145, 25, "", 20, this->font);        /////////////////////////////////
+    this->playButton = Button({173, 492, 70, 30}, "Play", -1, BLACK, 20, font);                             /////////////////////////////////
+    this->topButton = Button({8, 555, 110, 30}, "Top", -1, BLACK, 20, font);
+    this->sizeButton = Button({8, 520, 110, 30}, "Size", -1, BLACK, 20, font);
 }
 
 void MaxHeapVisualize::updateStep(int index) {
@@ -212,10 +211,14 @@ void MaxHeapVisualize::updateStep(int index) {
 }
 
 int MaxHeapVisualize::updateAnimation() {
+    if (this->type == 2 || this->type == 0) return 0;
     this->frame++;
     int flag = 0;
     if(this->frame >= this->numFrameOfAnimation && !this->heap.getSteps().empty()) {
-        if (stepIndex == this->heap.getSteps().size() - 1) return 0;
+        if (stepIndex == this->heap.getSteps().size() - 1) {
+            this->type = 2;
+            return 0;
+        }
         updateStep(this->stepIndex + 1);
         this->progressBar.updateStep(1);
         flag = 1;
@@ -270,20 +273,29 @@ void MaxHeapVisualize::createWithRandomizedData(int n, int range) {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
-void MaxHeapVisualize::createFromFile(const char* filename) {
-    this->heap.createFromFile(filename);
+void MaxHeapVisualize::createFromFile() {
+    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
+    if (!path) {
+        std::cout << 123;
+        return;
+    }
+    this->heap.createFromFile(path);
     this->numFrameOfAnimation = 3;
     this->animation = this->heap.getSteps().front();
     this->progressBar.updateMaxStep((int)this->heap.getSteps().size() - 1);
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void MaxHeapVisualize::push() {
-    this->heap.push(std::stoi(this->inputNumber.getText()));
+    std::string text = this->inputNumber.getText();
+    if (text.empty()) return;
+    this->heap.push(std::stoi(text));
     this->numFrameOfAnimation = 60;
 
     this->animation = this->heap.getSteps().front();
@@ -291,10 +303,13 @@ void MaxHeapVisualize::push() {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void MaxHeapVisualize::deleteNode() {
-    this->heap.deleteElement(std::stoi(this->inputNumber.getText()));
+    std::string text = this->inputNumber.getText();
+    if (text.empty()) return;
+    this->heap.deleteElement(std::stoi(text));
     this->numFrameOfAnimation = 60;
 
     this->animation = this->heap.getSteps().front();
@@ -302,6 +317,7 @@ void MaxHeapVisualize::deleteNode() {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void MaxHeapVisualize::getTop() {
@@ -312,6 +328,7 @@ void MaxHeapVisualize::getTop() {
     this->stepIndex = 0;
     this->frame = 0;
     this->progressBar.updateStep(0);
+    this->type = 1;
 }
 
 void MaxHeapVisualize::getSize() {
@@ -343,7 +360,7 @@ void MaxHeapVisualize::drawButtons() {
 }
 
 void MaxHeapVisualize::draw() {
-    drawSideBar(this->animation.code, this->animation.lines, this->animation.infor, this->progressBar, this->font);
+    drawSideBar(this->type, this->animation.code, this->animation.lines, this->animation.infor, this->progressBar, this->font);
     drawButtons();
     Max_Heap::drawHeap(this->animation, this->font);
 }
@@ -357,14 +374,14 @@ int MaxHeapVisualize::handle() {
         }
         if (this->deleteButton.getIsHovered()) {
             this->isCreateChosen = false;
-            this->inputNumber.resetText();
+            //this->inputNumber.resetText();
             this->isDeleteChosen = true;
             this->isPushChosen = false;
         }
         if (this->pushButton.getIsHovered()) {
             this->isCreateChosen = false;
             this->isDeleteChosen = false;
-            this->inputNumber.resetText();
+            //this->inputNumber.resetText();
             this->isPushChosen = true;
         }
     }
@@ -399,7 +416,7 @@ int MaxHeapVisualize::handle() {
         return 1;
     }
     if (this->loadFileButton.handle()) {
-        createFromFile("data/data.txt");
+        createFromFile();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
         return 1;
     }
@@ -435,9 +452,25 @@ int MaxHeapVisualize::handle() {
             if (this->progressBar.getMaxStep() == 0) break;
             updateStep((int)this->heap.getSteps().size() - 1);
             this->progressBar.updateStep(2);
+            this->type = 2;
+            break;
 
         case 0:
-            this->isPause = !this->isPause;
+            if (this->type == 2) {
+                if (this->progressBar.getMaxStep() == 0) break;
+                this->progressBar.updateStep(-2);
+                updateStep(0);
+                this->type = 1;
+                break;
+            }
+            if (this->type == 1) {
+                this->type = 0;
+                break;
+            }
+            if (this->type == 0 && !this->animation.nodes.empty()) {
+                this->type = 1;
+                break;
+            }
             break;
 
         case 3: case -3:
@@ -449,7 +482,6 @@ int MaxHeapVisualize::handle() {
             break;
     }
 
-    if(this->isPause) this->frame--;
     updateAnimation();
 
     return 0;

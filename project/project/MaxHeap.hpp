@@ -68,7 +68,7 @@ class MaxHeapVisualize {
     private:
         MaxHeap heap;
         Max_Heap::Step animation;
-        bool isPause;
+        int type = 0;
         ProgressBar progressBar;
         int stepIndex;
         int frame;
@@ -98,7 +98,7 @@ class MaxHeapVisualize {
         int updateAnimation();
         void updateStep();
         void createWithRandomizedData(int n, int range);
-        void createFromFile(const char* filename);
+        void createFromFile();
         void push();
         void deleteNode();
         void getTop();

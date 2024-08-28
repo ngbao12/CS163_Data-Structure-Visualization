@@ -393,8 +393,7 @@ AVLTreeVisualize::AVLTreeVisualize(Font font) {
     this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);
     this->insertButton = Button({8, 458, 110, 30}, "Insert", -1, BLACK, 20, font);
     this->deleteButton = Button({8, 504, 110, 30}, "Delete", -1, BLACK, 20, font);
-    srand((int)time(0));
-    this->inputNumber = InputStr(156.5, 449.3, 110, 30, TextFormat("%d", rand() % 100), 20, this->font);
+    this->inputNumber = InputStr(156.5, 449.3, 110, 30, "", 20, this->font);
     this->playButton = Button({173, 492, 70, 30}, "Play", -1, BLACK, 20, font);
     this->searchButton = Button({8, 545, 110, 30}, "Search", -1, BLACK, 20, font);
 }
@@ -403,11 +402,15 @@ void AVLTreeVisualize::updateStep(int index) {
     this->step = this->tree.getProcess()[index];
     this->frame = 0;
     this->stepIndex = index;
-    // update_animation();
 }
 
 void AVLTreeVisualize::createFromFile() {
-    this->tree.createFromFile("Data/data.txt");
+    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
+    if (!path) {
+        std::cout << 123;
+        return;
+    }
+    this->tree.createFromFile(path);
     this->numFrameOfAnimation = 5/this->progressBar.getSpeed();
 
     this->step = this->tree.getProcess().front();
@@ -419,7 +422,6 @@ void AVLTreeVisualize::createFromFile() {
 }
 
 void AVLTreeVisualize::createWithRandomizedData(int n, int range) {
-    n = 15;
     this->tree.createWithRandomizedData(n, range);
     this->numFrameOfAnimation = 5/this->progressBar.getSpeed();
 
@@ -470,11 +472,11 @@ void AVLTreeVisualize::search() {
 void drawNode(AVLNode *root, int specialValue, int frame, int numFrame, Font font, bool isNotification = false) {
     if (!root) return;
     Vector2 root_pos = Vector2Lerp(root->start, root->end, float(frame)/numFrame);
-    if (root->left) DrawLineEx(root_pos, Vector2Lerp(root->left->start, root->left->end, float(frame)/numFrame), 2, NODE_COLOR);
-    if (root->right) DrawLineEx(root_pos, Vector2Lerp(root->right->start, root->right->end, float(frame)/numFrame), 2, NODE_COLOR);
-    DrawCircle(root_pos.x, root_pos.y, NODE_RADIUS, (root->key == specialValue && isNotification) ? HIGHLIGHT_NODE_COLOR_1 : NODE_COLOR);
+    if (root->left) DrawLineEx(root_pos, Vector2Lerp(root->left->start, root->left->end, float(frame)/numFrame), 2, THEME.LINE);
+    if (root->right) DrawLineEx(root_pos, Vector2Lerp(root->right->start, root->right->end, float(frame)/numFrame), 2, THEME.LINE);
+    DrawCircle(root_pos.x, root_pos.y, NODE_RADIUS, (root->key == specialValue && isNotification) ? THEME.HIGHLIGHT_NODE_1 : THEME.NODE);
     Vector2 text_size = MeasureTextEx(font, TextFormat("%d", root->key), CODE_SIZE, 0);
-    DrawTextPro(font, TextFormat("%d", root->key), {root_pos.x - text_size.x/2, root_pos.y - text_size.y/2}, {0.f, 0.f}, 0, CODE_SIZE, 0, WHITE);
+    DrawTextPro(font, TextFormat("%d", root->key), {root_pos.x - text_size.x/2, root_pos.y - text_size.y/2}, {0.f, 0.f}, 0, CODE_SIZE, 0, BLACK);
     drawNode(root->left, specialValue, frame, numFrame, font, isNotification);
     drawNode(root->right, specialValue, frame, numFrame, font, isNotification);
 }
@@ -521,21 +523,18 @@ int AVLTreeVisualize::handle() {
             this->isSearchChosen = false;
         }
         if (this->deleteButton.getIsHovered()) {
-            this->inputNumber.resetText();
             this->isCreateChosen = false;
             this->isDeleteChosen = true;
             this->isInsertChosen = false;
             this->isSearchChosen = false;
         }
         if (this->insertButton.getIsHovered()) {
-            this->inputNumber.resetText();
             this->isCreateChosen = false;
             this->isDeleteChosen = false;
             this->isInsertChosen = true;
             this->isSearchChosen = false;
         }
         if (this->searchButton.getIsHovered()) {
-            this->inputNumber.resetText();
             this->isCreateChosen = false;
             this->isDeleteChosen = false;
             this->isInsertChosen = false;
@@ -546,7 +545,6 @@ int AVLTreeVisualize::handle() {
     if (this->playButton.handle()) {
         if (this->isInsertChosen) {
             insert();
-            printf("INSERTING...\n");
             std::this_thread::sleep_for(std::chrono::milliseconds(200));
             return 2;
         }
@@ -574,7 +572,7 @@ int AVLTreeVisualize::handle() {
     }
 
     int flag = this->progressBar.handle();
-    if ( flag != 10) {
+    if (flag != 10) {
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
     }
 
@@ -619,7 +617,7 @@ int AVLTreeVisualize::handle() {
                 this->type = 0;
                 break;
             }
-            if (this->type == 0) {
+            if (this->type == 0 && this->step.root) {
                 this->type = 1;
                 break;
             }
@@ -637,8 +635,7 @@ int AVLTreeVisualize::handle() {
 }
 
 void AVLTreeVisualize::draw() {
-    
-    //drawSideBar(type, this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
+    drawSideBar(this->type, this->step.code, this->step.line, this->step.infor, this->progressBar, this->font);
     drawButtons();
     drawTree();
 }

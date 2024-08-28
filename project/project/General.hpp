@@ -37,7 +37,33 @@ const int SCREEN_WIDTH = 1280;
 const int SCREEN_HEIGHT = 750;
 const int FPS = 60;
 
-const Color LIGHT_THEME = {229,247,255,255};
+// Color
+struct theme {
+    Color BACKGROUND;
+    
+    Color MENU_BUTTON;
+    Color HOVER_MENU;
+    
+    Color BUTTON;
+    Color HOVER_BUTTON;
+    Color SEPERATOR;
+    
+    Color INFOR;
+    Color HIGHLIGHT_TEXT;
+    
+    Color HIGHLIGHT_NODE_1;
+    Color HIGHLIGHT_NODE_2;
+    Color NODE;
+    Color LINE;
+    
+    Color SIDEBAR;
+     
+    bool isDarkMode = false;
+    void change();
+};
+
+
+/*const Color LIGHT_THEME = {229,247,255,255};
 const Color DARK_THEME = {45,69,81,255};
 const Color NONHOVERED_BUTTON_LIGHT_THEME = {255,255,255,255};
 const Color HOVERED_BUTTON_LIGHT_THEME = {190,190,190,255};
@@ -50,13 +76,15 @@ const Color HIGHLIGHT_NODE_COLOR_2 = BLUE;
 
 const Color SIDEBAR_COLOR = {150,150,150,200};
 const Color SEPERATOR_COLOR = SKYBLUE;
-
+*/
 const float CODE_SIZE = 15;
 const float NODE_RADIUS = 15;
 
+extern theme THEME;
 extern Font FONT;
 
 //GUI
+
 const Vector2 ORIGIN ={0.0f, 0.0f};
 void drawPicture(const char* path, Rectangle desRec, float rotation=0.0f, Vector2 origin=ORIGIN, Color color=WHITE);
 void drawPicture(Texture2D texture, Rectangle desRec, float rotation=0.0f, Vector2 origin=ORIGIN, Color color=WHITE);

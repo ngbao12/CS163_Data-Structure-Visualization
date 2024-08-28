@@ -15,7 +15,7 @@ const std::string Trie_INSERT(
 
 const std::string Trie_DELETE(
     "cur = search(str)\n"
-    "if (cur = nullptr) return;3"
+    "if (cur = nullptr) return;\n"
     "cur.isEndStr = false\n"
     "for (char c : rev(str))\n"
     "   cur.numOfChild--\n"
@@ -44,7 +44,7 @@ struct TrieNode {
     Vector2 start;
     Vector2 end;
     int width;
-    
+
     TrieNode(char ch, Vector2 st = {779.f, 124.f}, Vector2 des = {779.f, 124.f}) {
         isEndStr = false;
         numOfChild = 0;
@@ -88,6 +88,7 @@ private:
     void updatePos(TrieNode* root, bool updateStart = true, bool forCreate = false, Vector2 parentPos = {779.f, 124.f}, Vector2 delta = {0.f, 0.f});
     bool deleteWord(TrieNode* node, const std::string& key, int depth = 0);
 
+    bool isEmptyTrieNode(TrieNode* node);
 public:
     Trie() { this->root = new TrieNode(); }
     bool empty() {return this->root->numOfChild == 0;}
@@ -109,7 +110,7 @@ class TrieVisualize {
 private:
     Trie tree;
     TrieStep step;
-    bool isPause;
+    int type = 0;
     ProgressBar progressBar;
     int stepIndex;
     int frame;

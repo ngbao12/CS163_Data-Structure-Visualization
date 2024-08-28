@@ -117,7 +117,7 @@ void Graph::initFromFile(const char* filename) {
 
 void Graph::resetMark() {
     for(auto node : nodes) {
-        for(auto edge : node->neighbors) {
+        for(auto &edge : node->neighbors) {
             edge.highlight = false;
         }
         node->color = false;
@@ -203,7 +203,7 @@ void Graph::drawGraph(Font font, std::vector<Color> color) {
             for (auto edge : node->neighbors) {
                 DrawLineEx(node->pos, edge.neighborNode->pos, 2, color[node->color]);
                 Vector2 mid = { (node->pos.x + edge.neighborNode->pos.x) / 2, (node->pos.y + edge.neighborNode->pos.y) / 2 };
-                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, WHITE);
+                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, BLACK);
             }
         }
         for(int i = 0; i < nodes.size(); i++) {
@@ -215,14 +215,14 @@ void Graph::drawGraph(Font font, std::vector<Color> color) {
     } else {
         for (auto node : nodes) {
             for (auto edge : node->neighbors) {
-                DrawLineEx(node->pos, edge.neighborNode->pos, 2, edge.highlight ? RED : NODE_COLOR);
+                DrawLineEx(node->pos, edge.neighborNode->pos, 2, edge.highlight ? RED : THEME.LINE);
                 Vector2 mid = { (node->pos.x + edge.neighborNode->pos.x) / 2, (node->pos.y + edge.neighborNode->pos.y) / 2 };
-                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, WHITE);
+                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, BLACK);
             }
         }
         for(int i = 0; i < nodes.size(); i++) {
             Vector2 size = MeasureTextEx(font, TextFormat("%d", i), 15, 2);
-            DrawCircleV(nodes[i]->pos, 15, nodes[i]->color ? RED : NODE_COLOR);
+            DrawCircleV(nodes[i]->pos, 15, nodes[i]->color ? RED : THEME.NODE);
             DrawTextEx(font, TextFormat("%d", i), {nodes[i]->pos.x - size.x/2, nodes[i]->pos.y - size.y/2}, 15, 2, BLACK);
         }
     }
@@ -267,8 +267,8 @@ void Graph::updatePositions() {
         node->pos.x += force.x;
         node->pos.y += force.y;
 
-        node->pos.x = std::max(std::min(1450.f, node->pos.x), 500.f);
-        node->pos.y = std::max(std::min(750.f, node->pos.y), 100.f);
+        node->pos.x = std::max(std::min(1200.f, node->pos.x), 380.f);
+        node->pos.y = std::max(std::min(650.f, node->pos.y), 150.f);
         frameCounting++;
     }
 }
@@ -285,8 +285,8 @@ GraphVisualize::GraphVisualize(Font font) {
     this->mstKruskalButton = Button({25, 580, 110, 30}, "MST", -1, BLACK, 20, font);
     this->randomButton = Button({230, 585, 125, 30}, "Random", -1, BLACK, 20, font);
     this->loadFileButton = Button({230, 655, 125, 30}, "LoadFile", -1, BLACK, 20, font);
-    this->inputEdges = InputStr(225, 535, 145, 25, "Edged", 20, this->font);
-    this->inputNodes = InputStr(225, 500, 145, 25, "Nodes", 20, this->font);
+    this->inputEdges = InputStr(225, 535, 145, 25, "", 20, this->font);
+    this->inputNodes = InputStr(225, 500, 145, 25, "", 20, this->font);
 }
 
 std::vector<Color> GraphVisualize::generateRandomColors(int n) {
@@ -323,7 +323,7 @@ void GraphVisualize::drawGraph() {
 }
 
 void GraphVisualize::draw() {
-    drawSideBar("", {}, this->infor, this->progressBar, this->font);
+    drawSideBar(0, "", {}, this->infor, this->progressBar, this->font);
     drawButton();
     drawGraph();
 }
@@ -331,16 +331,19 @@ void GraphVisualize::draw() {
 int GraphVisualize::handle() {
     if(IsMouseButtonDown(MOUSE_BUTTON_LEFT)) {
         if (this->createButton.getIsHovered()) {
+            this->graph.resetMark();
             this->isCreateChosen = true;
             this->numComponent = 0;
             this->colorComponent.clear();
         }
         if (this->connectedComponentButton.getIsHovered()) {
+            this->graph.resetMark();
             this->isCreateChosen = false;
             connectedComponent();
             std::this_thread::sleep_for(std::chrono::milliseconds(200));
         }
         if (this->mstKruskalButton.getIsHovered()) {
+            this->graph.resetMark();
             this->isCreateChosen = false;
             this->numComponent = 0;
             this->colorComponent.clear();
@@ -355,8 +358,8 @@ int GraphVisualize::handle() {
         return 1;
     }
     if (this->loadFileButton.handle()) {
-        loadFile();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
+        if(!loadFile()) return 0;
         return 1;
     }
 
@@ -376,12 +379,17 @@ void GraphVisualize::randomize() {
     this->progressBar.updateStep(1);
 }
 
-void GraphVisualize::loadFile() {
+int GraphVisualize::loadFile() {
     const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
+    if (!path) {
+        std::cout << 123;
+        return 0;
+    }
     this->infor = TextFormat("Load graph from file %s", path);
     this->graph.initFromFile(path);
     this->progressBar.updateMaxStep(1);
     this->progressBar.updateStep(1);
+    return 1;
 }
 
 void GraphVisualize::connectedComponent() {

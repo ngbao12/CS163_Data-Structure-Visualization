@@ -61,7 +61,7 @@ class GraphVisualize {
     public:
         GraphVisualize(Font font = FONT);
         void randomize();
-        void loadFile();
+        int loadFile();
         void connectedComponent();
         void mstKruskal();
         void drawGraph();
