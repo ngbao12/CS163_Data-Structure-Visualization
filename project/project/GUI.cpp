@@ -19,6 +19,8 @@ void Button::draw(float radius) {
 
 int Button::handle() {
     if (IsMouseButtonDown(MOUSE_BUTTON_LEFT) && this->isHovered) {
+        this->isHovered = false;
+        std::this_thread::sleep_for(std::chrono::milliseconds(200));
         return 1;
     }
     return 0;
@@ -134,9 +136,7 @@ void InputStr::changePlaceHolder(const std::string newPlaceHolder) {
 }
 
 std::string InputStr::getText() {
-    std::string tmp = this->text;
-    this->text.clear();
-    return tmp.empty() ? this->placeHolder : tmp;
+    return this->text;
 }
 
 void CircleButton::draw() {
@@ -271,7 +271,7 @@ void drawInfor(const std::string infor, Font font) {
 }
 
 void drawCode(std::string code, size_t n ,std::vector<int> highlight, Font font) {
-    int lineHeight = CODE_SIZE + 2;
+    float lineHeight = (float)CODE_SIZE + 0.7;
     Vector2 CodeOffset = {20, 130};
     
     for (size_t i = 0; i<n; i++) {

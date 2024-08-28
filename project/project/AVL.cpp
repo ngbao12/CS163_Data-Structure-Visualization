@@ -249,7 +249,7 @@ void AVLTree::deleteNode(int key) {
         
         if (!parent) {
             this->root = temp;
-            saveStep(root->key, 0, {0}, "Remove Node From Tree", AVL_DELETE);
+            saveStep(key, 0, {0}, "Remove Node From Tree", AVL_DELETE);
             
         } else if (node == parent->left) {
             parent->left = temp;
@@ -405,12 +405,16 @@ void AVLTreeVisualize::updateStep(int index) {
 }
 
 void AVLTreeVisualize::createFromFile() {
-    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
-    if (!path) {
-        std::cout << 123;
-        return;
+    auto f = pfd::open_file("Choose files to read", pfd::path::home(),
+                           { "Text Files (.txt .text)", "*.txt *.text",
+                               "All Files", "*" },
+                           pfd::opt::force_path);
+    if (f.result().empty()) {
+        return ;
     }
-    this->tree.createFromFile(path);
+       
+    auto path = f.result().back();
+    this->tree.createFromFile(path.c_str());
     this->numFrameOfAnimation = 5/this->progressBar.getSpeed();
 
     this->step = this->tree.getProcess().front();
@@ -474,7 +478,7 @@ void drawNode(AVLNode *root, int specialValue, int frame, int numFrame, Font fon
     Vector2 root_pos = Vector2Lerp(root->start, root->end, float(frame)/numFrame);
     if (root->left) DrawLineEx(root_pos, Vector2Lerp(root->left->start, root->left->end, float(frame)/numFrame), 2, THEME.LINE);
     if (root->right) DrawLineEx(root_pos, Vector2Lerp(root->right->start, root->right->end, float(frame)/numFrame), 2, THEME.LINE);
-    DrawCircle(root_pos.x, root_pos.y, NODE_RADIUS, (root->key == specialValue && isNotification) ? THEME.HIGHLIGHT_NODE_1 : THEME.NODE);
+    DrawCircle(root_pos.x, root_pos.y, NODE_RADIUS, (root->key == specialValue && !isNotification) ? THEME.HIGHLIGHT_NODE_1 : THEME.NODE);
     Vector2 text_size = MeasureTextEx(font, TextFormat("%d", root->key), CODE_SIZE, 0);
     DrawTextPro(font, TextFormat("%d", root->key), {root_pos.x - text_size.x/2, root_pos.y - text_size.y/2}, {0.f, 0.f}, 0, CODE_SIZE, 0, BLACK);
     drawNode(root->left, specialValue, frame, numFrame, font, isNotification);

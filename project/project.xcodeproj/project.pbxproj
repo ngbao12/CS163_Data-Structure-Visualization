@@ -10,6 +10,7 @@
 		E47241372C5BC22500C87622 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E47241362C5BC22500C87622 /* main.cpp */; };
 		E472413F2C5BC2BD00C87622 /* Tree234.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E472413D2C5BC2BD00C87622 /* Tree234.cpp */; };
 		E4A9165E2C7F209A00C304E6 /* HashTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4A9165D2C7F209A00C304E6 /* HashTable.cpp */; };
+		E4A916602C7F349F00C304E6 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4A9165F2C7F349F00C304E6 /* test.cpp */; };
 		E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C372C6279AD00777D8F /* Trie.cpp */; };
 		E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C3A2C6881A000777D8F /* Graph.cpp */; };
 		E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C532C69DBC000777D8F /* Application.cpp */; };
@@ -52,6 +53,8 @@
 		E472413E2C5BC2BD00C87622 /* Tree234.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tree234.hpp; sourceTree = "<group>"; };
 		E4A9165C2C7F209A00C304E6 /* HashTable.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = HashTable.hpp; sourceTree = "<group>"; };
 		E4A9165D2C7F209A00C304E6 /* HashTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashTable.cpp; sourceTree = "<group>"; };
+		E4A9165F2C7F349F00C304E6 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
+		E4A916612C7F538500C304E6 /* portable-file-dialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "portable-file-dialogs.h"; sourceTree = "<group>"; };
 		E4DC8C372C6279AD00777D8F /* Trie.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Trie.cpp; sourceTree = "<group>"; };
 		E4DC8C382C6279AD00777D8F /* Trie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Trie.hpp; sourceTree = "<group>"; };
 		E4DC8C3A2C6881A000777D8F /* Graph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
@@ -132,7 +135,9 @@
 		E47241352C5BC22500C87622 /* project */ = {
 			isa = PBXGroup;
 			children = (
+				E4A916612C7F538500C304E6 /* portable-file-dialogs.h */,
 				E47241362C5BC22500C87622 /* main.cpp */,
+				E4A9165F2C7F349F00C304E6 /* test.cpp */,
 				E4DC8CD12C78EB5B00777D8F /* tinyfiledialogs.c */,
 				E4DC8CD02C78EB5B00777D8F /* tinyfiledialogs.h */,
 				E4DC8C532C69DBC000777D8F /* Application.cpp */,
@@ -261,6 +266,7 @@
 				E4DC8CD22C78EB5B00777D8F /* tinyfiledialogs.c in Sources */,
 				E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */,
 				E4DC8C5E2C6A013A00777D8F /* GUI.cpp in Sources */,
+				E4A916602C7F349F00C304E6 /* test.cpp in Sources */,
 				E4DC8C582C69DFBE00777D8F /* General.cpp in Sources */,
 				E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */,
 				E4DC8CD52C78EB8800777D8F /* AVL.cpp in Sources */,

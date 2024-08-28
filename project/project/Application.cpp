@@ -106,17 +106,19 @@ int Application::menu() {
 int Application::maxHeap() {
     // MaxHeapVisualize heap;
     MaxHeapVisualize maxHeap = MaxHeapVisualize(FONT);
+    int flag = 0;
     TittleButton tittle = TittleButton({465, 34, 350, 40}, "Max Heap", -1, BLACK, 20);
     while(!WindowShouldClose()) {
         if (tittle.handle() == 1) {
             return 0;
         }
-        maxHeap.handle();
         BeginDrawing();
         ClearBackground(THEME.BACKGROUND);
         maxHeap.draw();
         tittle.draw();
         EndDrawing();
+        if (!flag) flag = maxHeap.handle();
+        else flag /=2;
     }
     return -1;
 }
@@ -125,14 +127,16 @@ int Application::avlTree() {
     
     AVLTreeVisualize avlTree = AVLTreeVisualize(FONT);
     TittleButton tittle = TittleButton({465, 34, 350, 40}, "AVL Tree", -1, BLACK, 20);
+    int flag = 0;
     while(!WindowShouldClose()) {
         if (tittle.handle() == 1) return 0;
-        avlTree.handle();
         BeginDrawing();
         ClearBackground(THEME.BACKGROUND);
         avlTree.draw();
         tittle.draw();
         EndDrawing();
+        if (!flag) flag = avlTree.handle();
+        else flag /=2;
     }
     return -1;
 }
@@ -141,14 +145,16 @@ int Application::Tree234() {
     
     Tree234Visualize Tree234 = Tree234Visualize(FONT);
     TittleButton tittle = TittleButton({465, 34, 350, 40}, "2-3-4 Tree", -1, BLACK, 20);
+    int flag = 0;
     while(!WindowShouldClose()) {
         if (tittle.handle() == 1) return 0;
-        Tree234.handle();
         BeginDrawing();
         ClearBackground(THEME.BACKGROUND);
         Tree234.draw();
         tittle.draw();
         EndDrawing();
+        if (!flag) flag = Tree234.handle();
+        else flag /=2;
     }
     return -1;
 }
@@ -157,14 +163,16 @@ int Application::trie() {
     
     TrieVisualize trie = TrieVisualize(FONT);
     TittleButton tittle = TittleButton({465, 34, 350, 40}, "Trie", -1, BLACK, 20);
+    int flag = 0;
     while(!WindowShouldClose()) {
         if (tittle.handle() == 1) return 0;
-        trie.handle();
         BeginDrawing();
         ClearBackground(THEME.BACKGROUND);
         trie.draw();
         tittle.draw();
         EndDrawing();
+        if (!flag) flag = trie.handle();
+        else flag /=2;
     }
     return -1;
 }
@@ -173,14 +181,16 @@ int Application::graph() {
     
     GraphVisualize graph = GraphVisualize(FONT);
     TittleButton tittle = TittleButton({465, 34, 350, 40}, "Graph", -1, BLACK, 20);
+    int flag = 0;
     while(!WindowShouldClose()) {
         if (tittle.handle() == 1) return 0;
-        graph.handle();
         BeginDrawing();
         ClearBackground(THEME.BACKGROUND);
         graph.draw();
         tittle.draw();
-        EndDrawing(); 
+        EndDrawing();
+        if (!flag) flag = graph.handle();
+        else flag /=2;
     }
     return -1;
 }
@@ -189,14 +199,16 @@ int Application::hashTable() {
     
     HashTableVisualize hashTable = HashTableVisualize(FONT);
     TittleButton tittle = TittleButton({465, 34, 350, 40}, "HashTable - Linear Probing", -1, BLACK, 20);
+    int flag = 0;
     while(!WindowShouldClose()) {
         if (tittle.handle() == 1) return 0;
-        hashTable.handle();
         BeginDrawing();
         ClearBackground(THEME.BACKGROUND);
         hashTable.draw();
         tittle.draw();
         EndDrawing();
+        if (!flag) flag = hashTable.handle();
+        else flag /=2;
     }
     return -1;
 }

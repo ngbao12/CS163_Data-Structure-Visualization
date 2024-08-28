@@ -17,6 +17,7 @@
 #include <functional>
 #include <stdint.h>
 #include "tinyfiledialogs.h"
+#include "portable-file-dialogs.h"
 
 extern Texture2D PLAY;
 extern Texture2D PAUSE;
@@ -57,7 +58,7 @@ struct theme {
     Color LINE;
     
     Color SIDEBAR;
-     
+    Color WEIGHT;
     bool isDarkMode = true;
     void change();
 };

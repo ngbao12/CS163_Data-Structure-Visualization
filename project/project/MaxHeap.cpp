@@ -27,8 +27,7 @@ void MaxHeap::saveStep(int index1, int index2, std::vector<int> lines, const std
     if (this->data.empty()) {
             this->steps.push_back({{}, {}, {-1, -1}, "Heap is empty!", "", -1});
             return;
-        }
-
+    }
     int size =(int) this->data.size();
     Vector2 pos = {779, 124};
     float dx = 50*log2(this->data.size()), dy = 100;
@@ -175,11 +174,11 @@ int MaxHeap::deleteElement(int value) {
 
 void MaxHeap::top() {
     this->steps.clear();
-    if (this->data.empty()) {
-        this->steps.push_back({{}, {}, {-1, -1}, "Heap is empty!", "", -1});
+    if(this->data.empty()) {
+        saveStep(-1, -1, {0}, TextFormat("Top of the Heap is: NULL."), Top_code, -1);
         return;
     }
-    saveStep(0, 0, {0}, TextFormat("Top of the Heap is: %d.", this->data[0]), Top_code, 0);
+    saveStep(0, -1, {0}, TextFormat("Top of the Heap is: %d.", this->data[0]), Top_code, 0);
 }
 
 void MaxHeap::size() {
@@ -284,12 +283,15 @@ void MaxHeapVisualize::createWithRandomizedData(int n, int range) {
 }
 
 void MaxHeapVisualize::createFromFile() {
-    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
-    if (!path) {
-        std::cout << 123;
+    auto f = pfd::open_file("Choose files to read", pfd::path::home(),
+                           { "Text Files (.txt .text)", "*.txt *.text",
+                               "All Files", "*" },
+                           pfd::opt::force_path);
+    if (f.result().empty()) {
         return;
     }
-    this->heap.createFromFile(path);
+    auto path = f.result().back();
+    this->heap.createFromFile(path.c_str());
     this->numFrameOfAnimation = 3;
     this->animation = this->heap.getSteps().front();
     this->progressBar.updateMaxStep((int)this->heap.getSteps().size() - 1);

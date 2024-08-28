@@ -180,7 +180,11 @@ Node234* Tree234::split(Node234* &node) {
 }
 
 Node234* Tree234::merge(Node234* &predecessor) {
-    if (!predecessor || !predecessor->parent) return nullptr;
+    if (!predecessor) return nullptr;
+    if (!predecessor->parent) {
+        this->root = nullptr;
+        return nullptr;
+    }
     Node234* parent = predecessor->parent;
     int pos = 0;
 
@@ -426,12 +430,16 @@ void Tree234Visualize::updateStep(int index) {
 }
 
 void Tree234Visualize::createFromFile() {
-    const char *path = tinyfd_openFileDialog("Open File", "", 0, nullptr, nullptr, 0);
-    if (!path) {
-        std::cout << 123;
-        return;
+    auto f = pfd::open_file("Choose files to read", pfd::path::home(),
+                           { "Text Files (.txt .text)", "*.txt *.text",
+                               "All Files", "*" },
+                           pfd::opt::force_path);
+    if (f.result().empty()) {
+        return ;
     }
-    this->tree.createFromFile(path);
+       
+    auto path = f.result().back();
+    this->tree.createFromFile(path.c_str());
     if(this->tree.getProcess().empty()) return;
     this->numFrameOfAnimation = 10/this->progressBar.getSpeed();
 

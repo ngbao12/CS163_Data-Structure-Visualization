@@ -20,7 +20,7 @@ const std::string Delete_code(
     "A[0] = A[size-1]\n"
     "size--, i = 0\n"
     "while (A[i] < A[Largest])\n"
-    "    swap(A[i], A[Largest]),    i = Largest\n");
+    "    swap(A[i], A[Largest]), i = Largest\n");
 
 const std::string Top_code("return A[0]\n");
 const std::string Size_code("return sizeof(A)/sizeof(A[0]).\n");

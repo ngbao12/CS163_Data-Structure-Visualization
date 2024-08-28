@@ -360,8 +360,9 @@ int GraphVisualize::handle() {
     }
     if (this->loadFileButton.handle()) {
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        if(!loadFile()) return 0;
-        return 1;
+        //if(!loadFile()) return 5;
+        loadFile();
+        return 5;
     }
 
     this->graph.updatePositions();
@@ -372,6 +373,7 @@ int GraphVisualize::handle() {
 void GraphVisualize::randomize() {
     std::string v = this->inputNodes.getText();
     std::string e = this->inputEdges.getText();
+    if (v.empty() || e.empty() ) return;
     this->inputEdges.changePlaceHolder(e);
     this->inputNodes.changePlaceHolder(v);
     this->infor = TextFormat("Randomize graph with v = %s, e = %s", v.c_str(), e.c_str());
@@ -381,13 +383,17 @@ void GraphVisualize::randomize() {
 }
 
 int GraphVisualize::loadFile() {
-    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
-    if (path == NULL) {
-        std::cout << 123;
+    auto f = pfd::open_file("Choose files to read", pfd::path::home(),
+                           { "Text Files (.txt .text)", "*.txt *.text",
+                               "All Files", "*" },
+                           pfd::opt::force_path);
+    if (f.result().empty()) {
         return 0;
     }
-    this->infor = TextFormat("Load graph from file %s", path);
-    this->graph.initFromFile(path);
+       
+    auto path = f.result().back();
+    this->infor = TextFormat("Load graph from file %s", path.c_str());
+    this->graph.initFromFile(path.c_str());
     this->progressBar.updateMaxStep(1);
     this->progressBar.updateStep(1);
     return 1;

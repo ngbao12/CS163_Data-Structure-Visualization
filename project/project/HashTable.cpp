@@ -171,12 +171,17 @@ void HashTableVisualize::resize() {
 }
 
 void HashTableVisualize::createFromFile() {
-    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
-    if (!path) {
-        std::cout << 123;
+    auto f = pfd::open_file("Choose files to read", pfd::path::home(),
+                           { "Text Files (.txt .text)", "*.txt *.text",
+                               "All Files", "*" },
+                           pfd::opt::force_path);
+    if (f.result().empty()) {
         return;
     }
-    this->table.createFromFile(path);
+       
+    auto path = f.result().back();
+    
+    this->table.createFromFile(path.c_str());
     this->numFrameOfAnimation = 5/this->progressBar.getSpeed();
 
     this->step = this->table.getProcess().front();
@@ -246,7 +251,7 @@ void HashTableVisualize::drawTable() {
 
         Vector2 size = MeasureTextEx(this->font, TextFormat("%d", i), CODE_SIZE - 2, 2);
         
-        DrawTextEx(this->font, TextFormat("%d", i), {x - size.x/2, y + 25 - size.y/2}, CODE_SIZE - 2, 2, BLACK);
+        DrawTextEx(this->font, TextFormat("%d", i), {x - size.x/2, y + 25 - size.y/2}, CODE_SIZE - 2, 2, THEME.WEIGHT);
 
         if (this->step.table[i] >= 0) {
             size = MeasureTextEx(this->font, TextFormat("%d", this->step.table[i]), CODE_SIZE, 2);
@@ -345,7 +350,7 @@ int HashTableVisualize::handle() {
     if (this->loadFileButton.handle()) {
         createFromFile();
         std::this_thread::sleep_for(std::chrono::milliseconds(200));
-        return 1;
+        return 5;
     }
     if(this->resizeButton.handle()) {
         resize();

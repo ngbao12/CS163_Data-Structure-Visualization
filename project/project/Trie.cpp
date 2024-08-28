@@ -111,7 +111,7 @@ bool Trie::isEmptyTrieNode(TrieNode* node) {
 }
 
 
-bool Trie::deleteWord(TrieNode* node, const std::string& key, int depth) {
+bool Trie::deleteWord(TrieNode* parent, TrieNode* node, const std::string& key, int depth) {
     if (!node) {
         saveStep(nullptr, -1, {1}, "Not Found Str", Trie_DELETE);
         return false;
@@ -120,8 +120,9 @@ bool Trie::deleteWord(TrieNode* node, const std::string& key, int depth) {
 
     if (depth == key.size()) {
         if (node->isEndStr){
-            node->isEndStr = false;
             saveStep(node, 0, {2}, "remove str...", Trie_DELETE);
+            parent->numOfChild--;
+            node->isEndStr = false;
         } else {
             saveStep(node, 0, {2}, "sdhafgbhsdjjf", Trie_DELETE);
         }
@@ -130,14 +131,13 @@ bool Trie::deleteWord(TrieNode* node, const std::string& key, int depth) {
 
     int index = key[depth] - 'a'; 
     saveStep(node, 0, {0}, "Searching Str...", Trie_DELETE);
-    if (deleteWord(node->children[index], key, depth + 1)) {
-        printf("1/%c - %d\n", node->children[index]->character, isEmptyTrieNode(node->children[index]));
+    if (deleteWord(node, node->children[index], key, depth + 1)) {        printf("1/%c - %d\n", node->children[index]->character, isEmptyTrieNode(node->children[index]));
 
         delete node->children[index];
         node->numOfChild--;
         node->children[index] = nullptr;
         saveStep(node->children[index], 0, {3,4,5,6,7}, "remove non_exist node...", Trie_DELETE);
-        return !node->isEndStr && !node->numOfChild;
+        return !node->isEndStr && isEmptyTrieNode(node);
     }
     saveStep(nullptr, -1, {0}, TextFormat("Finish"), Trie_DELETE); 
     return false;
@@ -253,12 +253,16 @@ void TrieVisualize::updateStep(int index) {
 }
 
 void TrieVisualize::createFromFile() {
-    const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
-    if (!path) {
-        std::cout << 123;
+    auto f = pfd::open_file("Choose files to read", pfd::path::home(),
+                           { "Text Files (.txt .text)", "*.txt *.text",
+                               "All Files", "*" },
+                           pfd::opt::force_path);
+    if (f.result().empty()) {
         return;
     }
-    this->tree.createFromFile(path);
+       
+    auto path = f.result().back();
+    this->tree.createFromFile(path.c_str());
     this->numFrameOfAnimation = 10/this->progressBar.getSpeed();
 
     this->step = this->tree.getProcess().front();

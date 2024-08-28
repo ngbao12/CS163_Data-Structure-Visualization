@@ -34,13 +34,15 @@ void initResource() {
     THEME.SEPERATOR = {3, 178, 255, 255};
     THEME.INFOR = {6, 155, 91, 255};
     THEME.HIGHLIGHT_TEXT = {157, 238, 238, 255};
-    THEME.HIGHLIGHT_NODE_1 = RED;
-    THEME.HIGHLIGHT_NODE_2 = BLUE;
+    THEME.HIGHLIGHT_NODE_1 = {55,221,149,255};
+    THEME.HIGHLIGHT_NODE_2 = Fade(BLUE,60);
     THEME.NODE = {249,208,208,255};
-    THEME.LINE = {30,30,30, 255};
+    THEME.LINE = {182,157,157, 255};
     THEME.SIDEBAR = {250, 254, 255, 255};
+    THEME.WEIGHT = {23, 183, 254, 255};
     //FONT = LoadFont("./Font/Roboto-Regular.ttf");
     FONT = LoadFontEx("./Font/SF-Pro-Display-Regular.otf", 40, 0, 255);
+    
 }
 
 void theme::change() {
@@ -53,11 +55,12 @@ void theme::change() {
         THEME.SEPERATOR = {3, 178, 255, 255};
         THEME.INFOR = {6, 155, 91, 255};
         THEME.HIGHLIGHT_TEXT = {157, 238, 238, 255};
-        THEME.HIGHLIGHT_NODE_1 = RED;
-        THEME.HIGHLIGHT_NODE_2 = BLUE;
+        THEME.HIGHLIGHT_NODE_1 = {55,221,149,255};
+        THEME.HIGHLIGHT_NODE_2 = Fade(BLUE,60);
         THEME.NODE = {249,208,208,255};
-        THEME.LINE = {30,30,30, 255};
+        THEME.LINE = {182,157,157, 255};
         THEME.SIDEBAR = {250,254,255,255};
+        THEME.WEIGHT = {23, 183, 254, 255};
     }
     else {
         THEME.BACKGROUND = {45,69,81, 255};
@@ -70,9 +73,10 @@ void theme::change() {
         THEME.HIGHLIGHT_TEXT = {180,237,230, 255};
         THEME.HIGHLIGHT_NODE_1 = {255,245,131,255};
         THEME.HIGHLIGHT_NODE_2 = {55,221,149,255};
-        THEME.NODE = {182,234,255,255};
+        THEME.NODE = {182 ,234 ,255 ,255};
         THEME.LINE = {147,177,169, 255};
         THEME.SIDEBAR = {96,124,135,255};
+        THEME.WEIGHT = Fade(WHITE, 60);
     }
     isDarkMode = !isDarkMode;
     std::this_thread::sleep_for(std::chrono::milliseconds(200));

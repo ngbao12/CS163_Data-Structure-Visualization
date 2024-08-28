@@ -29,7 +29,7 @@ const std::string AVL_SEARCH(
     "if value < this.data\n"
     "   searchLeft\n"
     "if value > this.data\n"
-    "   sreachRight\n"
+    "   searchRight\n"
 );
 
 struct AVLNode {

@@ -86,23 +86,21 @@ private:
     std::vector<TrieStep> process;
     void saveStep(TrieNode* highlight, int type, std::vector<int> lines, const std::string infor, const std::string code, bool forCreate = false);
     void updatePos(TrieNode* root, bool updateStart = true, bool forCreate = false, Vector2 parentPos = {779.f, 124.f}, Vector2 delta = {0.f, 0.f});
-    bool deleteWord(TrieNode* node, const std::string& key, int depth = 0);
+    bool deleteWord(TrieNode* parent, TrieNode* node, const std::string& key, int depth = 0);
 
     bool isEmptyTrieNode(TrieNode* node);
 public:
     Trie() { this->root = new TrieNode(); }
     bool empty() {return this->root->numOfChild == 0;}
     TrieNode* getRoot() {return this->root;}
-    std::pair<TrieNode*, TrieNode*> cloneTrie(TrieNode* highlight = nullptr) {return cloneTrie(this->root, root->children[int('c' - 'a')]->children['a' - 'a']->children['d' - 'a']);}; //first: root, second: highlight
     int estimateWidth() {return estimateWidth(this->root);}
     void clearProcess();
     
     void insert(std::string key);
     void createFromFile(const char* filename);
     void createRandom(int numWords, int maxLength);
-    void deleteStr(const std::string key) {clearProcess(); deleteWord(this->root, key, 0);}
+    void deleteStr(const std::string key) {clearProcess(); deleteWord(nullptr, this->root, key, 0);}
     bool search(std::string key);
-
     std::vector<TrieStep> getProcess() {return this->process; }
 };
 
