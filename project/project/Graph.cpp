@@ -280,13 +280,13 @@ GraphVisualize::GraphVisualize(Font font) {
     std::string infor = "";
     this->numComponent = 0;
 
-    this->createButton = Button({25, 490, 110, 30}, "Create", -1, BLACK, 20, font);
-    this->connectedComponentButton = Button({25, 535, 110, 30}, "C.Component", -1, BLACK, 20, font);
-    this->mstKruskalButton = Button({25, 580, 110, 30}, "MST", -1, BLACK, 20, font);
-    this->randomButton = Button({230, 585, 125, 30}, "Random", -1, BLACK, 20, font);
-    this->loadFileButton = Button({230, 655, 125, 30}, "LoadFile", -1, BLACK, 20, font);
-    this->inputEdges = InputStr(225, 535, 145, 25, "", 20, this->font);
-    this->inputNodes = InputStr(225, 500, 145, 25, "", 20, this->font);
+    this->createButton = Button({11.5, 434.5, 110, 30}, "Create", -1, BLACK, 20, font);
+    this->connectedComponentButton = Button({11.5, 488, 110, 30}, "Component", -1, BLACK, 20, font);
+    this->mstKruskalButton = Button({11.5, 541.5, 110, 30}, "MST", -1, BLACK, 20, font);
+    this->randomButton = Button({156.5, 511, 110, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({156.5, 552 , 110, 30}, "LoadFile", -1, BLACK, 20, font);
+    this->inputEdges = InputStr(151.5, 422, 120, 25, "Num edge", 20, this->font);
+    this->inputNodes = InputStr(151.5, 466, 120, 25, "Num vertex", 20, this->font);
 }
 
 std::vector<Color> GraphVisualize::generateRandomColors(int n) {
@@ -313,8 +313,9 @@ void GraphVisualize::drawButton() {
         inputNodes.update();
         inputEdges.draw();
         inputEdges.update();
-        this->randomButton.draw();
-        this->loadFileButton.draw();
+        DrawLineEx({126, 501}, {297, 501}, 1.3, THEME.SEPERATOR);
+        this->randomButton.draw(50);
+        this->loadFileButton.draw(50);
     }
 }
 
@@ -381,7 +382,7 @@ void GraphVisualize::randomize() {
 
 int GraphVisualize::loadFile() {
     const char *path = tinyfd_openFileDialog("Open File", ".", 0, nullptr, nullptr, 0);
-    if (!path) {
+    if (path == NULL) {
         std::cout << 123;
         return 0;
     }

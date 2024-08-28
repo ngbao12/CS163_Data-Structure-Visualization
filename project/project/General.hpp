@@ -58,7 +58,7 @@ struct theme {
     
     Color SIDEBAR;
      
-    bool isDarkMode = false;
+    bool isDarkMode = true;
     void change();
 };
 
