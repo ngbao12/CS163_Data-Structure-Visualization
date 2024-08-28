@@ -203,7 +203,7 @@ void Graph::drawGraph(Font font, std::vector<Color> color) {
             for (auto edge : node->neighbors) {
                 DrawLineEx(node->pos, edge.neighborNode->pos, 2, color[node->color]);
                 Vector2 mid = { (node->pos.x + edge.neighborNode->pos.x) / 2, (node->pos.y + edge.neighborNode->pos.y) / 2 };
-                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, BLACK);
+                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, THEME.WEIGHT);
             }
         }
         for(int i = 0; i < nodes.size(); i++) {
@@ -217,7 +217,7 @@ void Graph::drawGraph(Font font, std::vector<Color> color) {
             for (auto edge : node->neighbors) {
                 DrawLineEx(node->pos, edge.neighborNode->pos, 2, edge.highlight ? RED : THEME.LINE);
                 Vector2 mid = { (node->pos.x + edge.neighborNode->pos.x) / 2, (node->pos.y + edge.neighborNode->pos.y) / 2 };
-                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, BLACK);
+                DrawTextEx(font, TextFormat("%d", edge.weight), {mid.x, mid.y}, 15, 2, THEME.WEIGHT);
             }
         }
         for(int i = 0; i < nodes.size(); i++) {

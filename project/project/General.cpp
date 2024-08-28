@@ -39,7 +39,7 @@ void initResource() {
     THEME.NODE = {249,208,208,255};
     THEME.LINE = {182,157,157, 255};
     THEME.SIDEBAR = {250, 254, 255, 255};
-    THEME.WEIGHT = {23, 183, 254, 255};
+    THEME.WEIGHT = {6, 155, 91, 255};
     //FONT = LoadFont("./Font/Roboto-Regular.ttf");
     FONT = LoadFontEx("./Font/SF-Pro-Display-Regular.otf", 40, 0, 255);
     
@@ -60,7 +60,7 @@ void theme::change() {
         THEME.NODE = {249,208,208,255};
         THEME.LINE = {182,157,157, 255};
         THEME.SIDEBAR = {250,254,255,255};
-        THEME.WEIGHT = {23, 183, 254, 255};
+        THEME.WEIGHT = {6, 155, 91, 255};
     }
     else {
         THEME.BACKGROUND = {45,69,81, 255};
@@ -76,7 +76,7 @@ void theme::change() {
         THEME.NODE = {182 ,234 ,255 ,255};
         THEME.LINE = {147,177,169, 255};
         THEME.SIDEBAR = {96,124,135,255};
-        THEME.WEIGHT = Fade(WHITE, 60);
+        THEME.WEIGHT = {255, 255, 114, 255};
     }
     isDarkMode = !isDarkMode;
     std::this_thread::sleep_for(std::chrono::milliseconds(200));

@@ -11,6 +11,9 @@
 		E472413F2C5BC2BD00C87622 /* Tree234.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E472413D2C5BC2BD00C87622 /* Tree234.cpp */; };
 		E4A9165E2C7F209A00C304E6 /* HashTable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4A9165D2C7F209A00C304E6 /* HashTable.cpp */; };
 		E4A916602C7F349F00C304E6 /* test.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4A9165F2C7F349F00C304E6 /* test.cpp */; };
+		E4A9166D2C7FA18300C304E6 /* HashTable.txt in Sources */ = {isa = PBXBuildFile; fileRef = E4A9166B2C7FA18300C304E6 /* HashTable.txt */; };
+		E4A916702C7FA1AD00C304E6 /* Tree234.txt in Sources */ = {isa = PBXBuildFile; fileRef = E4A9166E2C7FA1AD00C304E6 /* Tree234.txt */; };
+		E4A916732C7FA1DD00C304E6 /* Trie.txt in Sources */ = {isa = PBXBuildFile; fileRef = E4A916712C7FA1DD00C304E6 /* Trie.txt */; };
 		E4DC8C392C6279AD00777D8F /* Trie.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C372C6279AD00777D8F /* Trie.cpp */; };
 		E4DC8C3C2C6881A000777D8F /* Graph.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C3A2C6881A000777D8F /* Graph.cpp */; };
 		E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4DC8C532C69DBC000777D8F /* Application.cpp */; };
@@ -55,6 +58,12 @@
 		E4A9165D2C7F209A00C304E6 /* HashTable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = HashTable.cpp; sourceTree = "<group>"; };
 		E4A9165F2C7F349F00C304E6 /* test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = test.cpp; sourceTree = "<group>"; };
 		E4A916612C7F538500C304E6 /* portable-file-dialogs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "portable-file-dialogs.h"; sourceTree = "<group>"; };
+		E4A9166B2C7FA18300C304E6 /* HashTable.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = HashTable.txt; sourceTree = "<group>"; };
+		E4A9166C2C7FA18300C304E6 /* AVL.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = AVL.txt; sourceTree = "<group>"; };
+		E4A9166E2C7FA1AD00C304E6 /* Tree234.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Tree234.txt; sourceTree = "<group>"; };
+		E4A9166F2C7FA1AD00C304E6 /* MaxHeap.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = MaxHeap.txt; sourceTree = "<group>"; };
+		E4A916712C7FA1DD00C304E6 /* Trie.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Trie.txt; sourceTree = "<group>"; };
+		E4A916722C7FA1DD00C304E6 /* Graph.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = Graph.txt; sourceTree = "<group>"; };
 		E4DC8C372C6279AD00777D8F /* Trie.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Trie.cpp; sourceTree = "<group>"; };
 		E4DC8C382C6279AD00777D8F /* Trie.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Trie.hpp; sourceTree = "<group>"; };
 		E4DC8C3A2C6881A000777D8F /* Graph.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Graph.cpp; sourceTree = "<group>"; };
@@ -116,6 +125,7 @@
 		E472412A2C5BC22400C87622 = {
 			isa = PBXGroup;
 			children = (
+				E4A9166A2C7FA15C00C304E6 /* Sample Data */,
 				E4DC8C742C6CF37600777D8F /* Font */,
 				E4DC8C5F2C6A70F400777D8F /* asset */,
 				E47241352C5BC22500C87622 /* project */,
@@ -160,6 +170,19 @@
 				E4DC8C3B2C6881A000777D8F /* Graph.hpp */,
 			);
 			path = project;
+			sourceTree = "<group>";
+		};
+		E4A9166A2C7FA15C00C304E6 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				E4A9166B2C7FA18300C304E6 /* HashTable.txt */,
+				E4A9166C2C7FA18300C304E6 /* AVL.txt */,
+				E4A9166E2C7FA1AD00C304E6 /* Tree234.txt */,
+				E4A9166F2C7FA1AD00C304E6 /* MaxHeap.txt */,
+				E4A916712C7FA1DD00C304E6 /* Trie.txt */,
+				E4A916722C7FA1DD00C304E6 /* Graph.txt */,
+			);
+			path = "Sample Data";
 			sourceTree = "<group>";
 		};
 		E4DC8C402C69D94500777D8F /* Frameworks */ = {
@@ -270,7 +293,10 @@
 				E4DC8C582C69DFBE00777D8F /* General.cpp in Sources */,
 				E4DC8C552C69DBC000777D8F /* Application.cpp in Sources */,
 				E4DC8CD52C78EB8800777D8F /* AVL.cpp in Sources */,
+				E4A916732C7FA1DD00C304E6 /* Trie.txt in Sources */,
+				E4A916702C7FA1AD00C304E6 /* Tree234.txt in Sources */,
 				E47241372C5BC22500C87622 /* main.cpp in Sources */,
+				E4A9166D2C7FA18300C304E6 /* HashTable.txt in Sources */,
 				E4A9165E2C7F209A00C304E6 /* HashTable.cpp in Sources */,
 				E472413F2C5BC2BD00C87622 /* Tree234.cpp in Sources */,
 			);
