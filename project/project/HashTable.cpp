@@ -140,14 +140,14 @@ HashTableVisualize::HashTableVisualize(Font font) {
     this->frame = 0;
     this->numFrameOfAnimation = FPS;
 
-    this->inputSize = InputStr(156.5, 650, 110, 30, TextFormat("%d", 40), 20, this->font);
-    this->resizeButton = Button({100, 600, 110, 30}, "Resize", -1, BLACK, 20, font);
+    this->inputSize = InputStr(156.5, 422, 110, 30, TextFormat("%d", 40), 20, this->font);
+    this->resizeButton = Button({156.5, 466, 110, 30}, "Resize", -1, BLACK, 20, font);
     this->createButton = Button({8, 415, 110, 30}, "Create", -1, BLACK, 20, font);
-    this->randomButton = Button({156.5, 449.3, 110, 30}, "Random", -1, BLACK, 20, font);
-    this->loadFileButton = Button({156.5, 520.6, 110, 30}, "Load File", -1, BLACK, 20, font);
+    this->randomButton = Button({156.5, 511, 110, 30}, "Random", -1, BLACK, 20, font);
+    this->loadFileButton = Button({156.5, 552, 110, 30}, "Load File", -1, BLACK, 20, font);
     this->insertButton = Button({8, 458, 110, 30}, "Insert", -1, BLACK, 20, font);
     this->deleteButton = Button({8, 504, 110, 30}, "Delete", -1, BLACK, 20, font);
-    this->inputNumber = InputStr(156.5, 449.3, 110, 30, "", 20, this->font);
+    this->inputNumber = InputStr(151.5, 422, 120, 25, "", 20, this->font);
     this->playButton = Button({173, 492, 70, 30}, "Play", -1, BLACK, 20, font);
     this->searchButton = Button({8, 545, 110, 30}, "Search", -1, BLACK, 20, font);
 }
@@ -189,7 +189,6 @@ void HashTableVisualize::createFromFile() {
 
 void HashTableVisualize::createWithRandomizedData(int n, int range) {
     this->table.createRandom(n, range);
-    printf("HEHE");
 
     this->numFrameOfAnimation = 5/this->progressBar.getSpeed();
 
@@ -276,9 +275,10 @@ void HashTableVisualize::drawButtons() {
     if(this->isCreateChosen) {
         this->randomButton.draw(50);
         this->loadFileButton.draw(50);
+        DrawLineEx({126, 501}, {297, 501}, 1.3, THEME.SEPERATOR);
         this->inputSize.draw();
         this->inputSize.update();
-        this->resizeButton.draw();
+        this->resizeButton.draw(50);
     }
 
     if(this->isDeleteChosen || this->isInsertChosen || this->isSearchChosen) {
